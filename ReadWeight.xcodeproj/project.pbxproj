@@ -1,0 +1,427 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ABB53BE719D48F9F006F9DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE619D48F9F006F9DBD /* main.m */; };
+		ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE919D48F9F006F9DBD /* AppDelegate.m */; };
+		ABB53BED19D48F9F006F9DBD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BEC19D48F9F006F9DBD /* ViewController.m */; };
+		ABB53BF019D48F9F006F9DBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BEE19D48F9F006F9DBD /* Main.storyboard */; };
+		ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
+		ABB53BF519D48F9F006F9DBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */; };
+		ABB53C0119D48F9F006F9DBD /* ReadWeightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ABB53BFB19D48F9F006F9DBD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABB53BD919D48F9F006F9DBD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABB53BE019D48F9F006F9DBD;
+			remoteInfo = ReadWeight;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ABB53BE119D48F9F006F9DBD /* ReadWeight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadWeight.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABB53BE519D48F9F006F9DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABB53BE619D48F9F006F9DBD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		ABB53BE819D48F9F006F9DBD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		ABB53BE919D48F9F006F9DBD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		ABB53BEB19D48F9F006F9DBD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		ABB53BEC19D48F9F006F9DBD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		ABB53BEF19D48F9F006F9DBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ABB53BF119D48F9F006F9DBD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		ABB53BF419D48F9F006F9DBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReadWeightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABB53BFF19D48F9F006F9DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadWeightTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ABB53BDE19D48F9F006F9DBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABB53BF719D48F9F006F9DBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ABB53BD819D48F9F006F9DBD = {
+			isa = PBXGroup;
+			children = (
+				ABB53BE319D48F9F006F9DBD /* ReadWeight */,
+				ABB53BFD19D48F9F006F9DBD /* ReadWeightTests */,
+				ABB53BE219D48F9F006F9DBD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ABB53BE219D48F9F006F9DBD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ABB53BE119D48F9F006F9DBD /* ReadWeight.app */,
+				ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ABB53BE319D48F9F006F9DBD /* ReadWeight */ = {
+			isa = PBXGroup;
+			children = (
+				ABB53BE819D48F9F006F9DBD /* AppDelegate.h */,
+				ABB53BE919D48F9F006F9DBD /* AppDelegate.m */,
+				ABB53BEB19D48F9F006F9DBD /* ViewController.h */,
+				ABB53BEC19D48F9F006F9DBD /* ViewController.m */,
+				ABB53BEE19D48F9F006F9DBD /* Main.storyboard */,
+				ABB53BF119D48F9F006F9DBD /* Images.xcassets */,
+				ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */,
+				ABB53BE419D48F9F006F9DBD /* Supporting Files */,
+			);
+			path = ReadWeight;
+			sourceTree = "<group>";
+		};
+		ABB53BE419D48F9F006F9DBD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABB53BE519D48F9F006F9DBD /* Info.plist */,
+				ABB53BE619D48F9F006F9DBD /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ABB53BFD19D48F9F006F9DBD /* ReadWeightTests */ = {
+			isa = PBXGroup;
+			children = (
+				ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */,
+				ABB53BFE19D48F9F006F9DBD /* Supporting Files */,
+			);
+			path = ReadWeightTests;
+			sourceTree = "<group>";
+		};
+		ABB53BFE19D48F9F006F9DBD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABB53BFF19D48F9F006F9DBD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ABB53BE019D48F9F006F9DBD /* ReadWeight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABB53C0419D48F9F006F9DBD /* Build configuration list for PBXNativeTarget "ReadWeight" */;
+			buildPhases = (
+				ABB53BDD19D48F9F006F9DBD /* Sources */,
+				ABB53BDE19D48F9F006F9DBD /* Frameworks */,
+				ABB53BDF19D48F9F006F9DBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReadWeight;
+			productName = ReadWeight;
+			productReference = ABB53BE119D48F9F006F9DBD /* ReadWeight.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ABB53BF919D48F9F006F9DBD /* ReadWeightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABB53C0719D48F9F006F9DBD /* Build configuration list for PBXNativeTarget "ReadWeightTests" */;
+			buildPhases = (
+				ABB53BF619D48F9F006F9DBD /* Sources */,
+				ABB53BF719D48F9F006F9DBD /* Frameworks */,
+				ABB53BF819D48F9F006F9DBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ABB53BFC19D48F9F006F9DBD /* PBXTargetDependency */,
+			);
+			name = ReadWeightTests;
+			productName = ReadWeightTests;
+			productReference = ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ABB53BD919D48F9F006F9DBD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Calvin Chestnut";
+				TargetAttributes = {
+					ABB53BE019D48F9F006F9DBD = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					ABB53BF919D48F9F006F9DBD = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = ABB53BE019D48F9F006F9DBD;
+					};
+				};
+			};
+			buildConfigurationList = ABB53BDC19D48F9F006F9DBD /* Build configuration list for PBXProject "ReadWeight" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ABB53BD819D48F9F006F9DBD;
+			productRefGroup = ABB53BE219D48F9F006F9DBD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ABB53BE019D48F9F006F9DBD /* ReadWeight */,
+				ABB53BF919D48F9F006F9DBD /* ReadWeightTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ABB53BDF19D48F9F006F9DBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB53BF019D48F9F006F9DBD /* Main.storyboard in Resources */,
+				ABB53BF519D48F9F006F9DBD /* LaunchScreen.xib in Resources */,
+				ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABB53BF819D48F9F006F9DBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ABB53BDD19D48F9F006F9DBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB53BED19D48F9F006F9DBD /* ViewController.m in Sources */,
+				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
+				ABB53BE719D48F9F006F9DBD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABB53BF619D48F9F006F9DBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABB53C0119D48F9F006F9DBD /* ReadWeightTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ABB53BFC19D48F9F006F9DBD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABB53BE019D48F9F006F9DBD /* ReadWeight */;
+			targetProxy = ABB53BFB19D48F9F006F9DBD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ABB53BEE19D48F9F006F9DBD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ABB53BEF19D48F9F006F9DBD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ABB53BF419D48F9F006F9DBD /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ABB53C0219D48F9F006F9DBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		ABB53C0319D48F9F006F9DBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ABB53C0519D48F9F006F9DBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ReadWeight/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ABB53C0619D48F9F006F9DBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = ReadWeight/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ABB53C0819D48F9F006F9DBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ReadWeightTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReadWeight.app/ReadWeight";
+			};
+			name = Debug;
+		};
+		ABB53C0919D48F9F006F9DBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = ReadWeightTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ReadWeight.app/ReadWeight";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ABB53BDC19D48F9F006F9DBD /* Build configuration list for PBXProject "ReadWeight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABB53C0219D48F9F006F9DBD /* Debug */,
+				ABB53C0319D48F9F006F9DBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABB53C0419D48F9F006F9DBD /* Build configuration list for PBXNativeTarget "ReadWeight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABB53C0519D48F9F006F9DBD /* Debug */,
+				ABB53C0619D48F9F006F9DBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ABB53C0719D48F9F006F9DBD /* Build configuration list for PBXNativeTarget "ReadWeightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABB53C0819D48F9F006F9DBD /* Debug */,
+				ABB53C0919D48F9F006F9DBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ABB53BD919D48F9F006F9DBD /* Project object */;
+}
