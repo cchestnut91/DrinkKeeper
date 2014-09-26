@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  GetSexViewController.h
 //  ReadWeight
 //
 //  Created by Calvin Chestnut on 9/25/14.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface GetSexViewController : UIViewController
+- (IBAction)pressManual:(id)sender;
+- (IBAction)pressHealth:(id)sender;
 
 @end
-

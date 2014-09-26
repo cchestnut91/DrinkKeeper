@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    if (self.healthStore == nil){
+        self.healthStore = [[HKHealthStore alloc] init];
+    }
+    
     return YES;
 }
 

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <HealthKit/HealthKit.h>
+#import "JNKeychain.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) HKHealthStore *healthStore;
 
 @end
 
