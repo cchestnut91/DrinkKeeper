@@ -21,6 +21,8 @@
 		AB5FAAD219D4F00900793572 /* SWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAACC19D4F00900793572 /* SWActionSheet.m */; };
 		AB5FAAD519D4F17A00793572 /* TransLoadingIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAAD419D4F17A00793572 /* TransLoadingIndicator.m */; };
 		AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */; };
+		AB85F45619D75F4600298746 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
+		AB85F45719D75FA700298746 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		ABB53BE719D48F9F006F9DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE619D48F9F006F9DBD /* main.m */; };
 		ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE919D48F9F006F9DBD /* AppDelegate.m */; };
 		ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
@@ -31,6 +33,12 @@
 		ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */; };
 		ABE4F47C19D610240048D853 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		ABE4F47F19D640D10048D853 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F47E19D640D10048D853 /* Crashlytics.framework */; };
+		ABE4F48719D750990048D853 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F48619D750990048D853 /* NotificationCenter.framework */; };
+		ABE4F48D19D750990048D853 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F48C19D750990048D853 /* TodayViewController.m */; };
+		ABE4F48F19D750990048D853 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABE4F48E19D750990048D853 /* MainInterface.storyboard */; };
+		ABE4F49219D750990048D853 /* Add Drinks.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ABE4F48419D750990048D853 /* Add Drinks.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ABE4F49A19D750DC0048D853 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
+		ABE4F49B19D758C00048D853 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +49,35 @@
 			remoteGlobalIDString = ABB53BE019D48F9F006F9DBD;
 			remoteInfo = ReadWeight;
 		};
+		ABE4F49019D750990048D853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABB53BD919D48F9F006F9DBD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABE4F48319D750990048D853;
+			remoteInfo = "Add Drinks";
+		};
+		ABE4F49319D750990048D853 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ABB53BD919D48F9F006F9DBD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ABE4F48319D750990048D853;
+			remoteInfo = "Add Drinks";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ABE4F49819D750990048D853 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				ABE4F49219D750990048D853 /* Add Drinks.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
@@ -91,6 +127,13 @@
 		ABE4F47A19D610240048D853 /* Drink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drink.h; sourceTree = "<group>"; };
 		ABE4F47B19D610240048D853 /* Drink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drink.m; sourceTree = "<group>"; };
 		ABE4F47E19D640D10048D853 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		ABE4F48419D750990048D853 /* Add Drinks.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Add Drinks.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABE4F48619D750990048D853 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		ABE4F48A19D750990048D853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ABE4F48B19D750990048D853 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		ABE4F48C19D750990048D853 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		ABE4F48E19D750990048D853 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
+		ABE4F49919D750CE0048D853 /* Add Drinks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Add Drinks.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +150,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABE4F48119D750990048D853 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABE4F48719D750990048D853 /* NotificationCenter.framework in Frameworks */,
+				ABE4F49A19D750DC0048D853 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,6 +196,8 @@
 				ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */,
 				ABB53BE319D48F9F006F9DBD /* ReadWeight */,
 				ABB53BFD19D48F9F006F9DBD /* ReadWeightTests */,
+				ABE4F48819D750990048D853 /* Add Drinks */,
+				ABE4F48519D750990048D853 /* Frameworks */,
 				ABB53BE219D48F9F006F9DBD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -153,6 +207,7 @@
 			children = (
 				ABB53BE119D48F9F006F9DBD /* ReadWeight.app */,
 				ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */,
+				ABE4F48419D750990048D853 /* Add Drinks.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,6 +269,34 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		ABE4F48519D750990048D853 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ABE4F48619D750990048D853 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ABE4F48819D750990048D853 /* Add Drinks */ = {
+			isa = PBXGroup;
+			children = (
+				ABE4F49919D750CE0048D853 /* Add Drinks.entitlements */,
+				ABE4F48B19D750990048D853 /* TodayViewController.h */,
+				ABE4F48C19D750990048D853 /* TodayViewController.m */,
+				ABE4F48E19D750990048D853 /* MainInterface.storyboard */,
+				ABE4F48919D750990048D853 /* Supporting Files */,
+			);
+			path = "Add Drinks";
+			sourceTree = "<group>";
+		};
+		ABE4F48919D750990048D853 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ABE4F48A19D750990048D853 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -225,10 +308,13 @@
 				ABB53BDE19D48F9F006F9DBD /* Frameworks */,
 				ABB53BDF19D48F9F006F9DBD /* Resources */,
 				ABE4F47D19D640AF0048D853 /* ShellScript */,
+				ABE4F49819D750990048D853 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				ABE4F49119D750990048D853 /* PBXTargetDependency */,
+				ABE4F49419D750990048D853 /* PBXTargetDependency */,
 			);
 			name = ReadWeight;
 			productName = ReadWeight;
@@ -253,6 +339,23 @@
 			productReference = ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		ABE4F48319D750990048D853 /* Add Drinks */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ABE4F49519D750990048D853 /* Build configuration list for PBXNativeTarget "Add Drinks" */;
+			buildPhases = (
+				ABE4F48019D750990048D853 /* Sources */,
+				ABE4F48119D750990048D853 /* Frameworks */,
+				ABE4F48219D750990048D853 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Add Drinks";
+			productName = "Add Drinks";
+			productReference = ABE4F48419D750990048D853 /* Add Drinks.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -266,10 +369,16 @@
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = VDWJ8UMBJ6;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
 								enabled = 1;
 							};
 						};
@@ -277,6 +386,21 @@
 					ABB53BF919D48F9F006F9DBD = {
 						CreatedOnToolsVersion = 6.0;
 						TestTargetID = ABB53BE019D48F9F006F9DBD;
+					};
+					ABE4F48319D750990048D853 = {
+						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = VDWJ8UMBJ6;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -295,6 +419,7 @@
 			targets = (
 				ABB53BE019D48F9F006F9DBD /* ReadWeight */,
 				ABB53BF919D48F9F006F9DBD /* ReadWeightTests */,
+				ABE4F48319D750990048D853 /* Add Drinks */,
 			);
 		};
 /* End PBXProject section */
@@ -314,6 +439,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ABE4F48219D750990048D853 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABE4F48F19D750990048D853 /* MainInterface.storyboard in Resources */,
+				ABE4F49B19D758C00048D853 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +503,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ABE4F48019D750990048D853 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB85F45719D75FA700298746 /* JNKeychain.m in Sources */,
+				AB85F45619D75F4600298746 /* Drink.m in Sources */,
+				ABE4F48D19D750990048D853 /* TodayViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -376,6 +520,16 @@
 			isa = PBXTargetDependency;
 			target = ABB53BE019D48F9F006F9DBD /* ReadWeight */;
 			targetProxy = ABB53BFB19D48F9F006F9DBD /* PBXContainerItemProxy */;
+		};
+		ABE4F49119D750990048D853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABE4F48319D750990048D853 /* Add Drinks */;
+			targetProxy = ABE4F49019D750990048D853 /* PBXContainerItemProxy */;
+		};
+		ABE4F49419D750990048D853 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ABE4F48319D750990048D853 /* Add Drinks */;
+			targetProxy = ABE4F49319D750990048D853 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -537,6 +691,38 @@
 			};
 			name = Release;
 		};
+		ABE4F49619D750990048D853 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Add Drinks/Add Drinks.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Add Drinks/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ABE4F49719D750990048D853 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Add Drinks/Add Drinks.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "Add Drinks/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -563,6 +749,15 @@
 			buildConfigurations = (
 				ABB53C0819D48F9F006F9DBD /* Debug */,
 				ABB53C0919D48F9F006F9DBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ABE4F49519D750990048D853 /* Build configuration list for PBXNativeTarget "Add Drinks" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ABE4F49619D750990048D853 /* Debug */,
+				ABE4F49719D750990048D853 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

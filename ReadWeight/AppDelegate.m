@@ -14,6 +14,9 @@
 @end
 
 @implementation AppDelegate
+{
+    NSDictionary *launchParams;
+}
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -22,7 +25,49 @@
     if (self.healthStore == nil){
         self.healthStore = [[HKHealthStore alloc] init];
     }
+    
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsURLKey]){
+        NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+        if ([[url absoluteString] containsString:@"?"]){
+            NSDictionary *params = [self getParamsFromURL:url];
+            
+            if ([params objectForKey:@"type"]){
+                launchParams = params;
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLaunchURL:) name:@"checkLaunchURL" object:nil];
+            }
+        }
+    }
+    
     [Crashlytics startWithAPIKey:@"6e63974ab6878886d46e46575c43005ded0cfa08"];
+    return YES;
+}
+
+-(void)openLaunchURL:(NSNotification *)notification{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"checkLaunchURL" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL" object:nil userInfo:launchParams];
+}
+
+-(NSDictionary *)getParamsFromURL:(NSURL *)url{
+    NSMutableDictionary *ret = [[NSMutableDictionary alloc] init];
+    
+    NSString *params = [[url absoluteString] componentsSeparatedByString:@"?"][1];
+    NSArray *groups = [params componentsSeparatedByString:@"&"];
+    for (NSString *group in groups){
+        [ret setObject:[group componentsSeparatedByString:@"="][1] forKey:[group componentsSeparatedByString:@"="][0]];
+    }
+    
+    return ret;
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if ([[url absoluteString] containsString:@"?"]){
+        NSDictionary *params = [self getParamsFromURL:url];
+        
+        if ([params objectForKey:@"type"]){
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL" object:nil userInfo:params];
+        }
+    }
+    
     return YES;
 }
 

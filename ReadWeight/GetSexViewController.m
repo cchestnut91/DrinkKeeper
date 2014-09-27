@@ -55,27 +55,29 @@
 
 - (IBAction)pressHealth:(id)sender {
     [healthStore requestAuthorizationToShareTypes:nil readTypes:[NSSet setWithObject:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex]] completion:^(BOOL success, NSError *error){
-        sex = [[healthStore biologicalSexWithError:nil] biologicalSex];
-        HKBiologicalSexObject *sexObject = [healthStore biologicalSexWithError:nil];
-        sex = [sexObject biologicalSex];
-        if (sex == HKBiologicalSexNotSet){
-            UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex" message:@"Health indicates you identify as 'Other'. Is this correct?" preferredStyle:UIAlertControllerStyleAlert];
-            [confirmOther addAction:[UIAlertAction actionWithTitle:@"Change" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self pressManual:sender];
-                });
-            }]];
-            [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            sex = [[healthStore biologicalSexWithError:nil] biologicalSex];
+            HKBiologicalSexObject *sexObject = [healthStore biologicalSexWithError:nil];
+            sex = [sexObject biologicalSex];
+            if (sex == HKBiologicalSexNotSet){
+                UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex" message:@"Health indicates you identify as 'Other'. Is this correct?" preferredStyle:UIAlertControllerStyleAlert];
+                [confirmOther addAction:[UIAlertAction actionWithTitle:@"Change" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self pressManual:sender];
+                    });
+                }]];
+                [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                    // Move on
+                    [JNKeychain saveValue:[NSNumber numberWithInteger:sex] forKey:@"sex"];
+                    [self performSegueWithIdentifier:@"saveDrink" sender:self];
+                }]];
+                [self presentViewController:confirmOther animated:YES completion:nil];
+            } else {
                 // Move on
                 [JNKeychain saveValue:[NSNumber numberWithInteger:sex] forKey:@"sex"];
                 [self performSegueWithIdentifier:@"saveDrink" sender:self];
-            }]];
-            [self presentViewController:confirmOther animated:YES completion:nil];
-        } else {
-            // Move on
-            [JNKeychain saveValue:[NSNumber numberWithInteger:sex] forKey:@"sex"];
-            [self performSegueWithIdentifier:@"saveDrink" sender:self];
-        }
+            }
+        });
         
     }];
 }

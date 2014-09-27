@@ -16,6 +16,7 @@
     double mult;
     NSDate *drinkTime;
     NSArray *sizeOptions;
+    NSTimeInterval offset;
 }
 
 - (IBAction)pressCancel:(id)sender {
@@ -26,7 +27,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.multButton addTarget:self action:@selector(pressMult:) forControlEvents:UIControlEventTouchUpInside];
-    drinkTime = [NSDate date];
+    [self.timeButton addTarget:self action:@selector(pressTime:) forControlEvents:UIControlEventTouchUpInside];
+    offset = 0;
+    
     if ([self.type isEqualToString:@"Liquor"]){
         [self.quantLabel setText:@"Strength"];
         sizeOptions = @[@"Weak (0.5 - 1 Shot)", @"Normal (1 Shot)", @"Strong (> 1 Shot)", @"Woah! (Woah!)"];
@@ -65,7 +68,24 @@
     } origin:sender];
 }
 
+-(IBAction)pressTime:(id)sender{
+    NSMutableArray *timeOptions = [[NSMutableArray alloc] init];
+    [timeOptions addObject:@"Now"];
+    for (int i = 1; i < 12; i++){
+        [timeOptions addObject:[NSString stringWithFormat:@"%d minutes ago", i * 5]];
+    }
+    [timeOptions addObject:@"1 Hour Ago"];
+    
+    [ActionSheetStringPicker showPickerWithTitle:@"When?" rows:timeOptions initialSelection:2 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
+        [self.timeButton setTitle:[timeOptions objectAtIndex:selectedIndex] forState:UIControlStateNormal];
+        offset = selectedIndex * 5 * 60;
+    } cancelBlock:^(ActionSheetStringPicker *picker) {
+        NSLog(@"Block Picker Canceled");
+    } origin:sender];
+}
+
 -(IBAction)pressGo:(id)sender{
+    drinkTime = [[NSDate date] dateByAddingTimeInterval:-1 * offset];
     Drink *newDrink = [[Drink alloc] initWithType:self.type andMultiplier:[NSNumber numberWithDouble:mult] andTime:drinkTime];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:newDrink forKey:@"newDrink"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newDrink" object:nil userInfo:userInfo];

@@ -10,6 +10,7 @@
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
+		<string>$(AppIdentifierPrefix)com.calvinchestnut.weightcheck.ReadWeight.Add-Drinks</string>
 		<string>$(AppIdentifierPrefix)com.calvinchestnut.weightcheck.ReadWeight</string>
 	</array>
 </dict>

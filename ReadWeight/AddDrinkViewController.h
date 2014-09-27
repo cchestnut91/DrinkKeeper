@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *multButton;
 -(IBAction)pressMult:(id)sender;
 -(IBAction)pressGo:(id)sender;
+-(IBAction)pressTime:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *quantLabel;
 
 @end

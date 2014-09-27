@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Add Drinks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>ReadWeight.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -18,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>ABB53BF919D48F9F006F9DBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABE4F48319D750990048D853</key>
 		<dict>
 			<key>primary</key>
 			<true/>

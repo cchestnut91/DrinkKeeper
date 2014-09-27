@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="0.000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcv-aT-DQ1">
+                                <rect key="frame" x="233" y="10" width="63" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="FJF-oI-SIW"/>
+                                    <constraint firstAttribute="width" constant="63" id="fl8-YK-ZMf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.97647058819999999" green="0.0" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current BAC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXh-UX-8Yu">
+                                <rect key="frame" x="16" y="10" width="209" height="30"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="deL-2W-QDo">
+                                <rect key="frame" x="16" y="40" width="280" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zxl-1K-PML">
+                                        <rect key="frame" x="0.0" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="8rp-q5-qlI"/>
+                                            <constraint firstAttribute="width" constant="40" id="kKZ-re-Kg8"/>
+                                        </constraints>
+                                        <state key="normal" image="beerGlassSmall">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addBeer:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="wLV-sC-op2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wAj-LY-5Xa">
+                                        <rect key="frame" x="120" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Tda-hJ-MiO"/>
+                                            <constraint firstAttribute="height" constant="40" id="je6-rW-jXF"/>
+                                        </constraints>
+                                        <state key="normal" image="wineSmall">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addWine:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="beH-r8-4m4"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VB8-gi-Xcn">
+                                        <rect key="frame" x="240" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="9jS-UV-GNQ"/>
+                                            <constraint firstAttribute="width" constant="40" id="EjW-pD-u5q"/>
+                                        </constraints>
+                                        <state key="normal" image="liquorGlassSmall">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addLiquor:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="qu4-ch-XRV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="VB8-gi-Xcn" secondAttribute="trailing" id="9HY-NA-Y0B"/>
+                                    <constraint firstAttribute="centerY" secondItem="VB8-gi-Xcn" secondAttribute="centerY" id="MCZ-Ej-9vg"/>
+                                    <constraint firstAttribute="centerY" secondItem="Zxl-1K-PML" secondAttribute="centerY" id="P8m-Uv-ExK"/>
+                                    <constraint firstAttribute="height" constant="50" id="QJX-rN-K46"/>
+                                    <constraint firstAttribute="centerX" secondItem="wAj-LY-5Xa" secondAttribute="centerX" id="asv-fh-ezO"/>
+                                    <constraint firstItem="Zxl-1K-PML" firstAttribute="leading" secondItem="deL-2W-QDo" secondAttribute="leading" id="nF4-z0-WLh"/>
+                                    <constraint firstAttribute="centerY" secondItem="wAj-LY-5Xa" secondAttribute="centerY" id="vht-4J-pb0"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="deL-2W-QDo" firstAttribute="trailing" secondItem="hcv-aT-DQ1" secondAttribute="trailing" id="7k6-dM-m6V"/>
+                            <constraint firstItem="hcv-aT-DQ1" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" constant="-8" id="EPu-aR-IHR"/>
+                            <constraint firstItem="deL-2W-QDo" firstAttribute="leading" secondItem="jXh-UX-8Yu" secondAttribute="leading" id="MFc-kM-5VR"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="deL-2W-QDo" secondAttribute="bottom" id="aAh-Mi-Fhn"/>
+                            <constraint firstItem="jXh-UX-8Yu" firstAttribute="height" secondItem="hcv-aT-DQ1" secondAttribute="height" id="kPc-xe-ysa"/>
+                            <constraint firstItem="jXh-UX-8Yu" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="mGh-HT-FGs"/>
+                            <constraint firstItem="hcv-aT-DQ1" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="10" id="s2V-38-l1Q"/>
+                            <constraint firstItem="hcv-aT-DQ1" firstAttribute="leading" secondItem="jXh-UX-8Yu" secondAttribute="trailing" constant="8" id="uDT-kt-eGt"/>
+                            <constraint firstItem="jXh-UX-8Yu" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="zIA-i4-n1B"/>
+                            <constraint firstItem="deL-2W-QDo" firstAttribute="top" secondItem="jXh-UX-8Yu" secondAttribute="bottom" id="zV5-0M-0Os"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="90"/>
+                    <connections>
+                        <outlet property="bacLabel" destination="hcv-aT-DQ1" id="VMh-Pg-df2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="516" y="284"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="beerGlassSmall" width="40" height="40"/>
+        <image name="liquorGlassSmall" width="40" height="40"/>
+        <image name="wineSmall" width="40" height="40"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

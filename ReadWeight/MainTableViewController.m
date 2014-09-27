@@ -39,24 +39,36 @@
         }
     }];
     [healthStore executeQuery:weightQuery];
-    bacFile = [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"bac"];
+    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
+    bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
     if ([[NSFileManager defaultManager] fileExistsAtPath:bacFile]){
         bac = [(NSNumber *)[NSKeyedUnarchiver unarchiveObjectWithFile:bacFile] doubleValue];
     } else {
         bac = 0.0;
         [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
     }
-    sessionFile =[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"drinkingSession"];
+    sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path ];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDrink:) name:@"newDrink" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDrinkFromURL:) name:@"addFromURL" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLaunchURL" object:nil];
+}
+
+-(void)addDrinkFromURL:(NSNotification *)notification{
+    NSDictionary *userInfo = [notification userInfo];
+    typePressed = [userInfo objectForKey:@"type"];
+    [self performSegueWithIdentifier:@"addDrink" sender:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     if ([JNKeychain loadValueForKey:@"weight"] == nil || [JNKeychain loadValueForKey:@"sex"] == nil){
         [self performSegueWithIdentifier:@"getWeight" sender:self];
+    } else {
+        [healthStore requestAuthorizationToShareTypes:[NSSet setWithObject:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent]] readTypes:[NSSet setWithObjects:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex], [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil] completion:^(BOOL success, NSError *error){
+        }];
     }
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
-        NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"drinkingSession"]];
+        NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
         NSArray *drinks = [drinkingSession objectForKey:@"drinks"];
         [self recalcBAC:drinks];
     }
@@ -73,12 +85,12 @@
         [drinkingSession setObject:[newDrink time] forKey:@"startTime"];
         [drinkingSession setObject:[[NSArray alloc] init] forKey:@"drinks"];
     } else {
-        drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"drinkingSession"]];
+        drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
     }
     NSMutableArray *drinks = [NSMutableArray arrayWithArray:[drinkingSession objectForKey:@"drinks"]];
     [drinks addObject:newDrink];
     [drinkingSession setObject:drinks forKey:@"drinks"];
-    [NSKeyedArchiver archiveRootObject:drinkingSession toFile:[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"drinkingSession"]];
+    [NSKeyedArchiver archiveRootObject:drinkingSession toFile:sessionFile];
     [self recalcBAC:drinks];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     UILocalNotification *sober = [[UILocalNotification alloc] init];
@@ -90,7 +102,7 @@
 }
 
 -(void)recalcBAC:(NSArray *)drinks{
-    NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:[[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"drinkingSession"]];
+    NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
     double consumed = 0.0;
     for (Drink *drink in drinks){
         double add = [[drink multiplier] doubleValue];
@@ -104,14 +116,15 @@
     double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
     double metabolized = [self metabolismConstant] * hoursDrinking;
     bac = newBac - metabolized;
+    if (bac <= 0.0){
+        [[NSFileManager defaultManager] removeItemAtPath:sessionFile error:nil];
+        bac = 0.0;
+    }
     HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
     [healthStore saveObject:bacSample withCompletion:nil];
     [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
-    if (bac == 0.0){
-        [[NSFileManager defaultManager] removeItemAtPath:sessionFile error:nil];
-    }
 }
 
 -(double)metabolismConstant{
