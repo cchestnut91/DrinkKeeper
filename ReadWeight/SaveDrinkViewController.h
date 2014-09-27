@@ -1,5 +1,5 @@
 //
-//  MainTableViewController.h
+//  SaveDrinkViewController.h
 //  ReadWeight
 //
 //  Created by Calvin Chestnut on 9/26/14.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MainTableViewController : UITableViewController
-@property (weak, nonatomic) IBOutlet UILabel *bacLabel;
+@interface SaveDrinkViewController : UIViewController
+- (IBAction)pressSkip:(id)sender;
+- (IBAction)pressHealth:(id)sender;
 
 @end

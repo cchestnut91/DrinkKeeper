@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ReadWeight.xcodeproj">
+      location = "self:DrinkTracker.xcodeproj">
    </FileRef>
 </Workspace>

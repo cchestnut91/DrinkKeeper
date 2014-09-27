@@ -73,7 +73,7 @@
                     [noWeightData addAction:[UIAlertAction actionWithTitle:@"Add to Health" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                         [healthStore requestAuthorizationToShareTypes:[NSSet setWithObjects:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil] readTypes:nil completion:^(BOOL success, NSError *error){
                             if ([healthStore authorizationStatusForType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]] == HKAuthorizationStatusSharingAuthorized){
-                                UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                                UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight" message:@"Enter in lbs." preferredStyle:UIAlertControllerStyleAlert];
                                 [enterWeight addTextFieldWithConfigurationHandler:^(UITextField *textField){
                                     [textField setKeyboardType:UIKeyboardTypeDecimalPad];
                                 }];
@@ -112,9 +112,7 @@
             });
         }
     }];
-    [self.indicator setUp];
     [healthStore executeQuery:weightQuery];
-    [self.indicator startAnimating];
 }
 
 @end

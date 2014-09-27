@@ -17,7 +17,7 @@
                BlueprintIdentifier = "ABB53BE019D48F9F006F9DBD"
                BuildableName = "ReadWeight.app"
                BlueprintName = "ReadWeight"
-               ReferencedContainer = "container:ReadWeight.xcodeproj">
+               ReferencedContainer = "container:DrinkTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "ABB53BF919D48F9F006F9DBD"
                BuildableName = "ReadWeightTests.xctest"
                BlueprintName = "ReadWeightTests"
-               ReferencedContainer = "container:ReadWeight.xcodeproj">
+               ReferencedContainer = "container:DrinkTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "ABB53BF919D48F9F006F9DBD"
                BuildableName = "ReadWeightTests.xctest"
                BlueprintName = "ReadWeightTests"
-               ReferencedContainer = "container:ReadWeight.xcodeproj">
+               ReferencedContainer = "container:DrinkTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -59,7 +59,7 @@
             BlueprintIdentifier = "ABB53BE019D48F9F006F9DBD"
             BuildableName = "ReadWeight.app"
             BlueprintName = "ReadWeight"
-            ReferencedContainer = "container:ReadWeight.xcodeproj">
+            ReferencedContainer = "container:DrinkTracker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -78,7 +78,7 @@
             BlueprintIdentifier = "ABB53BE019D48F9F006F9DBD"
             BuildableName = "ReadWeight.app"
             BlueprintName = "ReadWeight"
-            ReferencedContainer = "container:ReadWeight.xcodeproj">
+            ReferencedContainer = "container:DrinkTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,7 +96,7 @@
             BlueprintIdentifier = "ABB53BE019D48F9F006F9DBD"
             BuildableName = "ReadWeight.app"
             BlueprintName = "ReadWeight"
-            ReferencedContainer = "container:ReadWeight.xcodeproj">
+            ReferencedContainer = "container:DrinkTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

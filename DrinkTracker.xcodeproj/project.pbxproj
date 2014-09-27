@@ -27,6 +27,9 @@
 		ABB53BF519D48F9F006F9DBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */; };
 		ABB53C0119D48F9F006F9DBD /* ReadWeightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */; };
 		ABB53C0C19D48FBE006F9DBD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
+		ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */; };
+		ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */; };
+		ABE4F47C19D610240048D853 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +83,12 @@
 		ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadWeightTests.m; sourceTree = "<group>"; };
 		ABB53C0A19D48FBE006F9DBD /* ReadWeight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReadWeight.entitlements; sourceTree = "<group>"; };
 		ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDrinkViewController.h; sourceTree = "<group>"; };
+		ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkViewController.m; sourceTree = "<group>"; };
+		ABE262E519D6041D00710A3F /* SaveDrinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveDrinkViewController.h; sourceTree = "<group>"; };
+		ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveDrinkViewController.m; sourceTree = "<group>"; };
+		ABE4F47A19D610240048D853 /* Drink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drink.h; sourceTree = "<group>"; };
+		ABE4F47B19D610240048D853 /* Drink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drink.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,10 +161,16 @@
 				ABB53BE919D48F9F006F9DBD /* AppDelegate.m */,
 				AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */,
 				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
+				ABE4F47A19D610240048D853 /* Drink.h */,
+				ABE4F47B19D610240048D853 /* Drink.m */,
+				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
+				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
 				AB5FAAB319D4DEC300793572 /* GetWeightViewController.h */,
 				AB5FAAB419D4DEC300793572 /* GetWeightViewController.m */,
 				AB5FAAB619D4E81500793572 /* GetSexViewController.h */,
 				AB5FAAB719D4E81500793572 /* GetSexViewController.m */,
+				ABE262E519D6041D00710A3F /* SaveDrinkViewController.h */,
+				ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */,
 				AB5FAAD319D4F17A00793572 /* TransLoadingIndicator.h */,
 				AB5FAAD419D4F17A00793572 /* TransLoadingIndicator.m */,
 				AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */,
@@ -246,6 +261,9 @@
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = VDWJ8UMBJ6;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
@@ -257,7 +275,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ABB53BDC19D48F9F006F9DBD /* Build configuration list for PBXProject "ReadWeight" */;
+			buildConfigurationList = ABB53BDC19D48F9F006F9DBD /* Build configuration list for PBXProject "DrinkTracker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -304,12 +322,15 @@
 				AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */,
 				AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */,
 				AB5FAAD019D4F00900793572 /* ActionSheetLocalePicker.m in Sources */,
+				ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */,
 				AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */,
 				AB5FAAD119D4F00900793572 /* DistancePickerView.m in Sources */,
+				ABE4F47C19D610240048D853 /* Drink.m in Sources */,
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,
 				AB5FAAB819D4E81500793572 /* GetSexViewController.m in Sources */,
 				AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */,
+				ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */,
 				AB5FAACE19D4F00900793572 /* ActionSheetDatePicker.m in Sources */,
 				AB5FAAD519D4F17A00793572 /* TransLoadingIndicator.m in Sources */,
 				ABB53BE719D48F9F006F9DBD /* main.m in Sources */,
@@ -490,7 +511,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		ABB53BDC19D48F9F006F9DBD /* Build configuration list for PBXProject "ReadWeight" */ = {
+		ABB53BDC19D48F9F006F9DBD /* Build configuration list for PBXProject "DrinkTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ABB53C0219D48F9F006F9DBD /* Debug */,

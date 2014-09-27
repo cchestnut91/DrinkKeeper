@@ -45,7 +45,7 @@
                                            }
 // Move On
                                            [JNKeychain saveValue:[NSNumber numberWithInteger:sex] forKey:@"sex"];
-                                           [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                           [self performSegueWithIdentifier:@"saveDrink" sender:self];
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                          NSLog(@"Block Picker Canceled");
@@ -68,13 +68,13 @@
             [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 // Move on
                 [JNKeychain saveValue:[NSNumber numberWithInteger:sex] forKey:@"sex"];
-                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                [self performSegueWithIdentifier:@"saveDrink" sender:self];
             }]];
             [self presentViewController:confirmOther animated:YES completion:nil];
         } else {
             // Move on
             [JNKeychain saveValue:[NSNumber numberWithInteger:sex] forKey:@"sex"];
-            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            [self performSegueWithIdentifier:@"saveDrink" sender:self];
         }
         
     }];
