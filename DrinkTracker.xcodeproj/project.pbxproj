@@ -30,6 +30,7 @@
 		ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */; };
 		ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */; };
 		ABE4F47C19D610240048D853 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
+		ABE4F47F19D640D10048D853 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F47E19D640D10048D853 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveDrinkViewController.m; sourceTree = "<group>"; };
 		ABE4F47A19D610240048D853 /* Drink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drink.h; sourceTree = "<group>"; };
 		ABE4F47B19D610240048D853 /* Drink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drink.m; sourceTree = "<group>"; };
+		ABE4F47E19D640D10048D853 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABE4F47F19D640D10048D853 /* Crashlytics.framework in Frameworks */,
 				ABB53C0C19D48FBE006F9DBD /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +140,7 @@
 		ABB53BD819D48F9F006F9DBD = {
 			isa = PBXGroup;
 			children = (
+				ABE4F47E19D640D10048D853 /* Crashlytics.framework */,
 				ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */,
 				ABB53BE319D48F9F006F9DBD /* ReadWeight */,
 				ABB53BFD19D48F9F006F9DBD /* ReadWeightTests */,
@@ -220,6 +224,7 @@
 				ABB53BDD19D48F9F006F9DBD /* Sources */,
 				ABB53BDE19D48F9F006F9DBD /* Frameworks */,
 				ABB53BDF19D48F9F006F9DBD /* Resources */,
+				ABE4F47D19D640AF0048D853 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -313,6 +318,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		ABE4F47D19D640AF0048D853 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 6e63974ab6878886d46e46575c43005ded0cfa08 f6ab159dc485d68d8e3ab7929d50ea2fa90052c3518ce0f98874b30bfe22a3e8";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		ABB53BDD19D48F9F006F9DBD /* Sources */ = {
@@ -453,6 +474,10 @@
 				CODE_SIGN_ENTITLEMENTS = ReadWeight/ReadWeight.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ReadWeight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -467,6 +492,10 @@
 				CODE_SIGN_ENTITLEMENTS = ReadWeight/ReadWeight.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = ReadWeight/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

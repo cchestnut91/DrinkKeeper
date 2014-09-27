@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -21,7 +22,7 @@
     if (self.healthStore == nil){
         self.healthStore = [[HKHealthStore alloc] init];
     }
-    
+    [Crashlytics startWithAPIKey:@"6e63974ab6878886d46e46575c43005ded0cfa08"];
     return YES;
 }
 

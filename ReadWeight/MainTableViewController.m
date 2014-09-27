@@ -96,15 +96,16 @@
         double add = [[drink multiplier] doubleValue];
         consumed += add;
     }
-    consumed = consumed * 0.806;
+    consumed = consumed * 0.806 * 1.2;
     double genderStandard = [self genderStandard];
-    double weightMod = genderStandard * ([[JNKeychain loadValueForKey:@"weight"] doubleValue] * 0.454);
+    double kgweight =([[JNKeychain loadValueForKey:@"weight"] doubleValue] * 0.454);
+    double weightMod = genderStandard * kgweight;
     double newBac = consumed / weightMod;
     double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
-    double metabolized = 0.015 * hoursDrinking;
+    double metabolized = [self metabolismConstant] * hoursDrinking;
     bac = newBac - metabolized;
     HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac] startDate:[NSDate date] endDate:[NSDate date]];
+    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
     [healthStore saveObject:bacSample withCompletion:nil];
     [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
@@ -113,14 +114,25 @@
     }
 }
 
+-(double)metabolismConstant{
+    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    if (sex == HKBiologicalSexMale){
+        return 0.015;
+    } else if (sex == HKBiologicalSexFemale){
+        return 0.017;
+    } else {
+        return 0.016;
+    }
+}
+
 -(double)genderStandard{
     NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
     if (sex == HKBiologicalSexMale){
-        return 0.68;
+        return 0.58;
     } else if (sex == HKBiologicalSexFemale){
-        return 0.55;
+        return 0.49;
     } else {
-        return 0.615;
+        return 0.535;
     }
 }
 
