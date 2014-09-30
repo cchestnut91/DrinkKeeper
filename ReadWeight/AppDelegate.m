@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Crashlytics/Crashlytics.h>
+#import "Drink.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     if (self.healthStore == nil){
         self.healthStore = [[HKHealthStore alloc] init];
@@ -57,6 +60,68 @@
     }
     
     return ret;
+}
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
+    
+    if (self.healthStore == nil){
+        self.healthStore = [[HKHealthStore alloc] init];
+    }
+    
+    double bac = 0.0;
+    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
+    NSString *bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
+    NSString *sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path ];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
+        
+        NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
+        NSArray *drinks = [drinkingSession objectForKey:@"drinks"];
+        double consumed = 0.0;
+        for (Drink *drink in drinks){
+            double add = [[drink multiplier] doubleValue];
+            consumed += add;
+        }
+        consumed = consumed * 0.806 * 1.2;
+        double genderStandard = [self genderStandard];
+        double kgweight =([[JNKeychain loadValueForKey:@"weight"] doubleValue] * 0.454);
+        double weightMod = genderStandard * kgweight;
+        double newBac = consumed / weightMod;
+        double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
+        double metabolized = [self metabolismConstant] * hoursDrinking;
+        bac = newBac - metabolized;
+        if (bac <= 0.0){
+            [[NSFileManager defaultManager] removeItemAtPath:sessionFile error:nil];
+            bac = 0.0;
+        }
+    }
+    HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
+    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
+    [self.healthStore saveObject:bacSample withCompletion:nil];
+    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
+
+    completionHandler(UIBackgroundFetchResultNewData);
+}
+
+-(double)metabolismConstant{
+    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    if (sex == HKBiologicalSexMale){
+        return 0.015;
+    } else if (sex == HKBiologicalSexFemale){
+        return 0.017;
+    } else {
+        return 0.016;
+    }
+}
+
+-(double)genderStandard{
+    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    if (sex == HKBiologicalSexMale){
+        return 0.58;
+    } else if (sex == HKBiologicalSexFemale){
+        return 0.49;
+    } else {
+        return 0.535;
+    }
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

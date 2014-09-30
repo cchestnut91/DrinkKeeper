@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
 		AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		AB56FA3A19D5F5C100E04C87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB56FA3919D5F5C100E04C87 /* Main.storyboard */; };
 		AB5FAAB519D4DEC300793572 /* GetWeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAAB419D4DEC300793572 /* GetWeightViewController.m */; };
@@ -29,6 +30,8 @@
 		ABB53BF519D48F9F006F9DBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */; };
 		ABB53C0119D48F9F006F9DBD /* ReadWeightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */; };
 		ABB53C0C19D48FBE006F9DBD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
+		ABE0E4C119DA18A000B25923 /* BACLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */; };
+		ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */; };
 		ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */; };
 		ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */; };
 		ABE4F47C19D610240048D853 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
@@ -80,6 +83,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AB125D8E19D8790A00D16008 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		AB125D8F19D8790A00D16008 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
 		AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNKeychain.m; sourceTree = "<group>"; };
 		AB56FA3919D5F5C100E04C87 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -120,6 +125,10 @@
 		ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadWeightTests.m; sourceTree = "<group>"; };
 		ABB53C0A19D48FBE006F9DBD /* ReadWeight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ReadWeight.entitlements; sourceTree = "<group>"; };
 		ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		ABE0E4BF19DA18A000B25923 /* BACLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACLabelTableViewCell.h; sourceTree = "<group>"; };
+		ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACLabelTableViewCell.m; sourceTree = "<group>"; };
+		ABE0E4C219DA18B600B25923 /* AddDrinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDrinkTableViewCell.h; sourceTree = "<group>"; };
+		ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkTableViewCell.m; sourceTree = "<group>"; };
 		ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDrinkViewController.h; sourceTree = "<group>"; };
 		ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkViewController.m; sourceTree = "<group>"; };
 		ABE262E519D6041D00710A3F /* SaveDrinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveDrinkViewController.h; sourceTree = "<group>"; };
@@ -222,6 +231,12 @@
 				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
 				ABE4F47A19D610240048D853 /* Drink.h */,
 				ABE4F47B19D610240048D853 /* Drink.m */,
+				ABE0E4BF19DA18A000B25923 /* BACLabelTableViewCell.h */,
+				ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */,
+				ABE0E4C219DA18B600B25923 /* AddDrinkTableViewCell.h */,
+				ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */,
+				AB125D8E19D8790A00D16008 /* ProfileViewController.h */,
+				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
 				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
 				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
 				AB5FAAB319D4DEC300793572 /* GetWeightViewController.h */,
@@ -477,11 +492,13 @@
 				AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */,
 				AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */,
 				AB5FAAD019D4F00900793572 /* ActionSheetLocalePicker.m in Sources */,
+				AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */,
 				ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */,
 				AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */,
 				AB5FAAD119D4F00900793572 /* DistancePickerView.m in Sources */,
 				ABE4F47C19D610240048D853 /* Drink.m in Sources */,
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
+				ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,
 				AB5FAAB819D4E81500793572 /* GetSexViewController.m in Sources */,
 				AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */,
@@ -492,6 +509,7 @@
 				AB5FAAD219D4F00900793572 /* SWActionSheet.m in Sources */,
 				AB5FAACF19D4F00900793572 /* ActionSheetDistancePicker.m in Sources */,
 				AB5FAAB519D4DEC300793572 /* GetWeightViewController.m in Sources */,
+				ABE0E4C119DA18A000B25923 /* BACLabelTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

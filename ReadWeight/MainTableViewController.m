@@ -9,6 +9,8 @@
 #import "MainTableViewController.h"
 #import "AppDelegate.h"
 #import "AddDrinkViewController.h"
+#import "BACLabelTableViewCell.h"
+#import "AddDrinkTableViewCell.h"
 #import "Drink.h"
 
 @interface MainTableViewController ()
@@ -22,6 +24,7 @@
     NSString *bacFile;
     NSString *sessionFile;
     HKHealthStore *healthStore;
+    BOOL showUber;
 }
 
 - (void)viewDidLoad {
@@ -47,6 +50,11 @@
         bac = 0.0;
         [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
     }
+    if (bac > 0.04){
+        showUber = true;
+    } else {
+        showUber = false;
+    }
     sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path ];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDrink:) name:@"newDrink" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDrinkFromURL:) name:@"addFromURL" object:nil];
@@ -71,8 +79,67 @@
         NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
         NSArray *drinks = [drinkingSession objectForKey:@"drinks"];
         [self recalcBAC:drinks];
+    } else {
+        HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
+        HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
+        [healthStore saveObject:bacSample withCompletion:nil];
     }
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (showUber){
+        return 3;
+    }
+    return 2;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (section == 1){
+        return 3;
+    }
+    return 1;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (section == 1){
+        return @"Add a drink";
+    } else if (section == 2){
+        return @"Need a ride home?";
+    }
+    return nil;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        return 91;
+    } else if (indexPath.section == 1){
+        return 50;
+    } else {
+        return 90;
+    }
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0){
+        BACLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bacCell"];
+        
+        self.bacLabel = [[cell contentView] subviews][1];
+        [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
+        return cell;
+    } else if (indexPath.section == 1) {
+        AddDrinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"drinkCell"];
+        if (indexPath.row == 0){
+            [cell setType:@"Beer"];
+        } else if (indexPath.row == 1){
+            [cell setType:@"Wine"];
+        } else {
+            [cell setType:@"Liquor"];
+        }
+        return cell;
+    } else {
+        return [tableView dequeueReusableCellWithIdentifier:@"uberCell"];
+    }
 }
 
 -(void)addDrink:(NSNotification *)notification{
@@ -124,7 +191,13 @@
     HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
     [healthStore saveObject:bacSample withCompletion:nil];
     [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
+    if (bac > 0.04){
+        showUber = true;
+    } else {
+        showUber = false;
+    }
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
+    [self.tableView reloadData];
 }
 
 -(double)metabolismConstant{
@@ -164,7 +237,13 @@
         NSArray *types = @[@"Beer", @"Wine", @"Liquor"];
         typePressed = types[indexPath.row];
         [self performSegueWithIdentifier:@"addDrink" sender:self];
-    }
+    } else if (indexPath.section == 2){
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.uber.com"]];
+        }
+    };
 }
 
 #pragma mark - Navigation
