@@ -27,7 +27,6 @@
 		ABB53BE719D48F9F006F9DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE619D48F9F006F9DBD /* main.m */; };
 		ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE919D48F9F006F9DBD /* AppDelegate.m */; };
 		ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
-		ABB53BF519D48F9F006F9DBD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */; };
 		ABB53C0119D48F9F006F9DBD /* ReadWeightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */; };
 		ABB53C0C19D48FBE006F9DBD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
 		ABE0E4C119DA18A000B25923 /* BACLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */; };
@@ -119,7 +118,6 @@
 		ABB53BE819D48F9F006F9DBD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		ABB53BE919D48F9F006F9DBD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		ABB53BF119D48F9F006F9DBD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		ABB53BF419D48F9F006F9DBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReadWeightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB53BFF19D48F9F006F9DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABB53C0019D48F9F006F9DBD /* ReadWeightTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadWeightTests.m; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 				AB56FA3919D5F5C100E04C87 /* Main.storyboard */,
 				AB5FAABF19D4EFB100793572 /* Action Picker */,
 				ABB53BF119D48F9F006F9DBD /* Images.xcassets */,
-				ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */,
 				ABB53BE419D48F9F006F9DBD /* Supporting Files */,
 			);
 			path = ReadWeight;
@@ -445,7 +442,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB56FA3A19D5F5C100E04C87 /* Main.storyboard in Resources */,
-				ABB53BF519D48F9F006F9DBD /* LaunchScreen.xib in Resources */,
 				ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,17 +547,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		ABB53BF319D48F9F006F9DBD /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				ABB53BF419D48F9F006F9DBD /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		ABB53C0219D48F9F006F9DBD /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -643,6 +628,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ReadWeight/ReadWeight.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -661,6 +647,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ReadWeight/ReadWeight.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
