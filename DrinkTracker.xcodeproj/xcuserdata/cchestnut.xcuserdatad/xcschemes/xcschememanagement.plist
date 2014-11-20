@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>ReadWeight Watch App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>ReadWeight.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -28,6 +33,11 @@
 			<true/>
 		</dict>
 		<key>ABE4F48319D750990048D853</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABE8DBA51A1C4C2F00603726</key>
 		<dict>
 			<key>primary</key>
 			<true/>
