@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A343f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ur4-wt-9DU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="DsC-W0-ThQ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -733,6 +733,232 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WzP-MI-tFo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="817" y="-291"/>
+        </scene>
+        <!--Registration Workflow Navigation Controller-->
+        <scene sceneID="fAO-B1-5cW">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="DsC-W0-ThQ" customClass="RegistrationWorkflowNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3jh-kM-UY5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FNu-Cb-MQS" kind="relationship" relationship="rootViewController" id="NOJ-uV-ANV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vYm-I0-ATE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1468" y="1522"/>
+        </scene>
+        <!--Health Kit Request View Controller-->
+        <scene sceneID="eG0-TS-1V7">
+            <objects>
+                <viewController id="FNu-Cb-MQS" customClass="HealthKitRequestViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Yu7-N3-Vpb"/>
+                        <viewControllerLayoutGuide type="bottom" id="Uze-YF-llb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8zA-iq-yNY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhs-jB-dTf">
+                                <rect key="frame" x="16" y="28" width="568" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="1bg-zo-SgH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bx2-hJ-Cbh">
+                                <rect key="frame" x="16" y="88" width="568" height="187"/>
+                                <string key="text">Drink Keeper uses your devices Health App to accurately estimate your B.A.C. For fastest set up, press Use Health and allow permission to read and add health data.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can also enter this information manually" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXE-6N-9Za">
+                                <rect key="frame" x="16" y="326" width="568" height="187"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="j0P-YK-YFk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="j0P-YK-YFk"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="health" translatesAutoresizingMaskIntoConstraints="NO" id="xFt-zB-Gvi">
+                                <rect key="frame" x="280" y="283" width="40" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="b6A-cn-zuh"/>
+                                    <constraint firstAttribute="width" constant="40" id="jjz-Nn-V4O"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nfE-mE-ZYX">
+                                <rect key="frame" x="0.0" y="521" width="281" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="bqe-Hj-E7i"/>
+                                </constraints>
+                                <state key="normal" title="Enter Manually">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleManualPressed:" destination="FNu-Cb-MQS" eventType="touchUpInside" id="wxs-AK-8yW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z4o-f2-LRE">
+                                <rect key="frame" x="319" y="521" width="281" height="79"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="79" id="zxq-q6-lQd"/>
+                                </constraints>
+                                <state key="normal" title="Use Health">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleHealthPressed:" destination="FNu-Cb-MQS" eventType="touchUpInside" id="q5z-5t-CAh"/>
+                                </connections>
+                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uca-gR-lA0" customClass="TransLoadingIndicator">
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="P5p-6q-xkV"/>
+                                    <constraint firstAttribute="width" constant="150" id="aRA-MT-32n"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfe-J0-Bnk">
+                                <rect key="frame" x="289" y="550" width="22" height="22"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="DTH-2T-Ik3" kind="presentation" modalTransitionStyle="flipHorizontal" id="jN0-2Y-n74"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Lhs-jB-dTf" firstAttribute="top" secondItem="Yu7-N3-Vpb" secondAttribute="bottom" constant="8" id="7Ke-Jc-5Qo"/>
+                            <constraint firstItem="nfE-mE-ZYX" firstAttribute="leading" secondItem="8zA-iq-yNY" secondAttribute="leadingMargin" constant="-16" id="ADR-ku-aAp"/>
+                            <constraint firstItem="Lhs-jB-dTf" firstAttribute="leading" secondItem="8zA-iq-yNY" secondAttribute="leadingMargin" id="GnJ-vq-9tk"/>
+                            <constraint firstItem="qXE-6N-9Za" firstAttribute="trailing" secondItem="8zA-iq-yNY" secondAttribute="trailingMargin" id="J9a-fS-jCf"/>
+                            <constraint firstAttribute="centerY" secondItem="xFt-zB-Gvi" secondAttribute="centerY" id="JQz-i4-HLo"/>
+                            <constraint firstItem="z4o-f2-LRE" firstAttribute="width" secondItem="nfE-mE-ZYX" secondAttribute="width" id="L6X-9j-Bk4"/>
+                            <constraint firstItem="z4o-f2-LRE" firstAttribute="height" secondItem="nfE-mE-ZYX" secondAttribute="height" id="MTM-tb-mdx"/>
+                            <constraint firstAttribute="centerY" secondItem="Uca-gR-lA0" secondAttribute="centerY" id="NMO-j4-I8N"/>
+                            <constraint firstItem="mfe-J0-Bnk" firstAttribute="leading" secondItem="nfE-mE-ZYX" secondAttribute="trailing" constant="8" id="P4q-pM-snz"/>
+                            <constraint firstItem="Uze-YF-llb" firstAttribute="top" secondItem="z4o-f2-LRE" secondAttribute="bottom" id="PR9-n5-SKW"/>
+                            <constraint firstAttribute="centerX" secondItem="Uca-gR-lA0" secondAttribute="centerX" id="Q9s-l1-ehn"/>
+                            <constraint firstItem="Bx2-hJ-Cbh" firstAttribute="trailing" secondItem="8zA-iq-yNY" secondAttribute="trailingMargin" id="RoH-Sa-USB"/>
+                            <constraint firstItem="z4o-f2-LRE" firstAttribute="leading" secondItem="nfE-mE-ZYX" secondAttribute="trailing" id="TQL-yc-ueg"/>
+                            <constraint firstAttribute="centerX" secondItem="xFt-zB-Gvi" secondAttribute="centerX" id="UAA-6s-gXD"/>
+                            <constraint firstItem="Bx2-hJ-Cbh" firstAttribute="top" secondItem="Lhs-jB-dTf" secondAttribute="bottom" constant="8" id="aVM-n5-jVm"/>
+                            <constraint firstItem="qXE-6N-9Za" firstAttribute="leading" secondItem="8zA-iq-yNY" secondAttribute="leadingMargin" id="b5q-b2-icA"/>
+                            <constraint firstItem="Lhs-jB-dTf" firstAttribute="trailing" secondItem="8zA-iq-yNY" secondAttribute="trailingMargin" id="cBM-34-HG1"/>
+                            <constraint firstAttribute="centerX" secondItem="mfe-J0-Bnk" secondAttribute="centerX" id="fsz-oZ-nVn"/>
+                            <constraint firstItem="Bx2-hJ-Cbh" firstAttribute="leading" secondItem="8zA-iq-yNY" secondAttribute="leadingMargin" id="m9j-vD-1Wr"/>
+                            <constraint firstItem="Uze-YF-llb" firstAttribute="top" secondItem="mfe-J0-Bnk" secondAttribute="bottom" constant="28" id="nuE-Jh-Jaf"/>
+                            <constraint firstItem="nfE-mE-ZYX" firstAttribute="top" secondItem="qXE-6N-9Za" secondAttribute="bottom" constant="8" id="o1D-3B-Ssg"/>
+                            <constraint firstItem="Uze-YF-llb" firstAttribute="top" secondItem="nfE-mE-ZYX" secondAttribute="bottom" id="pR7-5X-DVH"/>
+                            <constraint firstItem="z4o-f2-LRE" firstAttribute="leading" secondItem="mfe-J0-Bnk" secondAttribute="trailing" constant="8" id="poU-HK-q54"/>
+                            <constraint firstItem="nfE-mE-ZYX" firstAttribute="width" secondItem="8zA-iq-yNY" secondAttribute="width" multiplier="1:2" id="qJN-rD-d3f"/>
+                            <constraint firstItem="xFt-zB-Gvi" firstAttribute="top" secondItem="Bx2-hJ-Cbh" secondAttribute="bottom" constant="8" id="rLb-34-whv"/>
+                            <constraint firstItem="qXE-6N-9Za" firstAttribute="top" secondItem="xFt-zB-Gvi" secondAttribute="bottom" constant="8" id="zax-tA-aCu"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="qJN-rD-d3f"/>
+                                <exclude reference="TQL-yc-ueg"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="wlg-Nj-AVb"/>
+                    <connections>
+                        <outlet property="healthImage" destination="xFt-zB-Gvi" id="Vih-td-ors"/>
+                        <outlet property="introLabel" destination="Bx2-hJ-Cbh" id="Wfi-SW-7sF"/>
+                        <outlet property="loadingView" destination="Uca-gR-lA0" id="EJd-Yk-Tkq"/>
+                        <outlet property="subtextLabel" destination="qXE-6N-9Za" id="7tI-CF-05a"/>
+                        <outlet property="useHealthButton" destination="z4o-f2-LRE" id="nPX-8C-xeS"/>
+                        <outlet property="useManualButton" destination="nfE-mE-ZYX" id="Naa-KY-lpd"/>
+                        <outlet property="welcomeLabel" destination="Lhs-jB-dTf" id="oCu-fL-Aty"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1u2-HX-nPQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-687" y="1522"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Ucs-90-ggl">
+            <objects>
+                <navigationController id="DTH-2T-Ik3" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="568-GV-fes">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="tAe-pw-NdL" kind="relationship" relationship="rootViewController" id="CkT-Lh-rBO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IQl-UU-EMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-698" y="2300"/>
+        </scene>
+        <!--Info-->
+        <scene sceneID="Q0D-Ob-IV9">
+            <objects>
+                <viewController id="tAe-pw-NdL" customClass="HealthKitInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BfX-Hd-l3g"/>
+                        <viewControllerLayoutGuide type="bottom" id="s3S-gl-57r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="en8-SM-f0A">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="health" translatesAutoresizingMaskIntoConstraints="NO" id="mqD-cJ-MAC">
+                                <rect key="frame" x="280" y="104" width="41" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="xIu-kV-wIp"/>
+                                    <constraint firstAttribute="width" constant="41" id="y7I-Iu-q75"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BK9-9S-C0k">
+                                <rect key="frame" x="16" y="147" width="568" height="433"/>
+                                <string key="text">Drink Keeper estimates your Blood Alcohol Content using your height, weight, and sex. Without any one of these items the app cannot determine how much or how little alcohol may be affecting you. If this info is stored in your devices Health App, you can give permission to access and that will be that. If you do not have any data in Health, or choose not to allow Drink Keeper access, this health info can be manually entered. Your data will never leave your device, and will never be sold to a third party.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="s3S-gl-57r" firstAttribute="top" secondItem="BK9-9S-C0k" secondAttribute="bottom" constant="20" id="4zV-gV-qww"/>
+                            <constraint firstItem="mqD-cJ-MAC" firstAttribute="top" secondItem="BfX-Hd-l3g" secondAttribute="bottom" constant="40" id="Ew7-xD-Bw6"/>
+                            <constraint firstAttribute="centerX" secondItem="mqD-cJ-MAC" secondAttribute="centerX" id="Xiq-B2-snu"/>
+                            <constraint firstItem="BK9-9S-C0k" firstAttribute="trailing" secondItem="en8-SM-f0A" secondAttribute="trailingMargin" id="d3C-gp-vmw"/>
+                            <constraint firstItem="BK9-9S-C0k" firstAttribute="leading" secondItem="en8-SM-f0A" secondAttribute="leadingMargin" id="evq-GV-cGz"/>
+                            <constraint firstItem="BK9-9S-C0k" firstAttribute="top" secondItem="mqD-cJ-MAC" secondAttribute="bottom" constant="8" id="wYC-3F-eXA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Info" id="3Q7-tu-7IF">
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="dkS-US-R1b">
+                            <connections>
+                                <action selector="handleClosePressed:" destination="tAe-pw-NdL" id="0hY-de-hau"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="infoLabel" destination="BK9-9S-C0k" id="dPm-5C-8BF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WYj-cs-8d5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-8" y="2300"/>
         </scene>
     </scenes>
     <resources>

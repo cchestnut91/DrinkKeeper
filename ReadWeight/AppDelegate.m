@@ -17,6 +17,7 @@
 @implementation AppDelegate
 {
     NSDictionary *launchParams;
+    NSSet *objectTypes;
 }
 
 
@@ -28,6 +29,7 @@
     if (self.healthStore == nil){
         self.healthStore = [[HKHealthStore alloc] init];
     }
+    objectTypes = [NSSet setWithObjects:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil];
     
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsURLKey]){
         NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
