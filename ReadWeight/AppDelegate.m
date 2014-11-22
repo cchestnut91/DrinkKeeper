@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "StoredDataManager.h"
+#import "JNKeychain.h"
 #import <Crashlytics/Crashlytics.h>
 #import "Drink.h"
 
@@ -24,6 +25,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [JNKeychain deleteValueForKey:@"weight"];
+    [JNKeychain deleteValueForKey:@"sex"];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
