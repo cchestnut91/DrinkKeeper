@@ -106,6 +106,7 @@
                     <connections>
                         <segue destination="br8-WA-jYv" kind="show" identifier="addDrink" id="OB1-CI-WCn"/>
                         <segue destination="DsC-W0-ThQ" kind="presentation" identifier="getWeight" id="Hp6-Ce-qCt"/>
+                        <segue destination="GTQ-4L-gO0" kind="presentation" identifier="oldSetupSegue" id="dLQ-K3-alP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TBN-kj-5sD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -929,7 +930,7 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BK9-9S-C0k">
                                 <rect key="frame" x="16" y="147" width="568" height="433"/>
-                                <string key="text">Drink Keeper estimates your Blood Alcohol Content using your height, weight, and sex. Without any one of these items the app cannot determine how much or how little alcohol may be affecting you. If this info is stored in your devices Health App, you can give permission to access and that will be that. If you do not have any data in Health, or choose not to allow Drink Keeper access, this health info can be manually entered. Your data will never leave your device, and will never be sold to a third party.</string>
+                                <string key="text">Drink Keeper estimates your Blood Alcohol Content using your weight and sex. Without any one of these items the app cannot determine how much or how little alcohol may be affecting you. If this info is stored in your devices Health App, you can give permission to access and that will be that. If you do not have any data in Health, or choose not to allow Drink Keeper access, this health info can be manually entered. Your data will never leave your device, and will never be sold to a third party.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

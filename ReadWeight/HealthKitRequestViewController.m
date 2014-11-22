@@ -28,8 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    noWeightData = NO;
-    noSexData = NO;
+    noWeightData = YES;
+    noSexData = YES;
     
 }
 
@@ -63,7 +63,7 @@
                 [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
                                                                         forKey:[StoredDataManager weightKey]];
                 
-                if (userSex == nil){
+                if (noSexData){
                     [self getSexManually];
                 } else {
                     [self finishCollectingData];
@@ -95,7 +95,8 @@
                                            } else {
                                                sex = [HealthKitManager sexForNumber:0];
                                            }
-                                           [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex] forKey:[StoredDataManager sexKey]];
+                                           [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                                                   forKey:[StoredDataManager sexKey]];
                                            [self finishCollectingData];
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
@@ -122,9 +123,13 @@
             
             if (results.count == 0 || [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]] == 0){
                 noWeightData = YES;
+            } else {
+                noWeightData = NO;
             }
             if (userSex == nil || [userSex biologicalSex] == HKBiologicalSexNotSet) {
                 noSexData = YES;
+            } else {
+                noSexData = NO;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -137,7 +142,7 @@
                     if (noSexData){
                         [self getSexManually];
                     } else {
-                        [[StoredDataManager sharedInstance] updateDictionaryWithObject:userSex
+                        [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:[userSex biologicalSex]]
                                                                                 forKey:[StoredDataManager sexKey]];
                         [self finishCollectingData];
                     }
@@ -165,7 +170,15 @@
 }
 
 -(void)finishCollectingData{
-    
+    UIAlertController *important = [UIAlertController alertControllerWithTitle:@"Important Message"
+                                                                       message:@"Drink Keeper is for entertainment purposes only. Given the info about you and what you've had to drink, it can estimate blood alcohol content. This is not a definitive reading, and should not be taken as infallible. Never drink and drive."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+    [important addAction:[UIAlertAction actionWithTitle:@"Understood"
+                                                  style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction *action){
+                                                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                                }]];
+    [self presentViewController:important animated:YES completion:nil];
 }
 
 @end

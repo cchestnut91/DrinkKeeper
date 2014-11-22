@@ -180,6 +180,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AB3B1F7E1A213451004CD7C2 /* Data Managers */ = {
+			isa = PBXGroup;
+			children = (
+				ABD49FEE1A1F772700A3A059 /* HealthKitManager.h */,
+				ABD49FED1A1F772700A3A059 /* HealthKitManager.m */,
+				ABD49FF01A20310F00A3A059 /* StoredDataManager.h */,
+				AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */,
+			);
+			name = "Data Managers";
+			sourceTree = "<group>";
+		};
 		AB5FAABF19D4EFB100793572 /* Action Picker */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,10 +265,7 @@
 				ABB53C0A19D48FBE006F9DBD /* ReadWeight.entitlements */,
 				ABB53BE819D48F9F006F9DBD /* AppDelegate.h */,
 				ABB53BE919D48F9F006F9DBD /* AppDelegate.m */,
-				ABD49FEE1A1F772700A3A059 /* HealthKitManager.h */,
-				ABD49FED1A1F772700A3A059 /* HealthKitManager.m */,
-				ABD49FF01A20310F00A3A059 /* StoredDataManager.h */,
-				AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */,
+				AB3B1F7E1A213451004CD7C2 /* Data Managers */,
 				AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */,
 				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
 				ABE4F47A19D610240048D853 /* Drink.h */,
