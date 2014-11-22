@@ -6,7 +6,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Drink Tracker-->
+        <!--Drink Keeper-->
         <scene sceneID="lzb-qJ-ZOS">
             <objects>
                 <tableViewController id="CUy-Xr-czU" customClass="MainTableViewController" sceneMemberID="viewController">
@@ -96,7 +96,7 @@
                             <outlet property="delegate" destination="CUy-Xr-czU" id="WgN-Tm-FFh"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Drink Tracker" id="owC-ry-mlY">
+                    <navigationItem key="navigationItem" title="Drink Keeper" id="owC-ry-mlY">
                         <barButtonItem key="rightBarButtonItem" title="Me" id="ekZ-TZ-CMs">
                             <connections>
                                 <segue destination="XXl-6Z-7cn" kind="presentation" identifier="openOptions" id="dLO-vl-X9y"/>
