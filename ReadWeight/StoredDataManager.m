@@ -68,6 +68,33 @@ static StoredDataManager *sharedObject;
                               forKey:sexKey];
 }
 
+-(id)getWeight{
+    if ([self healthDictionary]){
+        return [[self healthDictionary] objectForKey:weightKey];
+    }
+    return nil;
+}
+
+-(id)getSex{
+    if ([self healthDictionary]){
+        return [[self healthDictionary] objectForKey:sexKey];
+    }
+    return nil;
+}
+
+-(BOOL)needsSetup{
+    if ([self healthDictionary] == nil){
+        return YES;
+    }
+    if ([self getWeight] == nil){
+        return YES;
+    }
+    if ([self getSex] == nil){
+        return YES;
+    }
+    return NO;
+}
+
 -(NSDictionary *)healthDictionary{
     return (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
 }

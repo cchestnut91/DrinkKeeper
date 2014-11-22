@@ -10,8 +10,6 @@
 		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
 		AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		AB56FA3A19D5F5C100E04C87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB56FA3919D5F5C100E04C87 /* Main.storyboard */; };
-		AB5FAAB519D4DEC300793572 /* GetWeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAAB419D4DEC300793572 /* GetWeightViewController.m */; };
-		AB5FAAB819D4E81500793572 /* GetSexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAAB719D4E81500793572 /* GetSexViewController.m */; };
 		AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABA19D4EC0900793572 /* ActionSheetStringPicker.m */; };
 		AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABD19D4EFAB00793572 /* AbstractActionSheetPicker.m */; };
 		AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAAC119D4F00900793572 /* ActionSheetCustomPicker.m */; };
@@ -92,10 +90,6 @@
 		AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
 		AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNKeychain.m; sourceTree = "<group>"; };
 		AB56FA3919D5F5C100E04C87 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		AB5FAAB319D4DEC300793572 /* GetWeightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetWeightViewController.h; sourceTree = "<group>"; };
-		AB5FAAB419D4DEC300793572 /* GetWeightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetWeightViewController.m; sourceTree = "<group>"; };
-		AB5FAAB619D4E81500793572 /* GetSexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetSexViewController.h; sourceTree = "<group>"; };
-		AB5FAAB719D4E81500793572 /* GetSexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetSexViewController.m; sourceTree = "<group>"; };
 		AB5FAAB919D4EC0900793572 /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
 		AB5FAABA19D4EC0900793572 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
 		AB5FAABC19D4EFAB00793572 /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
@@ -121,7 +115,6 @@
 		AB68BF421A1D927100CD87F3 /* RegistrationWorkflowNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationWorkflowNavigationController.m; sourceTree = "<group>"; };
 		AB68BF4B1A1E261600CD87F3 /* HealthKitInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthKitInfoViewController.h; sourceTree = "<group>"; };
 		AB68BF4C1A1E261600CD87F3 /* HealthKitInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthKitInfoViewController.m; sourceTree = "<group>"; };
-		AB68BF521A1EDCF300CD87F3 /* StoredDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoredDataManager.h; sourceTree = "<group>"; };
 		AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoredDataManager.m; sourceTree = "<group>"; };
 		AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
@@ -138,6 +131,7 @@
 		ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		ABD49FED1A1F772700A3A059 /* HealthKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
 		ABD49FEE1A1F772700A3A059 /* HealthKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
+		ABD49FF01A20310F00A3A059 /* StoredDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoredDataManager.h; sourceTree = "<group>"; };
 		ABE0E4BF19DA18A000B25923 /* BACLabelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACLabelTableViewCell.h; sourceTree = "<group>"; };
 		ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACLabelTableViewCell.m; sourceTree = "<group>"; };
 		ABE0E4C219DA18B600B25923 /* AddDrinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDrinkTableViewCell.h; sourceTree = "<group>"; };
@@ -262,7 +256,7 @@
 				ABB53BE919D48F9F006F9DBD /* AppDelegate.m */,
 				ABD49FEE1A1F772700A3A059 /* HealthKitManager.h */,
 				ABD49FED1A1F772700A3A059 /* HealthKitManager.m */,
-				AB68BF521A1EDCF300CD87F3 /* StoredDataManager.h */,
+				ABD49FF01A20310F00A3A059 /* StoredDataManager.h */,
 				AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */,
 				AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */,
 				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
@@ -276,11 +270,7 @@
 				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
 				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
 				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
-				AB5FAAB319D4DEC300793572 /* GetWeightViewController.h */,
-				AB5FAAB419D4DEC300793572 /* GetWeightViewController.m */,
 				AB68BF441A1D927700CD87F3 /* Registration Workflow */,
-				AB5FAAB619D4E81500793572 /* GetSexViewController.h */,
-				AB5FAAB719D4E81500793572 /* GetSexViewController.m */,
 				ABE262E519D6041D00710A3F /* SaveDrinkViewController.h */,
 				ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */,
 				AB5FAAD319D4F17A00793572 /* TransLoadingIndicator.h */,
@@ -539,7 +529,6 @@
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
 				ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,
-				AB5FAAB819D4E81500793572 /* GetSexViewController.m in Sources */,
 				AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */,
 				ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */,
 				AB5FAACE19D4F00900793572 /* ActionSheetDatePicker.m in Sources */,
@@ -549,7 +538,6 @@
 				ABB53BE719D48F9F006F9DBD /* main.m in Sources */,
 				AB5FAAD219D4F00900793572 /* SWActionSheet.m in Sources */,
 				AB5FAACF19D4F00900793572 /* ActionSheetDistancePicker.m in Sources */,
-				AB5FAAB519D4DEC300793572 /* GetWeightViewController.m in Sources */,
 				ABE0E4C119DA18A000B25923 /* BACLabelTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

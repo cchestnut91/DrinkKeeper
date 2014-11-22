@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "StoredDataManager.h"
 #import <Crashlytics/Crashlytics.h>
 #import "Drink.h"
 
@@ -85,7 +86,7 @@
         }
         consumed = consumed * 0.806 * 1.2;
         double genderStandard = [self genderStandard];
-        double kgweight =([[JNKeychain loadValueForKey:@"weight"] doubleValue] * 0.454);
+        double kgweight =([[[StoredDataManager sharedInstance] getWeight] doubleValue] * 0.454);
         double weightMod = genderStandard * kgweight;
         double newBac = consumed / weightMod;
         double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
@@ -105,7 +106,7 @@
 }
 
 -(double)metabolismConstant{
-    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     if (sex == HKBiologicalSexMale){
         return 0.015;
     } else if (sex == HKBiologicalSexFemale){
@@ -116,7 +117,7 @@
 }
 
 -(double)genderStandard{
-    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     if (sex == HKBiologicalSexMale){
         return 0.58;
     } else if (sex == HKBiologicalSexFemale){

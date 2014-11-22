@@ -20,6 +20,9 @@
 +(NSString *)sexKey;
 
 -(NSDictionary *)healthDictionary;
+-(id)getWeight;
+-(id)getSex;
+-(BOOL)needsSetup;
 -(void)updateDictionaryWithObject:(id)objectIn forKey:(NSString *)keyIn;
 
 @end

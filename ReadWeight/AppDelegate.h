@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <HealthKit/HealthKit.h>
-#import "JNKeychain.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

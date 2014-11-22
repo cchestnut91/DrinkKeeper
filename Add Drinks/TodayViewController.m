@@ -9,6 +9,7 @@
 #import "TodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import "Drink.h"
+#import "StoredDataManager.h"
 #import "JNKeychain.h"
 #import <HealthKit/HealthKit.h>
 
@@ -40,7 +41,7 @@
 }
 
 -(double)metabolismConstant{
-    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     if (sex == HKBiologicalSexMale){
         return 0.015;
     } else if (sex == HKBiologicalSexFemale){
@@ -51,7 +52,7 @@
 }
 
 -(double)genderStandard{
-    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     if (sex == HKBiologicalSexMale){
         return 0.58;
     } else if (sex == HKBiologicalSexFemale){
@@ -71,7 +72,7 @@
     }
     consumed = consumed * 0.806 * 1.2;
     double genderStandard = [self genderStandard];
-    double kgweight =([[JNKeychain loadValueForKey:@"weight"] doubleValue] * 0.454);
+    double kgweight =([[[StoredDataManager sharedInstance] getWeight] doubleValue] * 0.454);
     double weightMod = genderStandard * kgweight;
     double newBac = consumed / weightMod;
     double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;

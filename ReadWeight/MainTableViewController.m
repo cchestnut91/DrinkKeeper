@@ -7,6 +7,7 @@
 //
 
 #import "MainTableViewController.h"
+#import "StoredDataManager.h"
 #import <Crashlytics/Crashlytics.h>
 #import "AppDelegate.h"
 #import "AddDrinkViewController.h"
@@ -44,7 +45,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (results.count != 0){
                     double weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
-                    [JNKeychain saveValue:[NSNumber numberWithDouble:weight] forKey:@"weight"];
+                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
+                                                                            forKey:[StoredDataManager weightKey]];
                 }
             });
         }
@@ -77,14 +79,8 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    if ([JNKeychain loadValueForKey:@"weight"] == nil || [JNKeychain loadValueForKey:@"sex"] == nil){
+    if ([[StoredDataManager sharedInstance] needsSetup]){
         [self performSegueWithIdentifier:@"getWeight" sender:self];
-    } else {
-        if (![[NSFileManager defaultManager] fileExistsAtPath:healthPermissionFile]){
-            [healthStore requestAuthorizationToShareTypes:[NSSet setWithObject:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent]] readTypes:[NSSet setWithObjects:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex], [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil] completion:^(BOOL success, NSError *error){
-                [NSKeyedArchiver archiveRootObject:[NSNumber numberWithBool:YES] toFile:healthPermissionFile];
-            }];
-        }
     }
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
@@ -199,7 +195,7 @@
             }
             consumed = consumed * 0.806 * 1.2;
             double genderStandard = [self genderStandard];
-            double kgweight =([[JNKeychain loadValueForKey:@"weight"] doubleValue] * 0.454);
+            double kgweight =([[[StoredDataManager sharedInstance] getWeight] doubleValue] * 0.454);
             double weightMod = genderStandard * kgweight;
             double newBac = consumed / weightMod;
             double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
@@ -208,7 +204,8 @@
             if (bac == INFINITY || bac == -INFINITY || bac != bac){
                 // Issue with some number
                 bac = 0.0;
-                [Crashlytics setFloatValue:[[JNKeychain loadValueForKey:@"weight"] floatValue] forKey:@"weight"];
+                [Crashlytics setFloatValue:[[[StoredDataManager sharedInstance] getWeight] floatValue]
+                                    forKey:@"weight"];
                 [Crashlytics setFloatValue:genderStandard forKey:@"genderStandard"];
                 [Crashlytics setFloatValue:kgweight forKey:@"kgWeight"];
                 [Crashlytics setFloatValue:weightMod forKey:@"weightMod"];
@@ -246,7 +243,7 @@
 }
 
 -(double)metabolismConstant{
-    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     if (sex == HKBiologicalSexMale){
         return 0.015;
     } else if (sex == HKBiologicalSexFemale){
@@ -257,7 +254,7 @@
 }
 
 -(double)genderStandard{
-    NSInteger sex = [[JNKeychain loadValueForKey:@"sex"] integerValue];
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     if (sex == HKBiologicalSexMale){
         return 0.58;
     } else if (sex == HKBiologicalSexFemale){
