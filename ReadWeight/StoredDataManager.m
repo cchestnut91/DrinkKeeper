@@ -58,12 +58,12 @@ static StoredDataManager *sharedObject;
                                 toFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
 }
 
--(void)setWeight:(HKSample *)weightIn{
+-(void)setWeight:(id)weightIn{
     [self updateDictionaryWithObject:weightIn
                               forKey:weightKey];
 }
 
--(void)setSex:(HKBiologicalSexObject*)sexIn{
+-(void)setSex:(id)sexIn{
     [self updateDictionaryWithObject:sexIn
                               forKey:sexKey];
 }

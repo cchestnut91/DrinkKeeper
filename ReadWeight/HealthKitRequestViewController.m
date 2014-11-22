@@ -9,6 +9,7 @@
 #import "HealthKitRequestViewController.h"
 #import "HealthKitManager.h"
 #import "StoredDataManager.h"
+#import "ActionSheetStringPicker.h"
 #import <HealthKit/HealthKit.h>
 
 @interface HealthKitRequestViewController ()
@@ -40,44 +41,61 @@
 - (IBAction)handleManualPressed:(id)sender {
     noSexData = YES;
     [self getWeightManually];
-    /*
-    UIAlertController *confirmManual = [UIAlertController alertControllerWithTitle:@"Enter Weight Manually" message:@"Are you sure you want to enter your weight manually? Using Health allows info to stay up to date and accurate" preferredStyle:UIAlertControllerStyleAlert];
-    [confirmManual addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [confirmManual addAction:[UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [enterWeight addTextFieldWithConfigurationHandler:^(UITextField *textField){
-            [textField setKeyboardType:UIKeyboardTypeDecimalPad];
-        }];
-        [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-        [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            if (![[[enterWeight textFields][0] text] isEqualToString:@""]){
-                weight = [[enterWeight textFields][0] text].doubleValue;
-                [JNKeychain saveValue:[NSNumber numberWithDouble:weight] forKey:@"weight"];
-                [self performSegueWithIdentifier:@"getSex" sender:self];
-            } else {
-                [self presentViewController:enterWeight animated:YES completion:nil];
-            }
-        }]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:enterWeight animated:YES completion:nil];
-        });
-    }]];
-    [self presentViewController:confirmManual animated:YES completion:nil];
-     */
 }
 
 -(void)getWeightManually{
-// Get Weight
-    if (userSex == nil){
-        noSexData = YES;
-    }
-    if (noSexData){
-        [self getSexManually];
-    }
+    // Get Weight
+    UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [enterWeight addTextFieldWithConfigurationHandler:^(UITextField *textField){
+        [textField setKeyboardType:UIKeyboardTypeDecimalPad];
+    }];
+    [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        if (![[[enterWeight textFields][0] text] isEqualToString:@""]){
+            
+// TODO check if string is valid double value
+            weight = [[enterWeight textFields][0] text].doubleValue;
+            
+            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
+                                                                    forKey:[StoredDataManager weightKey]];
+            
+            if (userSex == nil){
+                noSexData = YES;
+            }
+            if (noSexData){
+                [self getSexManually];
+            }
+        } else {
+            [self presentViewController:enterWeight animated:YES completion:nil];
+        }
+    }]];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:enterWeight animated:YES completion:nil];
+    });
 }
 
 -(void)getSexManually{
-// Get Sex
+    // Get Sex
+    
+    [ActionSheetStringPicker showPickerWithTitle:@"Select a Sex"
+                                            rows:@[@"Male", @"Female", @"Other"]
+                                initialSelection:0
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                           HKBiologicalSex sex;
+                                           if (selectedIndex == 0){
+                                               sex = [HealthKitManager sexForNumber:2];
+                                           } else if (selectedIndex == 1) {
+                                               sex = [HealthKitManager sexForNumber:1];
+                                           } else {
+                                               sex = [HealthKitManager sexForNumber:0];
+                                           }
+                                           [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex] forKey:[StoredDataManager sexKey]];
+//TODO Move on to next View
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                         NSLog(@"Block Picker Canceled");
+                                     }
+                                          origin:self.useManualButton];
 }
 
 - (IBAction)handleHealthPressed:(id)sender {

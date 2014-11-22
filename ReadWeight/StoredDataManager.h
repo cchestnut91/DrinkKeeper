@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HealthKitManager.h"
 
 @interface StoredDataManager : NSObject
 

@@ -66,4 +66,16 @@ static HealthKitManager *sharedObject;
     }
 }
 
++(NSInteger)sexForNumber:(NSInteger)number{
+    if (!number){
+        return 0;
+    }
+    if (number == HKBiologicalSexFemale){
+        return HKBiologicalSexFemale;
+    }
+    if (number == HKBiologicalSexMale){
+        return HKBiologicalSexMale;
+    }
+    return HKBiologicalSexNotSet;
+}
 @end

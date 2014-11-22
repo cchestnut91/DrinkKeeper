@@ -27,4 +27,6 @@
 
 -(HKBiologicalSexObject *)performSexQuery;
 
++(NSInteger)sexForNumber:(NSInteger)number;
+
 @end
