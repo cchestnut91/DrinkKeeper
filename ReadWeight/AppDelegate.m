@@ -26,8 +26,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [JNKeychain deleteValueForKey:@"weight"];
-    [JNKeychain deleteValueForKey:@"sex"];
+    // Transfers any saved keychain values from previous versions
+    [self clearKeychain];
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -50,6 +50,20 @@
     
     [Crashlytics startWithAPIKey:@"6e63974ab6878886d46e46575c43005ded0cfa08"];
     return YES;
+}
+
+-(void)clearKeychain{
+    if ([JNKeychain loadValueForKey:@"weight"]){
+        [[StoredDataManager sharedInstance] setValue:[JNKeychain loadValueForKey:@"weight"]
+                                              forKey:[StoredDataManager weightKey]];
+    }
+    if ([JNKeychain loadValueForKey:@"sex"]){
+        [[StoredDataManager sharedInstance] setValue:[JNKeychain loadValueForKey:@"sex"]
+                                              forKey:[StoredDataManager sexKey]];
+    }
+    
+    [JNKeychain deleteValueForKey:@"weight"];
+    [JNKeychain deleteValueForKey:@"sex"];
 }
 
 -(void)openLaunchURL:(NSNotification *)notification{
