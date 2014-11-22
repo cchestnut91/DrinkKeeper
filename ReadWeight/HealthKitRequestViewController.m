@@ -52,26 +52,32 @@
     [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         if (![[[enterWeight textFields][0] text] isEqualToString:@""]){
+            NSString *string = [[enterWeight textFields][0] text];
+            NSNumberFormatter * formatter = [NSNumberFormatter new];
             
-// TODO check if string is valid double value
-            weight = [[enterWeight textFields][0] text].doubleValue;
+            NSNumber *num = [formatter numberFromString:string];
             
-            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
-                                                                    forKey:[StoredDataManager weightKey]];
-            
-            if (userSex == nil){
-                noSexData = YES;
+            if (num != nil){
+                weight = [[enterWeight textFields][0] text].doubleValue;
+                
+                [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
+                                                                        forKey:[StoredDataManager weightKey]];
+                
+                if (userSex == nil){
+                    [self getSexManually];
+                } else {
+                    [self finishCollectingData];
+                }
+            } else {
+                [enterWeight setMessage:@"Enter a valid weight, containing numbers and decimals only"];
+                [self presentViewController:enterWeight animated:YES completion:nil];
             }
-            if (noSexData){
-                [self getSexManually];
-            }
+            
         } else {
             [self presentViewController:enterWeight animated:YES completion:nil];
         }
     }]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:enterWeight animated:YES completion:nil];
-    });
+    [self presentViewController:enterWeight animated:YES completion:nil];
 }
 
 -(void)getSexManually{
@@ -90,7 +96,7 @@
                                                sex = [HealthKitManager sexForNumber:0];
                                            }
                                            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex] forKey:[StoredDataManager sexKey]];
-//TODO Move on to next View
+                                           [self finishCollectingData];
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                          NSLog(@"Block Picker Canceled");
@@ -123,19 +129,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (noWeightData){
-                    UIAlertController *noWeightAlert = [UIAlertController alertControllerWithTitle:@"No Weight Data"
-                                                                                          message:@"There is no weight data available from Health. To proceed you must add your weight."
-                                                                                   preferredStyle:UIAlertControllerStyleActionSheet];
-                    [noWeightAlert addAction:[UIAlertAction actionWithTitle:@"Enter Weight"
-                                                                     style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction *action){
-                                                                       [self getWeightManually];
-                                                                   }]];
-                    [noWeightAlert addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                                      style:UIAlertActionStyleCancel handler:nil]];
-                    [self presentViewController:noWeightAlert
-                                       animated:YES
-                                     completion:nil];
+                    [self showNoWeightDataAlert];
                 } else {
                     weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
                     [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
@@ -145,11 +139,33 @@
                     } else {
                         [[StoredDataManager sharedInstance] updateDictionaryWithObject:userSex
                                                                                 forKey:[StoredDataManager sexKey]];
+                        [self finishCollectingData];
                     }
                 }
             });
         }
     }];
+}
+
+-(void)showNoWeightDataAlert{
+    
+    UIAlertController *noWeightAlert = [UIAlertController alertControllerWithTitle:@"No Weight Data"
+                                                                           message:@"There is no weight data available from Health. To proceed you must add your weight."
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+    [noWeightAlert addAction:[UIAlertAction actionWithTitle:@"Enter Weight"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action){
+                                                        [self getWeightManually];
+                                                    }]];
+    [noWeightAlert addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                      style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:noWeightAlert
+                       animated:YES
+                     completion:nil];
+}
+
+-(void)finishCollectingData{
+    
 }
 
 @end
