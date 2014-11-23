@@ -8,7 +8,21 @@
 
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
+#import "StoredDataManager.h"
 
 @interface InterfaceController : WKInterfaceController
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *bacLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *addDrinkLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *beerButton;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *wineButton;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *liquorButton;
+- (IBAction)pressBeer;
+- (IBAction)pressWine;
+- (IBAction)pressLiquor;
+
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *defaultGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *setupGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *refreshButton;
+- (IBAction)refreshTapped;
 
 @end

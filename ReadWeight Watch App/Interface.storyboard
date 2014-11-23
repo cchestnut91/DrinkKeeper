@@ -1,21 +1,135 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6221" systemVersion="14A389" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="6221" systemVersion="14C68k" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="3734"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--Drinks-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModuleProvider=""/>
+                <controller identifier="mainView" title="Drinks" id="AgC-eL-Hgc" customClass="InterfaceController">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="WVg-YN-3aB">
+                            <items>
+                                <label width="1" height="54" alignment="left" text="0.022" textAlignment="center" id="WAv-L5-AFM">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
+                                </label>
+                                <separator alignment="left" id="HJj-kS-o1V">
+                                    <color key="color" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </separator>
+                                <label width="136" alignment="left" text="Add Drink" id="5LF-2Y-gQK"/>
+                                <group width="1" alignment="left" hasDetent="YES" id="RgS-d0-byj">
+                                    <items>
+                                        <button width="40" height="40" alignment="left" backgroundImage="beerGlassSmall" id="SYb-TJ-lrm">
+                                            <connections>
+                                                <action selector="pressBeer" destination="AgC-eL-Hgc" id="9pv-tz-cT8"/>
+                                            </connections>
+                                        </button>
+                                        <button width="40" height="40" alignment="center" backgroundImage="wineSmall" id="Q1c-GV-dPD">
+                                            <connections>
+                                                <action selector="pressWine" destination="AgC-eL-Hgc" id="AHu-kV-f1D"/>
+                                            </connections>
+                                        </button>
+                                        <button width="40" height="40" alignment="right" backgroundImage="liquorGlassSmall" id="PMw-Io-kbJ">
+                                            <connections>
+                                                <action selector="pressLiquor" destination="AgC-eL-Hgc" id="E7e-za-M2M"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="bZg-s2-mjm">
+                            <items>
+                                <label width="1" height="27" alignment="left" text="Needs Setup" textAlignment="center" id="PS2-oF-16c">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                                <label width="1" alignment="left" text="Open Drink Keeper on your iPhone to setup" numberOfLines="0" id="03E-fu-5DY"/>
+                                <button width="1" alignment="left" title="Refresh" id="uoD-aN-MBb">
+                                    <connections>
+                                        <action selector="refreshTapped" destination="AgC-eL-Hgc" id="o8c-Va-yiD"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="addDrinkLabel" destination="5LF-2Y-gQK" id="4mN-rL-8XB"/>
+                        <outlet property="bacLabel" destination="WAv-L5-AFM" id="x5r-P9-6LK"/>
+                        <outlet property="beerButton" destination="SYb-TJ-lrm" id="tB4-4o-QVJ"/>
+                        <outlet property="defaultGroup" destination="WVg-YN-3aB" id="RGp-3L-kVU"/>
+                        <outlet property="liquorButton" destination="PMw-Io-kbJ" id="MMX-gM-xxk"/>
+                        <outlet property="refreshButton" destination="uoD-aN-MBb" id="hWn-KK-7ZA"/>
+                        <outlet property="setupGroup" destination="bZg-s2-mjm" id="0jM-u2-d4b"/>
+                        <outlet property="wineButton" destination="Q1c-GV-dPD" id="d5z-c8-fJg"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347"/>
+        </scene>
+        <!--Add-->
+        <scene sceneID="LVq-Jz-zuK">
+            <objects>
+                <controller identifier="Add Drink" title="Add" id="dbk-vr-rN3" customClass="AddDrinkController">
+                    <items>
+                        <label alignment="left" text="Strength" id="1aH-rv-gbb">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <slider width="1" alignment="left" continuous="YES" maximum="2" steps="2" id="AaJ-aB-tql">
+                            <connections>
+                                <action selector="sizeValueChanged:" destination="dbk-vr-rN3" id="U7P-5X-5Zd"/>
+                            </connections>
+                        </slider>
+                        <slider width="1" alignment="left" continuous="YES" maximum="3" steps="3" id="aHG-Jo-dwY">
+                            <connections>
+                                <action selector="sizeValueChanged:" destination="dbk-vr-rN3" id="Dhk-QU-ETV"/>
+                            </connections>
+                        </slider>
+                        <label width="134" alignment="left" text="Size Label" id="xJz-eM-tIo">
+                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                        </label>
+                        <separator alignment="left" id="b4L-85-vLX"/>
+                        <label alignment="left" text="When" id="z2w-li-hyC">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <slider width="1" alignment="left" continuous="YES" maximum="19" steps="19" id="3o7-pO-BNe">
+                            <connections>
+                                <action selector="whenValueChanged:" destination="dbk-vr-rN3" id="6n0-ah-lOI"/>
+                            </connections>
+                        </slider>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="phS-Fb-3O7">
+                            <items>
+                                <label alignment="left" text="Time" id="r0U-FO-uSG"/>
+                                <label alignment="right" text="Now" textAlignment="right" id="p4x-gI-Ali"/>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Add Drink" id="pJb-J6-VMB">
+                            <connections>
+                                <action selector="addDrink" destination="dbk-vr-rN3" id="c2L-85-RQC"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="addButton" destination="pJb-J6-VMB" id="cTF-lE-8Uw"/>
+                        <outlet property="fourOptionSlider" destination="aHG-Jo-dwY" id="JnA-j9-eUK"/>
+                        <outlet property="strengthLabel" destination="1aH-rv-gbb" id="afw-X8-7dB"/>
+                        <outlet property="strengthPreviewLabel" destination="xJz-eM-tIo" id="m0n-LT-pLF"/>
+                        <outlet property="threeOptionSlider" destination="AaJ-aB-tql" id="YkF-CM-ub7"/>
+                        <outlet property="whenLabel" destination="z2w-li-hyC" id="LQo-vM-dww"/>
+                        <outlet property="whenPreview" destination="r0U-FO-uSG" id="Yx7-lO-84U"/>
+                        <outlet property="whenRelativeLabel" destination="p4x-gI-Ali" id="fW2-8Y-m6A"/>
+                        <outlet property="whenSlider" destination="3o7-pO-BNe" id="A3b-aq-jre"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="506" y="346.5"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
             <objects>
-                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModuleProvider="">
+                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
                     <items>
                         <group alignment="left" id="t8f-Gd-c4y"/>
                         <group alignment="left" id="uCw-4Q-Ouw"/>
@@ -44,9 +158,10 @@
         <!--Notification Controller-->
         <scene sceneID="KIl-fV-djm">
             <objects>
-                <controller id="gdX-wl-uQE" customClass="NotificationController" customModuleProvider=""/>
+                <controller id="gdX-wl-uQE" customClass="NotificationController"/>
             </objects>
             <point key="canvasLocation" x="553" y="1001"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>

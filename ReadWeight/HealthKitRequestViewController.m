@@ -188,6 +188,8 @@
     [important addAction:[UIAlertAction actionWithTitle:@"Understood"
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *action){
+                                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"finishSetup"
+                                                                                                        object:nil];
                                                     [self.navigationController dismissViewControllerAnimated:YES
                                                                                                   completion:^(void){
                                                                                                       UIAlertController *allowNotifications = [UIAlertController alertControllerWithTitle:@"Allow Notifications"

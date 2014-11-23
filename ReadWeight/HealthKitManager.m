@@ -87,6 +87,9 @@ static HealthKitManager *sharedObject;
         }
         
         [self saveBacWithValue:[[StoredDataManager sharedInstance] getCurrentBAC]];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedHealthValues"
+                                                            object:nil];
     }];
 }
 
