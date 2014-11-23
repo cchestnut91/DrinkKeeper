@@ -31,11 +31,6 @@
     
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    if (self.healthStore == nil){
-        self.healthStore = [[HKHealthStore alloc] init];
-    }
-    objectTypes = [NSSet setWithObjects:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil];
-    
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsURLKey]){
         NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
         if ([[url absoluteString] containsString:@"?"]){
@@ -43,7 +38,10 @@
             
             if ([params objectForKey:@"type"]){
                 launchParams = params;
-                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLaunchURL:) name:@"checkLaunchURL" object:nil];
+                [[NSNotificationCenter defaultCenter] addObserver:self
+                                                         selector:@selector(openLaunchURL:)
+                                                             name:@"checkLaunchURL"
+                                                           object:nil];
             }
         }
     }
@@ -85,10 +83,6 @@
 
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     
-    if (self.healthStore == nil){
-        self.healthStore = [[HKHealthStore alloc] init];
-    }
-    
     double bac = 0.0;
     NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
     NSString *bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
@@ -117,7 +111,7 @@
     }
     HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
     HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
-    [self.healthStore saveObject:bacSample withCompletion:nil];
+    [[HealthKitManager sharedInstance] storeSample:bacSample withCallback:nil];
     [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
 
     completionHandler(UIBackgroundFetchResultNewData);

@@ -37,6 +37,22 @@ static HealthKitManager *sharedObject;
     return self;
 }
 
++(NSString *)stringForSex{
+    HKBiologicalSex sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
+    if (sex == HKBiologicalSexFemale){
+        return @"Female";
+    } else if (sex == HKBiologicalSexMale){
+        return @"Male";
+    } else {
+        return @"Other";
+    }
+}
+
+-(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(bool success, NSError *error))callback{
+    [self.healthStore saveObject:sampleIn
+                  withCompletion:callback];
+}
+
 -(void)performHealthKitRequestWithCallback:(void (^)(BOOL success, NSError *error))callback{
     if (self.healthStore){
         [self.healthStore requestAuthorizationToShareTypes:self.writeTypes

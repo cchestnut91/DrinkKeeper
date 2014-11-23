@@ -25,7 +25,6 @@
     double bac;
     NSString *bacFile;
     NSString *sessionFile;
-    HKHealthStore *healthStore;
     NSString *healthPermissionFile;
     BOOL showUber;
     NSTimer *timer;
@@ -37,10 +36,10 @@
     bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
     
     bac = 0.0;
-    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
+    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
+                                toFile:bacFile];
     
-    healthStore = [(AppDelegate *)[UIApplication sharedApplication].delegate healthStore];
-    HKSampleQuery *weightQuery = [[HKSampleQuery alloc] initWithSampleType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass] predicate:nil limit:1 sortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO]] resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error){
+    [[HealthKitManager sharedInstance] performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
         if (!error){
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (results.count != 0){
@@ -51,13 +50,15 @@
             });
         }
     }];
-    [healthStore executeQuery:weightQuery];
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:bacFile]){
         bac = [(NSNumber *)[NSKeyedUnarchiver unarchiveObjectWithFile:bacFile] doubleValue];
     } else {
         bac = 0.0;
-        [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
+        [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
+                                    toFile:bacFile];
     }
+    
     if (bac > 0.04){
         showUber = true;
     } else {
@@ -88,7 +89,8 @@
     } else {
         HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
         HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
-        [healthStore saveObject:bacSample withCompletion:nil];
+        [[HealthKitManager sharedInstance] storeSample:bacSample
+                                          withCallback:nil];
     }
     
     timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(recalcBAC) userInfo:nil repeats:YES];
@@ -214,19 +216,31 @@
                 [Crashlytics setFloatValue:metabolized forKey:@"metabolized"];
                 [Crashlytics setFloatValue:bac forKey:@"bac"];
                 UIAlertController *failed = [UIAlertController alertControllerWithTitle:@"Calculation Failed" message:@"There was an issue calculating your BAC. It was probably an issue saving your weight. Would you like to send a crash report? This will close the app." preferredStyle:UIAlertControllerStyleAlert];
-                [failed addAction:[UIAlertAction actionWithTitle:@"Send Report" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-                    [[Crashlytics sharedInstance] crash];
-                }]];
-                [failed addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil]];
-                [self presentViewController:failed animated:YES completion:nil];
+                [failed addAction:[UIAlertAction actionWithTitle:@"Send Report"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *action){
+                                                             [[Crashlytics sharedInstance] crash];
+                                                         }]];
+                [failed addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil]];
+                [self presentViewController:failed
+                                   animated:YES
+                                 completion:nil];
             } else {
                 if (bac <= 0.0){
-                    [[NSFileManager defaultManager] removeItemAtPath:sessionFile error:nil];
+                    [[NSFileManager defaultManager] removeItemAtPath:sessionFile
+                                                               error:nil];
                     bac = 0.0;
                 }
                 HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-                HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
-                [healthStore saveObject:bacSample withCompletion:nil];
+                HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
+                                                                              quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
+                                                                                                        doubleValue:bac / 100]
+                                                                             startDate:[NSDate date]
+                                                                               endDate:[NSDate date]];
+                [[HealthKitManager sharedInstance] storeSample:bacSample
+                                                  withCallback:nil];
                 [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
                 if (bac > 0.04){
                     showUber = true;

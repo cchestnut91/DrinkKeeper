@@ -29,4 +29,8 @@
 
 +(NSInteger)sexForNumber:(NSInteger)number;
 
+-(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(bool success, NSError *error))callback;
+
++(NSString *)stringForSex;
+
 @end

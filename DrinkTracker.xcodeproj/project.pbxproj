@@ -36,7 +36,6 @@
 		ABE0E4C119DA18A000B25923 /* BACLabelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */; };
 		ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */; };
 		ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */; };
-		ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */; };
 		ABE4F47C19D610240048D853 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		ABE4F47F19D640D10048D853 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F47E19D640D10048D853 /* Crashlytics.framework */; };
 		ABE4F48719D750990048D853 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F48619D750990048D853 /* NotificationCenter.framework */; };
@@ -138,8 +137,6 @@
 		ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkTableViewCell.m; sourceTree = "<group>"; };
 		ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDrinkViewController.h; sourceTree = "<group>"; };
 		ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkViewController.m; sourceTree = "<group>"; };
-		ABE262E519D6041D00710A3F /* SaveDrinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaveDrinkViewController.h; sourceTree = "<group>"; };
-		ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaveDrinkViewController.m; sourceTree = "<group>"; };
 		ABE4F47A19D610240048D853 /* Drink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drink.h; sourceTree = "<group>"; };
 		ABE4F47B19D610240048D853 /* Drink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drink.m; sourceTree = "<group>"; };
 		ABE4F47E19D640D10048D853 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -296,8 +293,6 @@
 				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
 				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
 				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
-				ABE262E519D6041D00710A3F /* SaveDrinkViewController.h */,
-				ABE262E619D6041D00710A3F /* SaveDrinkViewController.m */,
 				AB3B1F801A21396E004CD7C2 /* Widgets */,
 				AB56FA3919D5F5C100E04C87 /* Main.storyboard */,
 				AB5FAABF19D4EFB100793572 /* Action Picker */,
@@ -554,7 +549,6 @@
 				ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,
 				AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */,
-				ABE262E719D6041D00710A3F /* SaveDrinkViewController.m in Sources */,
 				AB5FAACE19D4F00900793572 /* ActionSheetDatePicker.m in Sources */,
 				AB68BF541A1EDCF300CD87F3 /* StoredDataManager.m in Sources */,
 				AB68BF4D1A1E261600CD87F3 /* HealthKitInfoViewController.m in Sources */,

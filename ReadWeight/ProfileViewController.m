@@ -17,7 +17,6 @@
 
 @implementation ProfileViewController
 {
-    HKHealthStore *healthStore;
     NSInteger sex;
     double weight;
 }
@@ -25,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    healthStore = [(AppDelegate *)[UIApplication sharedApplication].delegate healthStore];
     sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
     weight = [[[StoredDataManager sharedInstance] getWeight] doubleValue];
     [self.weightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
@@ -72,11 +70,7 @@
         [self presentViewController:confirmManual animated:YES completion:nil];
     }]];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        [healthStore requestAuthorizationToShareTypes:nil readTypes:[NSSet setWithObjects:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil] completion:^(BOOL success, NSError *error){
-            if (success) {
-                [self performWeightQuery];
-            }
-        }];
+        [self performWeightQuery];
     }]];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:updateWeight animated:YES completion:nil];
@@ -108,57 +102,36 @@
 }
 
 -(void)performWeightQuery{
-    HKSampleQuery *weightQuery = [[HKSampleQuery alloc] initWithSampleType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass] predicate:nil limit:1 sortDescriptors:@[[[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO]] resultsHandler:^(HKSampleQuery *query, NSArray *results, NSError *error){
+    [[HealthKitManager sharedInstance] performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
         if (!error){
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (results.count == 0){
-                    UIAlertController *noWeightData = [UIAlertController alertControllerWithTitle:@"No Weight Data" message:@"There is no weight data available from Health. To proceed you must add weight data into the Health app, or enter manually without saving to Health." preferredStyle:UIAlertControllerStyleActionSheet];
-                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Add to Health" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                        [healthStore requestAuthorizationToShareTypes:[NSSet setWithObjects:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass], nil] readTypes:nil completion:^(BOOL success, NSError *error){
-                            if ([healthStore authorizationStatusForType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass]] == HKAuthorizationStatusSharingAuthorized){
-                                UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight" message:@"Enter in lbs." preferredStyle:UIAlertControllerStyleAlert];
-                                [enterWeight addTextFieldWithConfigurationHandler:^(UITextField *textField){
-                                    [textField setKeyboardType:UIKeyboardTypeDecimalPad];
-                                }];
-                                [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-                                [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                                    if (![[[enterWeight textFields][0] text] isEqualToString:@""]){
-                                        weight = [[enterWeight textFields][0] text].doubleValue;
-                                        HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMass];
-                                        HKQuantitySample *weightQuantity = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit poundUnit] doubleValue:weight] startDate:[NSDate date] endDate:[NSDate date]];
-                                        [healthStore saveObject:weightQuantity
-                                                 withCompletion:nil];
-                                        [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
-                                                                                                forKey:[StoredDataManager weightKey]];
-                                        [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight] forState:UIControlStateNormal];
-                                    } else {
-                                        [self presentViewController:enterWeight animated:YES completion:nil];
-                                    }
-                                }]];
-                                [self presentViewController:enterWeight animated:YES completion:nil];
-                            } else {
-                                UIAlertController *difficult = [UIAlertController alertControllerWithTitle:@"Cannot write to Health" message:@"Without access to Health this app will need to get your weight manually" preferredStyle:UIAlertControllerStyleAlert];
-                                [difficult addAction:[UIAlertAction actionWithTitle:@"Enter Manually" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                                    [self getManualWeight];
-                                }]];
-                            }
-                        }];
-                    }]];
-                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Enter Manually" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-                        [self getManualWeight];
-                    }]];
-                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-                    [self presentViewController:noWeightData animated:YES completion:nil];
+                    UIAlertController *noWeightData = [UIAlertController alertControllerWithTitle:@"No Weight Data"
+                                                                                          message:@"There is no weight data available from Health. To proceed you must enter your weight."
+                                                                                   preferredStyle:UIAlertControllerStyleActionSheet];
+                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Enter Manually"
+                                                                     style:UIAlertActionStyleDefault
+                                                                   handler:^(UIAlertAction *action){
+                                                                       [self getManualWeight];
+                                                                   }]];
+                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                                     style:UIAlertActionStyleCancel
+                                                                   handler:nil]];
+                    [self presentViewController:noWeightData
+                                       animated:YES
+                                     completion:nil];
                 } else {
                     weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
-                    [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight] forState:UIControlStateNormal];
+                    [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight]
+                                       forState:UIControlStateNormal];
                     [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
                                                                             forKey:[StoredDataManager weightKey]];
                 }
             });
+        } else {
+// TODO Error handling
         }
     }];
-    [healthStore executeQuery:weightQuery];
 }
 
 - (IBAction)pressSex:(id)sender {
@@ -167,44 +140,37 @@
         [self selectSexManual];
     }]];
     [updateSex addAction:[UIAlertAction actionWithTitle:@"Use Health" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        [healthStore requestAuthorizationToShareTypes:nil readTypes:[NSSet setWithObject:[HKCharacteristicType characteristicTypeForIdentifier:HKCharacteristicTypeIdentifierBiologicalSex]] completion:^(BOOL success, NSError *error){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                sex = [[healthStore biologicalSexWithError:nil] biologicalSex];
-                HKBiologicalSexObject *sexObject = [healthStore biologicalSexWithError:nil];
-                sex = [sexObject biologicalSex];
-                if (sex == HKBiologicalSexNotSet){
-                    UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex"
-                                                                                          message:@"Health indicates you identify as 'Other'. Is this correct?"
-                                                                                   preferredStyle:UIAlertControllerStyleAlert];
-                    [confirmOther addAction:[UIAlertAction actionWithTitle:@"Change"
-                                                                     style:UIAlertActionStyleDestructive
-                                                                   handler:^(UIAlertAction *action){
-                                                                       dispatch_async(dispatch_get_main_queue(), ^{
-                                                                           [self selectSexManual];
-                                                                       });
-                                                                   }]];
-                    [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm"
-                                                                     style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction *action){
-                                                                       // Move on
-                                                                       [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
-                                                                                forKey:[StoredDataManager sexKey]];
-                                                                       [self.sexButton setTitle:[self stringForSex]
-                                                                                       forState:UIControlStateNormal];
-                                                                   }]];
-                    [self presentViewController:confirmOther
-                                       animated:YES
-                                     completion:nil];
-                } else {
-                    
-                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
-                                                                            forKey:[StoredDataManager sexKey]];
-                    [self.sexButton setTitle:[self stringForSex]
-                                    forState:UIControlStateNormal];
-                }
-            });
+        sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
+        if (sex == HKBiologicalSexNotSet){
+            UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex"
+                                                                                  message:@"Health indicates you identify as 'Other'. Is this correct?"
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+            [confirmOther addAction:[UIAlertAction actionWithTitle:@"Change"
+                                                             style:UIAlertActionStyleDestructive
+                                                           handler:^(UIAlertAction *action){
+                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                                   [self selectSexManual];
+                                                               });
+                                                           }]];
+            [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action){
+                                                               // Move on
+                                                               [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                                                                       forKey:[StoredDataManager sexKey]];
+                                                               [self.sexButton setTitle:[HealthKitManager stringForSex]
+                                                                               forState:UIControlStateNormal];
+                                                           }]];
+            [self presentViewController:confirmOther
+                               animated:YES
+                             completion:nil];
+        } else {
             
-        }];
+            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                    forKey:[StoredDataManager sexKey]];
+            [self.sexButton setTitle:[self stringForSex]
+                            forState:UIControlStateNormal];
+        }
     }]];
     [updateSex addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:updateSex animated:YES completion:nil];
