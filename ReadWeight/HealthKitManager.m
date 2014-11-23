@@ -32,7 +32,8 @@ static HealthKitManager *sharedObject;
     
     self.healthStore = [[HKHealthStore alloc] init];
     
-    self.sortRecentFirst = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate ascending:NO];
+    self.sortRecentFirst = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
+                                                       ascending:NO];
     
     return self;
 }

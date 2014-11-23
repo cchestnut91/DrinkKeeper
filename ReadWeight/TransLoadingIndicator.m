@@ -143,17 +143,22 @@
 }
 
 -(void)fadeAway{
-    [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(animate) userInfo:nil repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0.5
+                                     target:self
+                                   selector:@selector(animate)
+                                   userInfo:nil
+                                    repeats:NO];
 }
 
 -(void)animate{
     [self setHidden:NO];
-    [UIView animateWithDuration:1 animations:^{
-        [self setAlpha:0];
-    } completion:^(BOOL finished){
-        [self hide];
-        [self setOpaque:YES];
-    }];
+    [UIView animateWithDuration:1
+                     animations:^{
+                         [self setAlpha:0];
+                     } completion:^(BOOL finished){
+                         [self hide];
+                         [self setOpaque:YES];
+                     }];
 }
 
 -(void)changeText:(NSString *)textIn{

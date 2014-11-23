@@ -64,36 +64,53 @@
     } else {
         showUber = false;
     }
-    sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path ];
+    sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path];
     healthPermissionFile = [[containerURL URLByAppendingPathComponent:@"askedPermission"] path];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDrink:) name:@"newDrink" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addDrinkFromURL:) name:@"addFromURL" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLaunchURL" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addDrink:)
+                                                 name:@"newDrink"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(addDrinkFromURL:)
+                                                 name:@"addFromURL"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLaunchURL"
+                                                        object:nil];
 }
 
 -(void)addDrinkFromURL:(NSNotification *)notification{
     NSDictionary *userInfo = [notification userInfo];
     typePressed = [userInfo objectForKey:@"type"];
-    [self performSegueWithIdentifier:@"addDrink" sender:self];
+    [self performSegueWithIdentifier:@"addDrink"
+                              sender:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     if ([[StoredDataManager sharedInstance] needsSetup]){
-        [self performSegueWithIdentifier:@"getWeight" sender:self];
+        [self performSegueWithIdentifier:@"getWeight"
+                                  sender:self];
     }
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
         [self recalcBAC];
     } else {
         HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-        HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
+        HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
+                                                                      quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
+                                                                                                doubleValue:bac / 100]
+                                                                     startDate:[NSDate date]
+                                                                       endDate:[NSDate date]];
         [[HealthKitManager sharedInstance] storeSample:bacSample
                                           withCallback:nil];
     }
     
-    timer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(recalcBAC) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:30
+                                             target:self
+                                           selector:@selector(recalcBAC)
+                                           userInfo:nil
+                                            repeats:YES];
     [timer fire];
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
 }
@@ -160,21 +177,26 @@
 }
 
 -(void)addDrink:(NSNotification *)notification{
-    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound categories:nil]];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound
+                                                                                                          categories:nil]];
     NSMutableDictionary *drinkingSession;
     NSDictionary *userInfo = [notification userInfo];
     Drink *newDrink = [userInfo objectForKey:@"newDrink"];
     if (bac == 0.0 || bac != bac){
         drinkingSession = [[NSMutableDictionary alloc] init];
-        [drinkingSession setObject:[newDrink time] forKey:@"startTime"];
-        [drinkingSession setObject:[[NSArray alloc] init] forKey:@"drinks"];
+        [drinkingSession setObject:[newDrink time]
+                            forKey:@"startTime"];
+        [drinkingSession setObject:[[NSArray alloc] init]
+                            forKey:@"drinks"];
     } else {
         drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
     }
     NSMutableArray *drinks = [NSMutableArray arrayWithArray:[drinkingSession objectForKey:@"drinks"]];
     [drinks addObject:newDrink];
-    [drinkingSession setObject:drinks forKey:@"drinks"];
-    [NSKeyedArchiver archiveRootObject:drinkingSession toFile:sessionFile];
+    [drinkingSession setObject:drinks
+                        forKey:@"drinks"];
+    [NSKeyedArchiver archiveRootObject:drinkingSession
+                                toFile:sessionFile];
     [self recalcBAC];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     UILocalNotification *sober = [[UILocalNotification alloc] init];
@@ -208,14 +230,23 @@
                 bac = 0.0;
                 [Crashlytics setFloatValue:[[[StoredDataManager sharedInstance] getWeight] floatValue]
                                     forKey:@"weight"];
-                [Crashlytics setFloatValue:genderStandard forKey:@"genderStandard"];
-                [Crashlytics setFloatValue:kgweight forKey:@"kgWeight"];
-                [Crashlytics setFloatValue:weightMod forKey:@"weightMod"];
-                [Crashlytics setFloatValue:newBac forKey:@"newBac"];
-                [Crashlytics setFloatValue:hoursDrinking forKey:@"hoursDrinking"];
-                [Crashlytics setFloatValue:metabolized forKey:@"metabolized"];
-                [Crashlytics setFloatValue:bac forKey:@"bac"];
-                UIAlertController *failed = [UIAlertController alertControllerWithTitle:@"Calculation Failed" message:@"There was an issue calculating your BAC. It was probably an issue saving your weight. Would you like to send a crash report? This will close the app." preferredStyle:UIAlertControllerStyleAlert];
+                [Crashlytics setFloatValue:genderStandard
+                                    forKey:@"genderStandard"];
+                [Crashlytics setFloatValue:kgweight
+                                    forKey:@"kgWeight"];
+                [Crashlytics setFloatValue:weightMod
+                                    forKey:@"weightMod"];
+                [Crashlytics setFloatValue:newBac
+                                    forKey:@"newBac"];
+                [Crashlytics setFloatValue:hoursDrinking
+                                    forKey:@"hoursDrinking"];
+                [Crashlytics setFloatValue:metabolized
+                                    forKey:@"metabolized"];
+                [Crashlytics setFloatValue:bac
+                                    forKey:@"bac"];
+                UIAlertController *failed = [UIAlertController alertControllerWithTitle:@"Calculation Failed"
+                                                                                message:@"There was an issue calculating your BAC. It was probably an issue saving your weight. Would you like to send a crash report? This will close the app."
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
                 [failed addAction:[UIAlertAction actionWithTitle:@"Send Report"
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction *action){
@@ -241,7 +272,8 @@
                                                                                endDate:[NSDate date]];
                 [[HealthKitManager sharedInstance] storeSample:bacSample
                                                   withCallback:nil];
-                [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
+                [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
+                                            toFile:bacFile];
                 if (bac > 0.04){
                     showUber = true;
                 } else {
@@ -288,11 +320,13 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:YES];
     if (indexPath.section == 1){
         NSArray *types = @[@"Beer", @"Wine", @"Liquor"];
         typePressed = types[indexPath.row];
-        [self performSegueWithIdentifier:@"addDrink" sender:self];
+        [self performSegueWithIdentifier:@"addDrink"
+                                  sender:self];
     } else if (indexPath.section == 2){
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];

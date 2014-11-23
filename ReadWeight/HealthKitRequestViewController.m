@@ -45,39 +45,51 @@
 
 -(void)getWeightManually{
     // Get Weight
-    UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight"
+                                                                         message:nil
+                                                                  preferredStyle:UIAlertControllerStyleAlert];
     [enterWeight addTextFieldWithConfigurationHandler:^(UITextField *textField){
         [textField setKeyboardType:UIKeyboardTypeDecimalPad];
     }];
-    [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        if (![[[enterWeight textFields][0] text] isEqualToString:@""]){
-            NSString *string = [[enterWeight textFields][0] text];
-            NSNumberFormatter * formatter = [NSNumberFormatter new];
-            
-            NSNumber *num = [formatter numberFromString:string];
-            
-            if (num != nil){
-                weight = [[enterWeight textFields][0] text].doubleValue;
-                
-                [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
-                                                                        forKey:[StoredDataManager weightKey]];
-                
-                if (noSexData){
-                    [self getSexManually];
-                } else {
-                    [self finishCollectingData];
-                }
-            } else {
-                [enterWeight setMessage:@"Enter a valid weight, containing numbers and decimals only"];
-                [self presentViewController:enterWeight animated:YES completion:nil];
-            }
-            
-        } else {
-            [self presentViewController:enterWeight animated:YES completion:nil];
-        }
-    }]];
-    [self presentViewController:enterWeight animated:YES completion:nil];
+    [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                    style:UIAlertActionStyleCancel
+                                                  handler:nil]];
+    [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done"
+                                                    style:UIAlertActionStyleDefault
+                                                  handler:^(UIAlertAction *action){
+                                                      if (![[[enterWeight textFields][0] text] isEqualToString:@""]){
+                                                          NSString *string = [[enterWeight textFields][0] text];
+                                                          NSNumberFormatter * formatter = [NSNumberFormatter new];
+                                                          
+                                                          NSNumber *num = [formatter numberFromString:string];
+                                                          
+                                                          if (num != nil){
+                                                              weight = [[enterWeight textFields][0] text].doubleValue;
+                                                              
+                                                              [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
+                                                                                                                      forKey:[StoredDataManager weightKey]];
+                                                              
+                                                              if (noSexData){
+                                                                  [self getSexManually];
+                                                              } else {
+                                                                  [self finishCollectingData];
+                                                              }
+                                                          } else {
+                                                              [enterWeight setMessage:@"Enter a valid weight, containing numbers and decimals only"];
+                                                              [self presentViewController:enterWeight
+                                                                                 animated:YES
+                                                                               completion:nil];
+                                                          }
+                                                          
+                                                      } else {
+                                                          [self presentViewController:enterWeight
+                                                                             animated:YES
+                                                                           completion:nil];
+                                                      }
+                                                  }]];
+    [self presentViewController:enterWeight
+                       animated:YES
+                     completion:nil];
 }
 
 -(void)getSexManually{
@@ -176,9 +188,12 @@
     [important addAction:[UIAlertAction actionWithTitle:@"Understood"
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *action){
-                                                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                                                    [self.navigationController dismissViewControllerAnimated:YES
+                                                                                                  completion:nil];
                                                 }]];
-    [self presentViewController:important animated:YES completion:nil];
+    [self presentViewController:important
+                       animated:YES
+                     completion:nil];
 }
 
 @end

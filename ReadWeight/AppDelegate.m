@@ -65,8 +65,12 @@
 }
 
 -(void)openLaunchURL:(NSNotification *)notification{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"checkLaunchURL" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL" object:nil userInfo:launchParams];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"checkLaunchURL"
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL"
+                                                        object:nil
+                                                      userInfo:launchParams];
 }
 
 -(NSDictionary *)getParamsFromURL:(NSURL *)url{
@@ -75,7 +79,8 @@
     NSString *params = [[url absoluteString] componentsSeparatedByString:@"?"][1];
     NSArray *groups = [params componentsSeparatedByString:@"&"];
     for (NSString *group in groups){
-        [ret setObject:[group componentsSeparatedByString:@"="][1] forKey:[group componentsSeparatedByString:@"="][0]];
+        [ret setObject:[group componentsSeparatedByString:@"="][1]
+                forKey:[group componentsSeparatedByString:@"="][0]];
     }
     
     return ret;
@@ -86,7 +91,7 @@
     double bac = 0.0;
     NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
     NSString *bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
-    NSString *sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path ];
+    NSString *sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path];
     if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
         
         NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
@@ -110,9 +115,15 @@
         }
     }
     HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit] doubleValue:bac / 100] startDate:[NSDate date] endDate:[NSDate date]];
-    [[HealthKitManager sharedInstance] storeSample:bacSample withCallback:nil];
-    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac] toFile:bacFile];
+    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
+                                                                  quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
+                                                                                            doubleValue:bac / 100]
+                                                                 startDate:[NSDate date]
+                                                                   endDate:[NSDate date]];
+    [[HealthKitManager sharedInstance] storeSample:bacSample
+                                      withCallback:nil];
+    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
+                                toFile:bacFile];
 
     completionHandler(UIBackgroundFetchResultNewData);
 }
@@ -144,7 +155,9 @@
         NSDictionary *params = [self getParamsFromURL:url];
         
         if ([params objectForKey:@"type"]){
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL" object:nil userInfo:params];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL"
+                                                                object:nil
+                                                              userInfo:params];
         }
     }
     

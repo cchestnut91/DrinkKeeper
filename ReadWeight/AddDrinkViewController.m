@@ -26,8 +26,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self.multButton addTarget:self action:@selector(pressMult:) forControlEvents:UIControlEventTouchUpInside];
-    [self.timeButton addTarget:self action:@selector(pressTime:) forControlEvents:UIControlEventTouchUpInside];
+    [self.multButton addTarget:self
+                        action:@selector(pressMult:)
+              forControlEvents:UIControlEventTouchUpInside];
+    [self.timeButton addTarget:self
+                        action:@selector(pressTime:)
+              forControlEvents:UIControlEventTouchUpInside];
     offset = 0;
     
     if ([self.type isEqualToString:@"Liquor"]){
@@ -43,7 +47,8 @@
         sizeOptions = @[@"12 oz.", @"16 oz.", @"20 oz."];
         mult = 1.3333;
     }
-    [self.multButton setTitle:[sizeOptions objectAtIndex:1] forState:UIControlStateNormal];
+    [self.multButton setTitle:[sizeOptions objectAtIndex:1]
+                     forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,20 +57,26 @@
 }
 
 -(IBAction)pressMult:(id)sender{
-    [ActionSheetStringPicker showPickerWithTitle:@"Drink Strength" rows:sizeOptions initialSelection:1 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
-        [self.multButton setTitle:[sizeOptions objectAtIndex:selectedIndex] forState:UIControlStateNormal];
-        if ([self.type isEqualToString:@"Liquor"]){
-            mult = (selectedIndex + 1) / 2.0;
-        } else if ([self.type isEqualToString:@"Wine"]){
-            NSArray *options = @[@0.75, @1, @1.25];
-            mult = [options[selectedIndex] doubleValue];
-        } else if ([self.type isEqualToString:@"Beer"]){
-            NSArray *options = @[@1, @1.333, @1.666];
-            mult = [options[selectedIndex] doubleValue];
-        }
-    } cancelBlock:^(ActionSheetStringPicker *picker) {
-        NSLog(@"Block Picker Canceled");
-    } origin:sender];
+    [ActionSheetStringPicker showPickerWithTitle:@"Drink Strength"
+                                            rows:sizeOptions
+                                initialSelection:1
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
+                                           [self.multButton setTitle:[sizeOptions objectAtIndex:selectedIndex]
+                                                            forState:UIControlStateNormal];
+                                           if ([self.type isEqualToString:@"Liquor"]){
+                                               mult = (selectedIndex + 1) / 2.0;
+                                           } else if ([self.type isEqualToString:@"Wine"]){
+                                               NSArray *options = @[@0.75, @1, @1.25];
+                                               mult = [options[selectedIndex] doubleValue];
+                                           } else if ([self.type isEqualToString:@"Beer"]){
+                                               NSArray *options = @[@1, @1.333, @1.666];
+                                               mult = [options[selectedIndex] doubleValue];
+                                           }
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                           NSLog(@"Block Picker Canceled");
+                                     }
+                                          origin:sender];
 }
 
 -(IBAction)pressTime:(id)sender{
@@ -76,19 +87,29 @@
     }
     [timeOptions addObject:@"1 Hour Ago"];
     
-    [ActionSheetStringPicker showPickerWithTitle:@"When?" rows:timeOptions initialSelection:2 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
-        [self.timeButton setTitle:[timeOptions objectAtIndex:selectedIndex] forState:UIControlStateNormal];
-        offset = selectedIndex * 5 * 60;
-    } cancelBlock:^(ActionSheetStringPicker *picker) {
-        NSLog(@"Block Picker Canceled");
-    } origin:sender];
+    [ActionSheetStringPicker showPickerWithTitle:@"When?"
+                                            rows:timeOptions
+                                initialSelection:2
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
+                                           [self.timeButton setTitle:[timeOptions objectAtIndex:selectedIndex] forState:UIControlStateNormal];
+                                           offset = selectedIndex * 5 * 60;
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                         NSLog(@"Block Picker Canceled");
+                                     }
+                                          origin:sender];
 }
 
 -(IBAction)pressGo:(id)sender{
     drinkTime = [[NSDate date] dateByAddingTimeInterval:-1 * offset];
-    Drink *newDrink = [[Drink alloc] initWithType:self.type andMultiplier:[NSNumber numberWithDouble:mult] andTime:drinkTime];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:newDrink forKey:@"newDrink"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newDrink" object:nil userInfo:userInfo];
+    Drink *newDrink = [[Drink alloc] initWithType:self.type
+                                    andMultiplier:[NSNumber numberWithDouble:mult]
+                                          andTime:drinkTime];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:newDrink
+                                                         forKey:@"newDrink"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newDrink"
+                                                        object:nil
+                                                      userInfo:userInfo];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
