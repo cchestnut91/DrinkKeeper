@@ -29,7 +29,11 @@
 
 +(NSInteger)sexForNumber:(NSInteger)number;
 
--(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(bool success, NSError *error))callback;
+-(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(BOOL success, NSError *error))callback;
+
+-(void)saveBacWithValue:(double)bacValue;
+
+-(void)updateHealthValues;
 
 +(NSString *)stringForSex;
 

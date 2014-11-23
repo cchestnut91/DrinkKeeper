@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
+		AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
+		AB3B1F841A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
+		AB3B1F851A218A1F004CD7C2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
 		AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		AB56FA3A19D5F5C100E04C87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB56FA3919D5F5C100E04C87 /* Main.storyboard */; };
 		AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABA19D4EC0900793572 /* ActionSheetStringPicker.m */; };
@@ -86,6 +89,8 @@
 /* Begin PBXFileReference section */
 		AB125D8E19D8790A00D16008 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		AB125D8F19D8790A00D16008 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		AB3B1F811A217496004CD7C2 /* DrinkingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinkingSession.h; sourceTree = "<group>"; };
+		AB3B1F821A217496004CD7C2 /* DrinkingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinkingSession.m; sourceTree = "<group>"; };
 		AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
 		AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNKeychain.m; sourceTree = "<group>"; };
 		AB56FA3919D5F5C100E04C87 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -171,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ABE4F48719D750990048D853 /* NotificationCenter.framework in Frameworks */,
+				AB3B1F851A218A1F004CD7C2 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +291,8 @@
 				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
 				ABE4F47A19D610240048D853 /* Drink.h */,
 				ABE4F47B19D610240048D853 /* Drink.m */,
+				AB3B1F811A217496004CD7C2 /* DrinkingSession.h */,
+				AB3B1F821A217496004CD7C2 /* DrinkingSession.m */,
 				ABE0E4BF19DA18A000B25923 /* BACLabelTableViewCell.h */,
 				ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */,
 				ABE0E4C219DA18B600B25923 /* AddDrinkTableViewCell.h */,
@@ -548,6 +556,7 @@
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
 				ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,
+				AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */,
 				AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */,
 				AB5FAACE19D4F00900793572 /* ActionSheetDatePicker.m in Sources */,
 				AB68BF541A1EDCF300CD87F3 /* StoredDataManager.m in Sources */,
@@ -572,6 +581,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB3B1F841A217496004CD7C2 /* DrinkingSession.m in Sources */,
 				AB85F45719D75FA700298746 /* JNKeychain.m in Sources */,
 				AB85F45619D75F4600298746 /* Drink.m in Sources */,
 				AB68BF561A1EE8B200CD87F3 /* StoredDataManager.m in Sources */,

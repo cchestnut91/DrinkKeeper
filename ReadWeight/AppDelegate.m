@@ -88,66 +88,11 @@
 
 -(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
     
-    double bac = 0.0;
-    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
-    NSString *bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
-    NSString *sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
-        
-        NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
-        NSArray *drinks = [drinkingSession objectForKey:@"drinks"];
-        double consumed = 0.0;
-        for (Drink *drink in drinks){
-            double add = [[drink multiplier] doubleValue];
-            consumed += add;
-        }
-        consumed = consumed * 0.806 * 1.2;
-        double genderStandard = [self genderStandard];
-        double kgweight =([[[StoredDataManager sharedInstance] getWeight] doubleValue] * 0.454);
-        double weightMod = genderStandard * kgweight;
-        double newBac = consumed / weightMod;
-        double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
-        double metabolized = [self metabolismConstant] * hoursDrinking;
-        bac = newBac - metabolized;
-        if (bac <= 0.0){
-            [[NSFileManager defaultManager] removeItemAtPath:sessionFile error:nil];
-            bac = 0.0;
-        }
-    }
-    HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
-                                                                  quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
-                                                                                            doubleValue:bac / 100]
-                                                                 startDate:[NSDate date]
-                                                                   endDate:[NSDate date]];
-    [[HealthKitManager sharedInstance] storeSample:bacSample
-                                      withCallback:nil];
-    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
-                                toFile:bacFile];
+    double bac = [[StoredDataManager sharedInstance] getCurrentBAC];
+    
+    [[HealthKitManager sharedInstance] saveBacWithValue:bac];
 
     completionHandler(UIBackgroundFetchResultNewData);
-}
-
--(double)metabolismConstant{
-    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
-    if (sex == HKBiologicalSexMale){
-        return 0.015;
-    } else if (sex == HKBiologicalSexFemale){
-        return 0.017;
-    } else {
-        return 0.016;
-    }
-}
-
--(double)genderStandard{
-    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
-    if (sex == HKBiologicalSexMale){
-        return 0.58;
-    } else if (sex == HKBiologicalSexFemale){
-        return 0.49;
-    } else {
-        return 0.535;
-    }
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{

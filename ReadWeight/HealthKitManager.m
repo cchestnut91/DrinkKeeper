@@ -7,6 +7,7 @@
 //
 
 #import "HealthKitManager.h"
+#import "StoredDataManager.h"
 
 @implementation HealthKitManager
 
@@ -38,6 +39,17 @@ static HealthKitManager *sharedObject;
     return self;
 }
 
+-(void)saveBacWithValue:(double)bacValue{
+    HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
+    HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
+                                                                  quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
+                                                                                            doubleValue:bacValue]
+                                                                 startDate:[NSDate date]
+                                                                   endDate:[NSDate date]];
+    [self storeSample:bacSample
+         withCallback:nil];
+}
+
 +(NSString *)stringForSex{
     HKBiologicalSex sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
     if (sex == HKBiologicalSexFemale){
@@ -49,9 +61,33 @@ static HealthKitManager *sharedObject;
     }
 }
 
--(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(bool success, NSError *error))callback{
+-(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(BOOL success, NSError *error))callback{
     [self.healthStore saveObject:sampleIn
                   withCompletion:callback];
+}
+
+-(void)updateHealthValues{
+    [self performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
+        double newWeight = 0.0;
+        if (!error){
+            if (results.count > 0){
+                newWeight = [[results lastObject] doubleValueForUnit:[HKUnit poundUnit]];
+                if (newWeight != [[[StoredDataManager sharedInstance] getWeight] doubleValue]){
+                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:newWeight]
+                                                                            forKey:[StoredDataManager weightKey]];
+                }
+            }
+        }
+        HKBiologicalSex sex = [[self performSexQuery] biologicalSex];
+        if (sex != [[[StoredDataManager sharedInstance] getSex] integerValue]){
+            if (sex != HKBiologicalSexNotSet){
+                [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                        forKey:[StoredDataManager sexKey]];
+            }
+        }
+        
+        [self saveBacWithValue:[[StoredDataManager sharedInstance] getCurrentBAC]];
+    }];
 }
 
 -(void)performHealthKitRequestWithCallback:(void (^)(BOOL success, NSError *error))callback{

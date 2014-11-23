@@ -10,6 +10,7 @@
 
 NSString *weightKey = @"weight";
 NSString *sexKey = @"sex";
+NSString *sessionDir;
 
 @implementation StoredDataManager
 
@@ -35,16 +36,39 @@ static StoredDataManager *sharedObject;
     self = [super init];
     
     self.healthData = @"healthData";
-    self.sessionDirectory = @"drinkingSessions";
+    self.sessionDirectory = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"drinkingSessions"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:self.sessionDirectory]){
+        [[NSFileManager defaultManager] createDirectoryAtPath:self.sessionDirectory
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:NULL];
+    }
     
     return self;
 }
 
+-(DrinkingSession *)currentSession{
+    NSError *error = nil;
+    NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.sessionDirectory
+                                                                                error:&error];
+    
+    for (NSString *sessionFile in sessionFiles){
+        DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
+        if ([session getUpdatedBAC] == 0.0){
+            continue;
+        }
+        if ([[session drinks] count] > 0){
+            [NSKeyedArchiver archiveRootObject:session
+                                        toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+            return session;
+        }
+    }
+    return nil;
+}
+
 - (NSString *)applicationDocumentsDirectory
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    return basePath;
+    return [[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"] path];
 }
 
 -(void)updateDictionaryWithObject:(id)objectIn forKey:(NSString *)keyIn{
@@ -82,6 +106,39 @@ static StoredDataManager *sharedObject;
     return nil;
 }
 
+-(void)addDrinkToCurrentSession:(Drink *)drinkIn{
+    DrinkingSession *session = [self currentSession];
+    if (!session){
+        session = [[DrinkingSession alloc] init];
+    }
+    [session addDrinkToSession:drinkIn];
+    
+    [NSKeyedArchiver archiveRootObject:session
+                                toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+}
+
+-(double)metabolismConstant{
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
+    if (sex == 2){
+        return 0.015;
+    } else if (sex == 1){
+        return 0.017;
+    } else {
+        return 0.016;
+    }
+}
+
+-(double)genderStandard{
+    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
+    if (sex == 2){
+        return 0.58;
+    } else if (sex == 1){
+        return 0.49;
+    } else {
+        return 0.535;
+    }
+}
+
 -(BOOL)needsSetup{
     if ([self healthDictionary] == nil){
         return YES;
@@ -97,6 +154,14 @@ static StoredDataManager *sharedObject;
 
 -(NSDictionary *)healthDictionary{
     return (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
+}
+
+-(double)getCurrentBAC{
+    if ([self currentSession]){
+// TODO Save Current Session?
+        return [[self currentSession] getUpdatedBAC];
+    }
+    return 0.0;
 }
 
 @end

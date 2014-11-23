@@ -1,0 +1,26 @@
+//
+//  DrinkingSession.h
+//  DrinkTracker
+//
+//  Created by Calvin Chestnut on 11/22/14.
+//  Copyright (c) 2014 Calvin Chestnut. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "Drink.h"
+
+@interface DrinkingSession : NSObject <NSCoding>
+
+@property (nonatomic, strong) NSDate *startTime;
+@property (strong, nonatomic) NSString *fileName;
+@property (strong, nonatomic) NSNumber *bac;
+@property (strong, nonatomic) NSArray *drinks;
+
+-(void)addDrinkToSession:(Drink *)drinkIn;
+-(double)getUpdatedBAC;
+-(void)updateBAC:(double)bacIn;
+
+-(id)initWithCoder:(NSCoder *)aDecoder;
+-(void)encodeWithCoder:(NSCoder *)aCoder;
+
+@end

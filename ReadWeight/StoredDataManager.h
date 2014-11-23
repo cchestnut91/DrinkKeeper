@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import <HealthKit/HealthKit.h>
+#import "DrinkingSession.h"
 
 @interface StoredDataManager : NSObject
 
@@ -23,6 +26,11 @@
 -(id)getWeight;
 -(id)getSex;
 -(BOOL)needsSetup;
+-(DrinkingSession *)currentSession;
+-(void)addDrinkToCurrentSession:(Drink *)drinkIn;
 -(void)updateDictionaryWithObject:(id)objectIn forKey:(NSString *)keyIn;
+-(double)genderStandard;
+-(double)metabolismConstant;
+-(double)getCurrentBAC;
 
 @end

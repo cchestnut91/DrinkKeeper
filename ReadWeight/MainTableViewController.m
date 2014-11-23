@@ -23,49 +23,13 @@
 {
     NSString *typePressed;
     double bac;
-    NSString *bacFile;
-    NSString *sessionFile;
-    NSString *healthPermissionFile;
     BOOL showUber;
+    DrinkingSession *currentSession;
     NSTimer *timer;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSURL *containerURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
-    bacFile = [[containerURL URLByAppendingPathComponent:@"bac"] path];
-    
-    bac = 0.0;
-    [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
-                                toFile:bacFile];
-    
-    [[HealthKitManager sharedInstance] performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
-        if (!error){
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (results.count != 0){
-                    double weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
-                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
-                                                                            forKey:[StoredDataManager weightKey]];
-                }
-            });
-        }
-    }];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:bacFile]){
-        bac = [(NSNumber *)[NSKeyedUnarchiver unarchiveObjectWithFile:bacFile] doubleValue];
-    } else {
-        bac = 0.0;
-        [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
-                                    toFile:bacFile];
-    }
-    
-    if (bac > 0.04){
-        showUber = true;
-    } else {
-        showUber = false;
-    }
-    sessionFile = [[containerURL URLByAppendingPathComponent:@"drinkingSession"] path];
-    healthPermissionFile = [[containerURL URLByAppendingPathComponent:@"askedPermission"] path];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addDrink:)
@@ -91,28 +55,27 @@
     if ([[StoredDataManager sharedInstance] needsSetup]){
         [self performSegueWithIdentifier:@"getWeight"
                                   sender:self];
-    }
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
-        [self recalcBAC];
     } else {
-        HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-        HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
-                                                                      quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
-                                                                                                doubleValue:bac / 100]
-                                                                     startDate:[NSDate date]
-                                                                       endDate:[NSDate date]];
-        [[HealthKitManager sharedInstance] storeSample:bacSample
-                                          withCallback:nil];
+        
+        [[HealthKitManager sharedInstance] updateHealthValues];
+        
+        bac = [[StoredDataManager sharedInstance] getCurrentBAC];
+        
+        showUber = NO;
+        
+        currentSession = [[StoredDataManager sharedInstance] currentSession];
+        [[HealthKitManager sharedInstance] updateHealthValues];
+        
+        bac = [[StoredDataManager sharedInstance] getCurrentBAC];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval:30
+                                                 target:self
+                                               selector:@selector(recalcBAC)
+                                               userInfo:nil
+                                                repeats:YES];
+        [timer fire];
+        [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
     }
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:30
-                                             target:self
-                                           selector:@selector(recalcBAC)
-                                           userInfo:nil
-                                            repeats:YES];
-    [timer fire];
-    [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -177,137 +140,30 @@
 }
 
 -(void)addDrink:(NSNotification *)notification{
-    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound
-                                                                                                          categories:nil]];
-    NSMutableDictionary *drinkingSession;
     NSDictionary *userInfo = [notification userInfo];
     Drink *newDrink = [userInfo objectForKey:@"newDrink"];
-    if (bac == 0.0 || bac != bac){
-        drinkingSession = [[NSMutableDictionary alloc] init];
-        [drinkingSession setObject:[newDrink time]
-                            forKey:@"startTime"];
-        [drinkingSession setObject:[[NSArray alloc] init]
-                            forKey:@"drinks"];
-    } else {
-        drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
-    }
-    NSMutableArray *drinks = [NSMutableArray arrayWithArray:[drinkingSession objectForKey:@"drinks"]];
-    [drinks addObject:newDrink];
-    [drinkingSession setObject:drinks
-                        forKey:@"drinks"];
-    [NSKeyedArchiver archiveRootObject:drinkingSession
-                                toFile:sessionFile];
+    [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
     [self recalcBAC];
+
+// TODO If we have other notifications, only cancel the one that needs to be canceled.
+    // NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     UILocalNotification *sober = [[UILocalNotification alloc] init];
+
+// TODO why is this 0.015? Should be metabolism constant?
     double secondsLeft = (bac / 0.015) * 60 * 60;
+    
     [sober setFireDate:[NSDate dateWithTimeIntervalSinceNow:secondsLeft]];
-    [sober setAlertBody:@"BAC has reached 0.0"];
+    [sober setAlertBody:@"BAC has reached zero"];
     [sober setSoundName:UILocalNotificationDefaultSoundName];
+    
     [[UIApplication sharedApplication] scheduleLocalNotification:sober];
 }
 
 -(void)recalcBAC{
-    if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]){
-        NSDictionary *drinkingSession = [NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile];
-        if (drinkingSession != nil){
-            NSArray *drinks = [drinkingSession objectForKey:@"drinks"];
-            double consumed = 0.0;
-            for (Drink *drink in drinks){
-                double add = [[drink multiplier] doubleValue];
-                consumed += add;
-            }
-            consumed = consumed * 0.806 * 1.2;
-            double genderStandard = [self genderStandard];
-            double kgweight =([[[StoredDataManager sharedInstance] getWeight] doubleValue] * 0.454);
-            double weightMod = genderStandard * kgweight;
-            double newBac = consumed / weightMod;
-            double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[drinkingSession objectForKey:@"startTime"]] / 60.0 / 60.0;
-            double metabolized = [self metabolismConstant] * hoursDrinking;
-            bac = newBac - metabolized;
-            if (bac == INFINITY || bac == -INFINITY || bac != bac){
-                // Issue with some number
-                bac = 0.0;
-                [Crashlytics setFloatValue:[[[StoredDataManager sharedInstance] getWeight] floatValue]
-                                    forKey:@"weight"];
-                [Crashlytics setFloatValue:genderStandard
-                                    forKey:@"genderStandard"];
-                [Crashlytics setFloatValue:kgweight
-                                    forKey:@"kgWeight"];
-                [Crashlytics setFloatValue:weightMod
-                                    forKey:@"weightMod"];
-                [Crashlytics setFloatValue:newBac
-                                    forKey:@"newBac"];
-                [Crashlytics setFloatValue:hoursDrinking
-                                    forKey:@"hoursDrinking"];
-                [Crashlytics setFloatValue:metabolized
-                                    forKey:@"metabolized"];
-                [Crashlytics setFloatValue:bac
-                                    forKey:@"bac"];
-                UIAlertController *failed = [UIAlertController alertControllerWithTitle:@"Calculation Failed"
-                                                                                message:@"There was an issue calculating your BAC. It was probably an issue saving your weight. Would you like to send a crash report? This will close the app."
-                                                                         preferredStyle:UIAlertControllerStyleAlert];
-                [failed addAction:[UIAlertAction actionWithTitle:@"Send Report"
-                                                           style:UIAlertActionStyleDestructive
-                                                         handler:^(UIAlertAction *action){
-                                                             [[Crashlytics sharedInstance] crash];
-                                                         }]];
-                [failed addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:nil]];
-                [self presentViewController:failed
-                                   animated:YES
-                                 completion:nil];
-            } else {
-                if (bac <= 0.0){
-                    [[NSFileManager defaultManager] removeItemAtPath:sessionFile
-                                                               error:nil];
-                    bac = 0.0;
-                }
-                HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
-                HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
-                                                                              quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
-                                                                                                        doubleValue:bac / 100]
-                                                                             startDate:[NSDate date]
-                                                                               endDate:[NSDate date]];
-                [[HealthKitManager sharedInstance] storeSample:bacSample
-                                                  withCallback:nil];
-                [NSKeyedArchiver archiveRootObject:[NSNumber numberWithDouble:bac]
-                                            toFile:bacFile];
-                if (bac > 0.04){
-                    showUber = true;
-                } else {
-                    showUber = false;
-                }
-                [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
-                [self.tableView reloadData];
-            }
-        } else {
-            [[NSFileManager defaultManager] removeItemAtPath:sessionFile error:nil];
-        }
-    }
-}
-
--(double)metabolismConstant{
-    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
-    if (sex == HKBiologicalSexMale){
-        return 0.015;
-    } else if (sex == HKBiologicalSexFemale){
-        return 0.017;
-    } else {
-        return 0.016;
-    }
-}
-
--(double)genderStandard{
-    NSInteger sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
-    if (sex == HKBiologicalSexMale){
-        return 0.58;
-    } else if (sex == HKBiologicalSexFemale){
-        return 0.49;
-    } else {
-        return 0.535;
-    }
+    [[HealthKitManager sharedInstance] updateHealthValues];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
