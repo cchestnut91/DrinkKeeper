@@ -35,6 +35,10 @@
             [self.strengthPreviewLabel setText:[[self.drinkContext optionLabels] firstObject]];
         }
         
+        if (![[self.drinkContext type] isEqualToString:@"Liquor"]){
+            [self.strengthLabel setText:@"Size"];
+        }
+        
         
         [self.whenSlider setValue:19];
         

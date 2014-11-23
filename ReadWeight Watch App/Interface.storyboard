@@ -131,10 +131,42 @@
             <objects>
                 <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController">
                     <items>
-                        <group alignment="left" id="t8f-Gd-c4y"/>
-                        <group alignment="left" id="uCw-4Q-Ouw"/>
+                        <group alignment="left" id="t8f-Gd-c4y">
+                            <items>
+                                <imageView alignment="left" image="liquorGlassSmall" id="rFe-b2-8nq"/>
+                                <label alignment="left" verticalAlignment="center" text="Drinks" id="jrJ-GJ-pvx">
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
+                            <items>
+                                <group width="1" alignment="left" layout="vertical" id="dqO-Gy-ofO">
+                                    <items>
+                                        <label width="1" height="27" alignment="left" text="Needs Setup" textAlignment="center" id="30q-qP-yWz">
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label width="1" alignment="left" text="Open Drink Keeper on your iPhone to setup" numberOfLines="0" id="hnm-Sr-0ph"/>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="hdj-aa-AmZ">
+                                    <items>
+                                        <label alignment="left" verticalAlignment="bottom" text="Current B.A.C." id="65W-dz-tOq"/>
+                                        <label width="1" alignment="right" verticalAlignment="bottom" text="0.022" textAlignment="right" id="Bfa-vb-gYU">
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" name="HelveticaNeue" family="Helvetica Neue" pointSize="51"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="bacGroup" destination="hdj-aa-AmZ" id="K57-aA-XFc"/>
+                        <outlet property="bacLabel" destination="Bfa-vb-gYU" id="Mwq-MX-lfs"/>
+                        <outlet property="setupGroup" destination="dqO-Gy-ofO" id="xAn-sf-gzd"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="235" y="672"/>
@@ -144,7 +176,7 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="Alert Label" id="XkS-y5-khE"/>
+                        <label width="1" height="65" alignment="left" text="Alert Label" id="XkS-y5-khE"/>
                     </items>
                     <notificationCategory key="notificationCategory" id="JfB-70-Muf"/>
                     <connections>

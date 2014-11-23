@@ -10,5 +10,8 @@
 #import <Foundation/Foundation.h>
 
 @interface GlanceController : WKInterfaceController
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *bacLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *bacGroup;
+@property (weak, nonatomic) IBOutlet WKInterfaceGroup *setupGroup;
 
 @end
