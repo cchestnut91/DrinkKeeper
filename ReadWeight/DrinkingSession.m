@@ -30,6 +30,8 @@
         bac = 0.0;
     }
     
+    bac = bac / 100;
+    
     [self updateBAC:bac];
     return bac;
 }

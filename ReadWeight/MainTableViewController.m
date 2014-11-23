@@ -59,8 +59,6 @@
         
         [[HealthKitManager sharedInstance] updateHealthValues];
         
-        bac = [[StoredDataManager sharedInstance] getCurrentBAC];
-        
         showUber = NO;
         
         currentSession = [[StoredDataManager sharedInstance] currentSession];
@@ -74,7 +72,7 @@
                                                userInfo:nil
                                                 repeats:YES];
         [timer fire];
-        [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
+        [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
     }
 }
 
@@ -122,7 +120,7 @@
         BACLabelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bacCell"];
         
         self.bacLabel = [[cell contentView] subviews][1];
-        [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
+        [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
         return cell;
     } else if (indexPath.section == 1) {
         AddDrinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"drinkCell"];

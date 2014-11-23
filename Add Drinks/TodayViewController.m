@@ -25,7 +25,7 @@
 
 -(void)reloadBAC{
     bac = [[StoredDataManager sharedInstance] getCurrentBAC];
-    [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac]];
+    [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
 }
 
 - (IBAction)addBeer:(id)sender {
