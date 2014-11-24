@@ -12,13 +12,22 @@
 @interface DrinkingSession : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSDate *startTime;
+@property (nonatomic, strong) NSDate *endTime;
 @property (strong, nonatomic) NSString *fileName;
 @property (strong, nonatomic) NSNumber *bac;
 @property (strong, nonatomic) NSArray *drinks;
+@property (strong, nonatomic) NSNumber *peak;
 
 -(void)addDrinkToSession:(Drink *)drinkIn;
 -(double)getUpdatedBAC;
 -(void)updateBAC:(double)bacIn;
+-(NSNumber *)totalDrinks;
+-(NSNumber *)numDrinks;
+-(NSNumber *)numBeers;
+-(NSNumber *)numWine;
+-(NSNumber *)peakValue;
+-(NSNumber *)hangoverRating;
+-(NSString *)hangoverRatingStringValue;
 
 -(id)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;

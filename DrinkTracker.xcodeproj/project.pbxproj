@@ -48,6 +48,7 @@
 		AB7FA07D1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AB7FA05C1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AB85F45619D75F4600298746 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		AB85F45719D75FA700298746 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
+		AB8E08051A22C46700D81388 /* SessionDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8E08041A22C46700D81388 /* SessionDetailsController.m */; };
 		ABB53BE719D48F9F006F9DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE619D48F9F006F9DBD /* main.m */; };
 		ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE919D48F9F006F9DBD /* AppDelegate.m */; };
 		ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
@@ -175,6 +176,8 @@
 		AB7FA0761A22536D00B824A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB7FA0771A22536D00B824A0 /* Interface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		AB7FA0791A22536D00B824A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AB8E08031A22C46700D81388 /* SessionDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionDetailsController.h; sourceTree = "<group>"; };
+		AB8E08041A22C46700D81388 /* SessionDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsController.m; sourceTree = "<group>"; };
 		ABB53BE119D48F9F006F9DBD /* ReadWeight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadWeight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB53BE519D48F9F006F9DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABB53BE619D48F9F006F9DBD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -329,6 +332,8 @@
 				AB7FA0641A22536D00B824A0 /* InterfaceController.m */,
 				AB40B41C1A22592B00CDB971 /* AddDrinkController.h */,
 				AB40B41D1A22592B00CDB971 /* AddDrinkController.m */,
+				AB8E08031A22C46700D81388 /* SessionDetailsController.h */,
+				AB8E08041A22C46700D81388 /* SessionDetailsController.m */,
 				AB0C36B51A22716B000D9E79 /* AddDrinkContext.h */,
 				AB0C36B61A22716B000D9E79 /* AddDrinkContext.m */,
 				AB7FA0661A22536D00B824A0 /* NotificationController.h */,
@@ -733,6 +738,7 @@
 			files = (
 				AB40B4201A22599300CDB971 /* StoredDataManager.m in Sources */,
 				AB40B41E1A22592B00CDB971 /* AddDrinkController.m in Sources */,
+				AB8E08051A22C46700D81388 /* SessionDetailsController.m in Sources */,
 				AB0C36B71A22716B000D9E79 /* AddDrinkContext.m in Sources */,
 				AB40B4241A225C1D00CDB971 /* Drink.m in Sources */,
 				AB40B4231A225C1900CDB971 /* DrinkingSession.m in Sources */,

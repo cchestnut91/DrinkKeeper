@@ -71,7 +71,7 @@ static HealthKitManager *sharedObject;
         double newWeight = 0.0;
         if (!error){
             if (results.count > 0){
-                newWeight = [[results lastObject] doubleValueForUnit:[HKUnit poundUnit]];
+                newWeight = [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
                 if (newWeight != [[[StoredDataManager sharedInstance] getWeight] doubleValue]){
                     [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:newWeight]
                                                                             forKey:[StoredDataManager weightKey]];

@@ -8,6 +8,7 @@
 
 #import "HealthKitRequestViewController.h"
 #import "HealthKitManager.h"
+#import "AppDelegate.h"
 #import "StoredDataManager.h"
 #import "ActionSheetStringPicker.h"
 #import <HealthKit/HealthKit.h>
@@ -192,21 +193,7 @@
                                                                                                         object:nil];
                                                     [self.navigationController dismissViewControllerAnimated:YES
                                                                                                   completion:^(void){
-                                                                                                      UIAlertController *allowNotifications = [UIAlertController alertControllerWithTitle:@"Allow Notifications"
-                                                                                                                                                                                  message:@"Drink Keeper would like to send you notifications to let you know when your BAC has fallen below a certain level. Would you like to allow this?"
-                                                                                                                                                                           preferredStyle:UIAlertControllerStyleAlert];
-                                                                                                      [allowNotifications addAction:[UIAlertAction actionWithTitle:@"Don't Allow"
-                                                                                                                                                             style:UIAlertActionStyleDefault
-                                                                                                                                                           handler:nil]];
-                                                                                                      [allowNotifications addAction:[UIAlertAction actionWithTitle:@"Allow"
-                                                                                                                                                             style:UIAlertActionStyleDefault
-                                                                                                                                                           handler:^(UIAlertAction *action){
-                                                                                                                                                               [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound
-                                                                                                                                                                                                                                                                     categories:nil]];
-                                                                                                                                                           }]];
-                                                                                                      [self presentViewController:allowNotifications
-                                                                                                                         animated:YES
-                                                                                                                       completion:nil];
+                                                                                                      [(AppDelegate *)[UIApplication sharedApplication].delegate registerNotifications];
                                                                                                   }];
                                                 }]];
     [self presentViewController:important

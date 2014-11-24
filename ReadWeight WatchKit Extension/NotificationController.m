@@ -37,27 +37,40 @@
     NSLog(@"%@ did deactivate", self);
 }
 
-/*
 - (void)didReceiveLocalNotification:(UILocalNotification *)localNotification withCompletion:(void (^)(WKUserNotificationInterfaceType))completionHandler {
-    // This method is called when a local notification needs to be presented.
-    // Implement it if you use a dynamic notification interface.
-    // Populate your dynamic notification inteface as quickly as possible.
-    //
-    // After populating your dynamic notification interface call the completion block.
-    completionHandler(WKUserNotificationInterfaceTypeCustom);
+    
+    NSDictionary *sessionInfo = [[localNotification userInfo] objectForKey:@"sessionInfo"];
+    
+    if (sessionInfo){
+        [[self sessionInfoGroup] setHidden:NO];
+        [self.titleLabel setText:@"BAC has reached 0.0\n\nSession Details:"];
+        
+        [self.durationLabel setText:[sessionInfo objectForKey:@"duration"]];
+        [self.drinksLabel setText:[sessionInfo objectForKey:@"numDrinks"]];
+        [self.peakLabel setText:[sessionInfo objectForKey:@"peakBAC"]];
+        
+        completionHandler(WKUserNotificationInterfaceTypeCustom);
+    } else {
+        completionHandler(WKUserNotificationInterfaceTypeDefault);
+    }
 }
-*/
 
-/*
 - (void)didReceiveRemoteNotification:(NSDictionary *)remoteNotification withCompletion:(void (^)(WKUserNotificationInterfaceType))completionHandler {
-    // This method is called when a remote notification needs to be presented.
-    // Implement it if you use a dynamic notification interface.
-    // Populate your dynamic notification inteface as quickly as possible.
-    //
-    // After populating your dynamic notification interface call the completion block.
-    completionHandler(WKUserNotificationInterfaceTypeCustom);
+    
+    NSDictionary *sessionInfo = [remoteNotification objectForKey:@"sessionInfo"];
+    if (sessionInfo){
+        [[self sessionInfoGroup] setHidden:NO];
+        [self.titleLabel setText:@"BAC has reached 0.0\n\nSession Details:"];
+        
+        [self.durationLabel setText:[sessionInfo objectForKey:@"duration"]];
+        [self.drinksLabel setText:[sessionInfo objectForKey:@"numDrinks"]];
+        [self.peakLabel setText:[sessionInfo objectForKey:@"peakBAC"]];
+        
+        completionHandler(WKUserNotificationInterfaceTypeCustom);
+    } else {
+        completionHandler(WKUserNotificationInterfaceTypeDefault);
+    }
 }
-*/
 
 @end
 

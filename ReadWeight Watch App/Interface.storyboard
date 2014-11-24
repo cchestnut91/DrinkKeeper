@@ -55,6 +55,7 @@
                             </items>
                         </group>
                     </items>
+                    <menu key="menu" id="SIW-Oy-SpW"/>
                     <connections>
                         <outlet property="addDrinkLabel" destination="5LF-2Y-gQK" id="4mN-rL-8XB"/>
                         <outlet property="bacLabel" destination="WAv-L5-AFM" id="x5r-P9-6LK"/>
@@ -67,7 +68,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="235" y="347"/>
+            <point key="canvasLocation" x="235" y="334.5"/>
         </scene>
         <!--Add-->
         <scene sceneID="LVq-Jz-zuK">
@@ -124,7 +125,115 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="506" y="346.5"/>
+            <point key="canvasLocation" x="506" y="334.5"/>
+        </scene>
+        <!--Details-->
+        <scene sceneID="Bjo-VH-Afn">
+            <objects>
+                <controller identifier="sessionDetails" title="Details" id="pSp-2z-O6h" customClass="SessionDetailsController">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="TsP-Y2-nn2">
+                            <items>
+                                <label alignment="left" text="Started" id="IBE-4y-xUw"/>
+                                <label alignment="right" text="5:00 PM" id="YUX-4M-2t6">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="iye-QH-hld">
+                            <items>
+                                <label alignment="left" text="Finished" id="erN-v1-PZA"/>
+                                <label alignment="right" text="7:00 PM" id="5gf-0r-11Q">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="tS4-gY-v3P">
+                            <items>
+                                <label alignment="left" text="Total Drinks" id="e4R-ln-OUS"/>
+                                <label alignment="right" text="5" id="5C8-bz-aBY">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="fyv-oe-ACq">
+                            <items>
+                                <label alignment="left" text="Beers" id="6EH-Of-3Ul"/>
+                                <label alignment="right" text="2" id="WHu-je-v1Z">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="ly2-t6-qCg">
+                            <items>
+                                <label alignment="left" text="Wine Glasses" id="V3K-2k-AlW"/>
+                                <label alignment="right" text="2" id="Hy6-fs-Ij8">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="DMb-2S-mNE">
+                            <items>
+                                <label alignment="left" text="Drinks / Shots" id="stK-bc-vS3"/>
+                                <label alignment="right" text="1" id="3PQ-6b-bi3">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="ZHo-bK-BGM">
+                            <items>
+                                <label alignment="left" text="Peak BAC" id="eFz-si-zlK"/>
+                                <label alignment="right" text="0.056" id="G7h-42-dor">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="KgH-lF-fbH">
+                            <items>
+                                <label alignment="left" text="Hangover Rating" id="VVi-F7-iCo"/>
+                                <label alignment="right" text="Moderate" id="OyL-9O-qvz">
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="beersGroup" destination="fyv-oe-ACq" id="Muh-OY-fqP"/>
+                        <outlet property="beersTitle" destination="6EH-Of-3Ul" id="B3l-wk-tMj"/>
+                        <outlet property="beersValue" destination="WHu-je-v1Z" id="LX0-Bt-Lqb"/>
+                        <outlet property="drinksGroup" destination="DMb-2S-mNE" id="Xzp-2d-eeY"/>
+                        <outlet property="drinksTitle" destination="stK-bc-vS3" id="l7l-UR-5Wh"/>
+                        <outlet property="drinksValue" destination="3PQ-6b-bi3" id="jNN-q5-LYA"/>
+                        <outlet property="endedGroup" destination="iye-QH-hld" id="Rtb-W0-sN9"/>
+                        <outlet property="endedTitle" destination="erN-v1-PZA" id="O27-FJ-wiK"/>
+                        <outlet property="endedValue" destination="5gf-0r-11Q" id="cb5-Wd-Q8d"/>
+                        <outlet property="hangoverGroup" destination="KgH-lF-fbH" id="Eei-v9-T1e"/>
+                        <outlet property="hangoverTitle" destination="VVi-F7-iCo" id="Mh0-pL-t0F"/>
+                        <outlet property="hangoverValue" destination="OyL-9O-qvz" id="FJ6-zk-DpX"/>
+                        <outlet property="peakGroup" destination="ZHo-bK-BGM" id="tKp-w2-T9H"/>
+                        <outlet property="peakTitle" destination="eFz-si-zlK" id="XBi-B8-Lcq"/>
+                        <outlet property="peakValue" destination="G7h-42-dor" id="big-Zw-DOx"/>
+                        <outlet property="startedGroup" destination="TsP-Y2-nn2" id="aq5-HY-T9q"/>
+                        <outlet property="startedTitle" destination="IBE-4y-xUw" id="rUa-JW-UuQ"/>
+                        <outlet property="startedValue" destination="YUX-4M-2t6" id="1s1-CB-ZLH"/>
+                        <outlet property="totalGroup" destination="tS4-gY-v3P" id="1R6-jl-hfk"/>
+                        <outlet property="totalTitle" destination="e4R-ln-OUS" id="RyY-eQ-b61"/>
+                        <outlet property="totalValue" destination="5C8-bz-aBY" id="O4w-xF-oJ9"/>
+                        <outlet property="wineGroup" destination="ly2-t6-qCg" id="y7w-YY-lI7"/>
+                        <outlet property="wineTitle" destination="V3K-2k-AlW" id="CJl-Ed-on0"/>
+                        <outlet property="wineValue" destination="Hy6-fs-Ij8" id="2Tl-Xg-t3v"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="736" y="334.5"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
@@ -176,9 +285,11 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label width="1" height="65" alignment="left" text="Alert Label" id="XkS-y5-khE"/>
+                        <label width="1" alignment="left" text="Notification Title" numberOfLines="0" id="XkS-y5-khE"/>
                     </items>
-                    <notificationCategory key="notificationCategory" id="JfB-70-Muf"/>
+                    <notificationCategory key="notificationCategory" identifier="SessionComplete" id="JfB-70-Muf">
+                        <color key="sashColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </notificationCategory>
                     <connections>
                         <outlet property="notificationAlertLabel" destination="XkS-y5-khE" id="49B-RR-99y"/>
                         <segue destination="gdX-wl-uQE" kind="relationship" relationship="dynamicNotificationInterface" id="fKh-qV-3T2"/>
@@ -190,9 +301,55 @@
         <!--Notification Controller-->
         <scene sceneID="KIl-fV-djm">
             <objects>
-                <controller id="gdX-wl-uQE" customClass="NotificationController"/>
+                <controller id="gdX-wl-uQE" customClass="NotificationController">
+                    <items>
+                        <label width="1" alignment="left" text="Notification Title" numberOfLines="0" id="OQY-iJ-vAg"/>
+                        <group width="1" alignment="left" layout="vertical" hasDetent="YES" id="sko-Wz-D09">
+                            <items>
+                                <group width="1" alignment="left" layout="vertical" id="GhL-RI-dhG">
+                                    <items>
+                                        <label alignment="left" text="Duration" id="QiO-qP-02t"/>
+                                        <label width="1" alignment="right" text="Label" textAlignment="right" id="73W-0H-QRW">
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" layout="vertical" id="Ols-9g-Qfg">
+                                    <items>
+                                        <label alignment="left" text="Drinks" id="omJ-eI-dr6"/>
+                                        <label alignment="right" text="Label" textAlignment="right" id="Pqb-wm-ECo">
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="left" layout="vertical" id="zVf-QI-NsO">
+                                    <items>
+                                        <label alignment="left" text="Peak BAC" id="KeT-JG-5vB"/>
+                                        <label alignment="right" text="Label" textAlignment="right" id="CPJ-UL-yp2">
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="5" bottom="0.0"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="drinksLabel" destination="Pqb-wm-ECo" id="2bA-m4-HQv"/>
+                        <outlet property="drinksTitleLabel" destination="omJ-eI-dr6" id="gID-87-Veo"/>
+                        <outlet property="durationLabel" destination="73W-0H-QRW" id="S2x-Hi-bS7"/>
+                        <outlet property="durationTitleLabel" destination="QiO-qP-02t" id="qsD-Nz-c1F"/>
+                        <outlet property="peakLabel" destination="CPJ-UL-yp2" id="AZG-vP-bPS"/>
+                        <outlet property="peakTitleLabel" destination="KeT-JG-5vB" id="F8V-CQ-KUm"/>
+                        <outlet property="sessionInfoGroup" destination="sko-Wz-D09" id="bGk-g3-1Tg"/>
+                        <outlet property="titleLabel" destination="OQY-iJ-vAg" id="nLP-tX-pQA"/>
+                    </connections>
+                </controller>
             </objects>
-            <point key="canvasLocation" x="553" y="1001"/>
+            <point key="canvasLocation" x="506" y="1001"/>
         </scene>
     </scenes>
     <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

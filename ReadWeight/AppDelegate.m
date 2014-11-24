@@ -109,6 +109,54 @@
     return YES;
 }
 
+-(void)registerNotifications{
+    UIAlertController *allowNotifications = [UIAlertController alertControllerWithTitle:@"Allow Notifications"
+                                                                                message:@"Drink Keeper would like to send you notifications to let you know when your BAC has fallen below a certain level. Would you like to allow this?"
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+    [allowNotifications addAction:[UIAlertAction actionWithTitle:@"Don't Allow"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:nil]];
+    [allowNotifications addAction:[UIAlertAction actionWithTitle:@"Allow"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action){
+                                                             // Create a mutable set to store the category definitions.
+                                                             NSMutableSet* categories = [NSMutableSet set];
+                                                             
+                                                             // Define the actions for a meeting invite notification.
+                                                             UIMutableUserNotificationAction* showDetails = [[UIMutableUserNotificationAction alloc] init];
+                                                             showDetails.title = @"Show Details";
+                                                             showDetails.identifier = @"showDetails";
+                                                             showDetails.activationMode = UIUserNotificationActivationModeForeground;
+                                                             showDetails.authenticationRequired = NO;
+                                                             
+                                                             UIMutableUserNotificationAction* rate = [[UIMutableUserNotificationAction alloc] init];
+                                                             showDetails.title = @"Rate Hangover";
+                                                             showDetails.identifier = @"rateHang";
+                                                             showDetails.activationMode = UIUserNotificationActivationModeForeground;
+                                                             showDetails.authenticationRequired = NO;
+                                                             
+                                                             // Create the category object and add it to the set.
+                                                             UIMutableUserNotificationCategory* details = [[UIMutableUserNotificationCategory alloc] init];
+                                                             [details setActions:@[showDetails, rate]
+                                                                      forContext:UIUserNotificationActionContextDefault];
+                                                             details.identifier = @"SessionComplete";
+                                                             
+                                                             [categories addObject:details];
+                                                             
+                                                             // Configure other actions and categories and add them to the set...
+                                                             
+                                                             UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:
+                                                                                                     (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound)
+                                                                                                                                      categories:categories];
+                                                             
+                                                             [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+                                                         }]];
+    [[(UINavigationController *)[self.window rootViewController] topViewController] presentViewController:allowNotifications
+                       animated:YES
+                     completion:nil];
+    
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
