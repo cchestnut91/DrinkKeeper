@@ -208,6 +208,7 @@
 		AB3B1F801A21396E004CD7C2 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				ABBB43FC1A28B874004D197C /* TableViewCells */,
 				AB5FAAD319D4F17A00793572 /* TransLoadingIndicator.h */,
 				AB5FAAD419D4F17A00793572 /* TransLoadingIndicator.m */,
 			);
@@ -287,23 +288,11 @@
 				AB3B1F7F1A213953004CD7C2 /* App Delegate */,
 				AB3B1F7E1A213451004CD7C2 /* Data Managers */,
 				AB68BF441A1D927700CD87F3 /* Registration Workflow */,
-				AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */,
-				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
-				ABE4F47A19D610240048D853 /* Drink.h */,
-				ABE4F47B19D610240048D853 /* Drink.m */,
-				AB3B1F811A217496004CD7C2 /* DrinkingSession.h */,
-				AB3B1F821A217496004CD7C2 /* DrinkingSession.m */,
-				ABE0E4BF19DA18A000B25923 /* BACLabelTableViewCell.h */,
-				ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */,
-				ABE0E4C219DA18B600B25923 /* AddDrinkTableViewCell.h */,
-				ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */,
-				AB125D8E19D8790A00D16008 /* ProfileViewController.h */,
-				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
-				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
-				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
+				ABBB43FB1A28B85C004D197C /* iPhone View Controllers */,
+				ABBB43FA1A28B83D004D197C /* DrinkingSession Data */,
 				AB3B1F801A21396E004CD7C2 /* Widgets */,
-				AB56FA3919D5F5C100E04C87 /* Main.storyboard */,
 				AB5FAABF19D4EFB100793572 /* Action Picker */,
+				AB56FA3919D5F5C100E04C87 /* Main.storyboard */,
 				ABB53BF119D48F9F006F9DBD /* Images.xcassets */,
 				ABB53BE419D48F9F006F9DBD /* Supporting Files */,
 			);
@@ -334,6 +323,41 @@
 				ABB53BFF19D48F9F006F9DBD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ABBB43FA1A28B83D004D197C /* DrinkingSession Data */ = {
+			isa = PBXGroup;
+			children = (
+				ABE4F47A19D610240048D853 /* Drink.h */,
+				ABE4F47B19D610240048D853 /* Drink.m */,
+				AB3B1F811A217496004CD7C2 /* DrinkingSession.h */,
+				AB3B1F821A217496004CD7C2 /* DrinkingSession.m */,
+			);
+			name = "DrinkingSession Data";
+			sourceTree = "<group>";
+		};
+		ABBB43FB1A28B85C004D197C /* iPhone View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */,
+				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
+				AB125D8E19D8790A00D16008 /* ProfileViewController.h */,
+				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
+				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
+				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
+			);
+			name = "iPhone View Controllers";
+			sourceTree = "<group>";
+		};
+		ABBB43FC1A28B874004D197C /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				ABE0E4BF19DA18A000B25923 /* BACLabelTableViewCell.h */,
+				ABE0E4C019DA18A000B25923 /* BACLabelTableViewCell.m */,
+				ABE0E4C219DA18B600B25923 /* AddDrinkTableViewCell.h */,
+				ABE0E4C319DA18B600B25923 /* AddDrinkTableViewCell.m */,
+			);
+			name = TableViewCells;
 			sourceTree = "<group>";
 		};
 		ABE4F48519D750990048D853 /* Frameworks */ = {

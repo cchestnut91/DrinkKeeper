@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AddDrinkContext.h"
 
 @interface Drink : NSObject <NSCoding>
 
@@ -14,6 +15,7 @@
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSNumber *multiplier;
 
+-(id)initWithDrinkContext:(AddDrinkContext *)context;
 -(id)initWithType:(NSString *)typeIn andMultiplier:(NSNumber *)multIn andTime:(NSDate *)timeIn;
 -(id)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;

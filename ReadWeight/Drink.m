@@ -20,6 +20,15 @@
     return self;
 }
 
+-(id)initWithDrinkContext:(AddDrinkContext *)context{
+    self = [super init];
+    self.type = [context type];
+    self.time = [context time];
+    self.multiplier = [context selectedMult];
+    
+    return self;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     self.type = [aDecoder decodeObjectForKey:@"type"];
