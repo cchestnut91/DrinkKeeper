@@ -73,6 +73,8 @@
                                                 repeats:YES];
         [timer fire];
         [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
+        
+        [self.tableView reloadData];
     }
 }
 
@@ -83,7 +85,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (showUber && !showUber){
+    if ([[StoredDataManager sharedInstance] currentSession]){
         return 3;
     }
     return 2;
@@ -91,6 +93,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 1){
+        return 3;
+    } else if (section == 2){
         return 3;
     }
     return 1;
@@ -100,7 +104,7 @@
     if (section == 1){
         return @"Add a drink";
     } else if (section == 2){
-        return @"Need a ride home?";
+        return @"Current Drinking Session";
     }
     return nil;
 }
@@ -110,9 +114,8 @@
         return 91;
     } else if (indexPath.section == 1){
         return 50;
-    } else {
-        return 90;
     }
+    return tableView.rowHeight;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -132,9 +135,27 @@
             [cell setType:@"Liquor"];
         }
         return cell;
-    } else {
-        return [tableView dequeueReusableCellWithIdentifier:@"uberCell"];
+    } else if (indexPath.section == 2) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoDetailCell"];
+        if (indexPath.row == 0){
+            [[cell textLabel] setText:@"Session Length"];
+            NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:[[[StoredDataManager sharedInstance] currentSession] startTime]];
+            int numMinutes = time / 60.0;
+            int numHours = numMinutes / 60;
+            numMinutes = numMinutes - (numHours * 60);
+            [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%d:%d", numHours, numMinutes]];
+        } else if (indexPath.row == 1){
+            [[cell textLabel] setText:@"Number of Drinks"];
+            
+            [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%@", [[[StoredDataManager sharedInstance] currentSession] totalDrinks]]];
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:@"seeDetailsCell"];
+            [[cell textLabel] setText:@"See More Details"];
+        }
+        
+        return cell;
     }
+    return nil;
 }
 
 -(void)addDrink:(NSNotification *)notification{
@@ -182,12 +203,8 @@
         [self performSegueWithIdentifier:@"addDrink"
                                   sender:self];
     } else if (indexPath.section == 2){
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"uber://?action=setPickup&pickup=my_location"]];
-        } else {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.uber.com"]];
-        }
-    };
+// TODO Add Details ViewController and perform segue
+    }
 }
 
 #pragma mark - Navigation
