@@ -16,9 +16,11 @@
 @property (strong, nonatomic) NSArray *optionLabels;
 @property (strong, nonatomic) NSDate *time;
 @property (strong, nonatomic) NSNumber *selectedMult;
+@property NSInteger selectedIndex;
 +(NSString *)beerType;
 +(NSString *)wineType;
 +(NSString *)liquorType;
+-(NSString *)titleForMult;
 
 -(id)initWithType:(NSString *)type;
 

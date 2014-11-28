@@ -22,11 +22,15 @@
 +(NSString *)weightKey;
 +(NSString *)sexKey;
 
+-(void)duplicateLastDrink;
 -(NSDictionary *)healthDictionary;
 -(id)getWeight;
 -(id)getSex;
 -(BOOL)needsSetup;
+-(DrinkingSession *)lastSession;
 -(DrinkingSession *)currentSession;
+-(DrinkingSession *)getSessionForID:(NSString *)sessionID;
+-(void)saveDrinkingSession:(DrinkingSession *)session;
 -(void)addDrinkToCurrentSession:(Drink *)drinkIn;
 -(void)updateDictionaryWithObject:(id)objectIn forKey:(NSString *)keyIn;
 -(double)genderStandard;

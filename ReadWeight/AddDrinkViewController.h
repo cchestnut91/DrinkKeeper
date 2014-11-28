@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Drink.h"
+#import "AddDrinkContext.h"
+#import "StoredDataManager.h"
 #import "ActionSheetStringPicker.h"
 
 @interface AddDrinkViewController : UIViewController

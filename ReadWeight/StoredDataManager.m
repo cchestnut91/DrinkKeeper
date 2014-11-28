@@ -1,4 +1,4 @@
-a//
+//
 //  StoredDataManager.m
 //  DrinkTracker
 //
@@ -45,6 +45,51 @@ static StoredDataManager *sharedObject;
     }
     
     return self;
+}
+
+-(DrinkingSession *)lastSession{
+    DrinkingSession *ret = [self currentSession];
+    if (ret == nil){
+        DrinkingSession *mostRecent;
+        NSError *error = nil;
+        NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.sessionDirectory
+                                                                                    error:&error];
+        
+        for (NSString *sessionFile in sessionFiles){
+            DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
+            if (!mostRecent){
+                mostRecent = session;
+            } else {
+                if ([[session startTime] compare:[mostRecent startTime]] == NSOrderedDescending){
+                    mostRecent = session;
+                }
+            }
+        }
+        
+        if (mostRecent){
+            return mostRecent;
+        }
+    }
+    return ret;
+}
+
+-(void)saveDrinkingSession:(DrinkingSession *)session{
+    
+    [NSKeyedArchiver archiveRootObject:session
+                                toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+}
+
+-(DrinkingSession *)getSessionForID:(NSString *)sessionID{
+    
+    DrinkingSession *ret = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionID]];
+    
+    return ret;
+}
+
+-(void)duplicateLastDrink{
+    Drink *last = [[[self currentSession] drinks] lastObject];
+    [last setTime:[NSDate date]];
+    [self addDrinkToCurrentSession:last];
 }
 
 -(DrinkingSession *)currentSession{
@@ -112,6 +157,7 @@ static StoredDataManager *sharedObject;
         session = [[DrinkingSession alloc] init];
     }
     [session addDrinkToSession:drinkIn];
+    
     
     [NSKeyedArchiver archiveRootObject:session
                                 toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];

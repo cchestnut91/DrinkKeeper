@@ -13,7 +13,7 @@
 -(id)initWithType:(NSString *)type{
     self = [super init];
     if (self){
-        if ([type isEqualToString:[AddDrinkContext beerType]]){
+        if ([[type lowercaseString] isEqualToString:[AddDrinkContext beerType]]){
             
             [self setTitle:@"Add Beer"];
             
@@ -24,9 +24,9 @@
             
             [self setStrengthOptions:options];
             [self setOptionLabels:optionLabels];
-            self.selectedMult = [self.strengthOptions firstObject];
+            self.selectedIndex = 0;
 
-        } else if ([type isEqualToString:[AddDrinkContext wineType]]){
+        } else if ([[type lowercaseString] isEqualToString:[AddDrinkContext wineType]]){
             
             [self setTitle:@"Add Wine"];
             
@@ -37,9 +37,9 @@
             
             [self setStrengthOptions:options];
             [self setOptionLabels:optionLabels];
-            self.selectedMult = [self.strengthOptions objectAtIndex:1];
+            self.selectedIndex = 1;
             
-        } else if ([type isEqualToString:[AddDrinkContext liquorType]]){
+        } else if ([[type lowercaseString] isEqualToString:[AddDrinkContext liquorType]]){
             
             [self setTitle:@"Add Drink"];
             
@@ -50,9 +50,10 @@
             
             [self setStrengthOptions:options];
             [self setOptionLabels:optionLabels];
-            self.selectedMult = [self.strengthOptions objectAtIndex:1];
             
+            self.selectedIndex = 1;
         }
+        self.selectedMult = [self.strengthOptions objectAtIndex:self.selectedIndex];
         
         if (self.strengthOptions){
         }
@@ -63,6 +64,18 @@
     return self;
 }
 
+-(NSString *)titleForMult{
+    NSString *ret;
+    
+    for (NSNumber *num in self.strengthOptions){
+        if (self.selectedMult == num){
+            ret = [[self optionLabels] objectAtIndex:[self.strengthOptions indexOfObject:num]];
+            self.selectedIndex = [self.strengthOptions indexOfObject:num];
+        }
+    }
+    
+    return ret;
+}
 
 +(NSString *)beerType{
     return @"beer";
