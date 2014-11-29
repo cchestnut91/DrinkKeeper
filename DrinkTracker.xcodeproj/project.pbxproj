@@ -30,6 +30,7 @@
 		AB7DE67F19D5F79C00DEA7C1 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */; };
 		AB85F45619D75F4600298746 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		AB85F45719D75FA700298746 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
+		ABA72CE71A293C8900D0B2A9 /* UITestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA72CE61A293C8900D0B2A9 /* UITestViewController.m */; };
 		ABB53BE719D48F9F006F9DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE619D48F9F006F9DBD /* main.m */; };
 		ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE919D48F9F006F9DBD /* AppDelegate.m */; };
 		ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
@@ -124,6 +125,8 @@
 		AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoredDataManager.m; sourceTree = "<group>"; };
 		AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
+		ABA72CE51A293C8900D0B2A9 /* UITestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITestViewController.h; sourceTree = "<group>"; };
+		ABA72CE61A293C8900D0B2A9 /* UITestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITestViewController.m; sourceTree = "<group>"; };
 		ABB53BE119D48F9F006F9DBD /* ReadWeight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadWeight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB53BE519D48F9F006F9DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABB53BE619D48F9F006F9DBD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				AB3B1F801A21396E004CD7C2 /* Widgets */,
 				AB5FAABF19D4EFB100793572 /* Action Picker */,
 				AB56FA3919D5F5C100E04C87 /* Main.storyboard */,
+				ABA72CE51A293C8900D0B2A9 /* UITestViewController.h */,
+				ABA72CE61A293C8900D0B2A9 /* UITestViewController.m */,
 				ABB53BF119D48F9F006F9DBD /* Images.xcassets */,
 				ABB53BE419D48F9F006F9DBD /* Supporting Files */,
 			);
@@ -582,6 +587,7 @@
 				ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */,
 				AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */,
 				AB5FAAD119D4F00900793572 /* DistancePickerView.m in Sources */,
+				ABA72CE71A293C8900D0B2A9 /* UITestViewController.m in Sources */,
 				ABE4F47C19D610240048D853 /* Drink.m in Sources */,
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
 				ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */,
