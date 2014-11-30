@@ -31,6 +31,7 @@
 		AB85F45619D75F4600298746 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		AB85F45719D75FA700298746 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		ABA72CE71A293C8900D0B2A9 /* UITestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA72CE61A293C8900D0B2A9 /* UITestViewController.m */; };
+		ABA72CEA1A2A163100D0B2A9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA72CE91A2A163100D0B2A9 /* MainViewController.m */; };
 		ABB53BE719D48F9F006F9DBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE619D48F9F006F9DBD /* main.m */; };
 		ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB53BE919D48F9F006F9DBD /* AppDelegate.m */; };
 		ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
@@ -127,6 +128,8 @@
 		AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		ABA72CE51A293C8900D0B2A9 /* UITestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITestViewController.h; sourceTree = "<group>"; };
 		ABA72CE61A293C8900D0B2A9 /* UITestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITestViewController.m; sourceTree = "<group>"; };
+		ABA72CE81A2A163100D0B2A9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		ABA72CE91A2A163100D0B2A9 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		ABB53BE119D48F9F006F9DBD /* ReadWeight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReadWeight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABB53BE519D48F9F006F9DBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABB53BE619D48F9F006F9DBD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -352,6 +355,8 @@
 			children = (
 				AB7DE67D19D5F79C00DEA7C1 /* MainTableViewController.h */,
 				AB7DE67E19D5F79C00DEA7C1 /* MainTableViewController.m */,
+				ABA72CE81A2A163100D0B2A9 /* MainViewController.h */,
+				ABA72CE91A2A163100D0B2A9 /* MainViewController.m */,
 				AB125D8E19D8790A00D16008 /* ProfileViewController.h */,
 				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
 				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
@@ -590,6 +595,7 @@
 				ABA72CE71A293C8900D0B2A9 /* UITestViewController.m in Sources */,
 				ABE4F47C19D610240048D853 /* Drink.m in Sources */,
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
+				ABA72CEA1A2A163100D0B2A9 /* MainViewController.m in Sources */,
 				ABE0E4C419DA18B600B25923 /* AddDrinkTableViewCell.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,
 				AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */,

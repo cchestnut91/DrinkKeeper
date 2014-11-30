@@ -8,7 +8,6 @@
 
 #import "MainTableViewController.h"
 #import "StoredDataManager.h"
-#import <Crashlytics/Crashlytics.h>
 #import "AppDelegate.h"
 #import "AddDrinkViewController.h"
 #import "BACLabelTableViewCell.h"

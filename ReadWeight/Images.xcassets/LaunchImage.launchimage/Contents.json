@@ -4,7 +4,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "736h",
-      "filename" : "iOS Simulator Screen Shot Sep 30, 2014, 5.36.00 PM.png",
+      "filename" : "DrinksLaunch6Plus.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "3x"
@@ -21,7 +21,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "667h",
-      "filename" : "iOS Simulator Screen Shot Sep 30, 2014, 5.34.54 PM.png",
+      "filename" : "DrinksLaunch6.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -31,14 +31,14 @@
       "idiom" : "iphone",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
-      "filename" : "iOS Simulator Screen Shot Sep 30, 2014, 5.33.25 PM.png",
+      "filename" : "DrinksLaunch4.png",
       "scale" : "2x"
     },
     {
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "retina4",
-      "filename" : "iOS Simulator Screen Shot Sep 30, 2014, 5.34.36 PM.png",
+      "filename" : "DrinksLauch5.png",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
       "scale" : "2x"
