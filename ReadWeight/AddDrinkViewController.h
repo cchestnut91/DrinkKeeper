@@ -20,5 +20,6 @@
 -(IBAction)pressGo:(id)sender;
 -(IBAction)pressTime:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *quantLabel;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
 
 @end

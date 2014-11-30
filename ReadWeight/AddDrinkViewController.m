@@ -7,6 +7,7 @@
 //
 
 #import "AddDrinkViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AddDrinkViewController ()
 
@@ -23,6 +24,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
+                                initWithTitle:@"Back"
+                                style:UIBarButtonItemStylePlain
+                                target:self
+                                action:nil];
+    self.navigationController.navigationBar.topItem.backBarButtonItem=btnBack;
+    
+    [self setTitle:[NSString stringWithFormat:@"Add %@", self.type]];
+    
     // Do any additional setup after loading the view.
     [self.multButton addTarget:self
                         action:@selector(pressMult:)
@@ -31,6 +42,10 @@
                         action:@selector(pressTime:)
               forControlEvents:UIControlEventTouchUpInside];
     offset = 0;
+    
+    [self.multButton.layer setCornerRadius:40];
+    [self.timeButton.layer setCornerRadius:40];
+    [self.doneButton.layer setCornerRadius:40];
     
     drinkContext = [[AddDrinkContext alloc] initWithType:self.type];
     
@@ -41,8 +56,6 @@
     } else {
         [self.quantLabel setText:@"Beer Size"];
     }
-    [self.multButton setTitle:[drinkContext titleForMult]
-                     forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {

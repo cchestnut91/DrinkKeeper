@@ -141,6 +141,7 @@
             NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:[[[StoredDataManager sharedInstance] currentSession] startTime]];
             int numMinutes = time / 60.0;
             int numHours = numMinutes / 60;
+            
             numMinutes = numMinutes - (numHours * 60);
             [[cell detailTextLabel] setText:[NSString stringWithFormat:@"%d:%d", numHours, numMinutes]];
         } else if (indexPath.row == 1){

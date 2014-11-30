@@ -17,12 +17,15 @@
     NSTimer *timer;
     BOOL needsSetup;
     BOOL hasCurrentSession;
+    BOOL hasRecentSession;
 }
 
 #pragma mark UISetup
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.view bringSubviewToFront:self.sessionDetailsContainerView];
     
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     
@@ -55,26 +58,19 @@
         [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
         
         [self.sessionLengthValueLabel setHidden:NO];
-        if (![[StoredDataManager sharedInstance] currentSession]){
+        
+        DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
+        
+        if (!session){
             
             hasCurrentSession = NO;
             
-            [self.sessionLengthValueLabel setText:@"No Session"];
+            [self.sessionLengthValueLabel setText:@"No Sessions"];
         } else {
             
-            [self updateSessionLengthLabel];
+            [self updateSessionSectionWithSection:session];
             
-            [self.numberDrinksTitleLabel setText:@"Number of Drinks"];
-            [self.numberDrinksValueLabel setText:[NSString stringWithFormat:@"%@", [[[StoredDataManager sharedInstance] currentSession] totalDrinks]]];
-            
-            [self.peakTitleLabel setText:@"Peak B.A.C."];
-            [self.peakValueLabel setText:[NSString stringWithFormat:@"%.3f", [[[[StoredDataManager sharedInstance] currentSession] peakValue] floatValue] * 100]];
-            
-            hasCurrentSession = YES;
         }
-        
-        [self.currentSessionLabel setHidden:NO];
-        [self.currentSessionLabel setText:@"Current Session"];
         
         [self.bacSubHead setHidden:NO];
         [self.bacSubHead setText:@"Current B.A.C"];
@@ -128,17 +124,48 @@
     [[self.wineButton layer] setCornerRadius:40];
 }
 
--(void)updateSessionLengthLabel{
-    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:[[[StoredDataManager sharedInstance] currentSession] startTime]];
+-(void)updateSessionSectionWithSection:(DrinkingSession *)session{
+    
+    [self updateSessionLengthLabelWithSession:session];
+    
+    [self.numberDrinksTitleLabel setText:@"Number of Drinks"];
+    [self.numberDrinksValueLabel setText:[NSString stringWithFormat:@"%@", [session totalDrinks]]];
+    
+    [self.peakTitleLabel setText:@"Peak B.A.C."];
+    [self.peakValueLabel setText:[NSString stringWithFormat:@"%.3f", [[session peakValue] floatValue] * 100]];
+    
+    
+    [self.currentSessionLabel setHidden:NO];
+    if ([[StoredDataManager sharedInstance] currentSession]){
+        [self.currentSessionLabel setText:@"Current Session"];
+    } else {
+        [self.currentSessionLabel setText:@"Last Session"];
+    }
+    
+    hasCurrentSession = YES;
+}
+
+-(void)updateSessionLengthLabelWithSession:(DrinkingSession *)session{
+    
+    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:[session startTime]];
     
     int numMinutes = time / 60.0;
     int numHours = numMinutes / 60;
-    numMinutes = numMinutes - (numHours * 60);
     
-    if (numMinutes > 9){
-        [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d:%d Hours", numHours, numMinutes]];
+    if (numHours > 0){
+        
+        numMinutes = numMinutes - (numHours * 60);
+        
+        if (numMinutes > 9){
+            [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d:%d Hours", numHours, numMinutes]];
+        } else {
+            [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d:0%d Hours", numHours, numMinutes]];
+        }
+        
     } else {
-        [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d:0%d Hours", numHours, numMinutes]];
+        
+        [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d Minutes", numMinutes]];
+        
     }
 }
 
@@ -148,8 +175,11 @@
     [[HealthKitManager sharedInstance] updateHealthValues];
     bac = [[StoredDataManager sharedInstance] getCurrentBAC];
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
-    if ([[StoredDataManager sharedInstance] currentSession]){
-        [self updateSessionLengthLabel];
+    
+    DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
+    
+    if (session){
+        [self updateSessionLengthLabelWithSession:session];
     }
 }
 
@@ -177,6 +207,12 @@
     [sober setSoundName:UILocalNotificationDefaultSoundName];
     
     [[UIApplication sharedApplication] scheduleLocalNotification:sober];
+}
+
+-(void)addDrinkFromURL:(NSNotification *)notification{
+    NSDictionary *userInfo = [notification userInfo];
+    NSString *typePressed = [userInfo objectForKey:@"type"];
+    [self performSegueWithIdentifier:@"addDrink" sender:typePressed];
 }
 
 #pragma mark IBActions
@@ -221,7 +257,9 @@
     if ([segue.identifier isEqualToString:@"addDrink"]){
         NSString *typePressed;
         
-        if ([sender tag] == 0){
+        if ([sender isKindOfClass:[NSString class]]){
+            typePressed = sender;
+        } else if ([sender tag] == 0){
             typePressed = @"Liquor";
         } else if ([sender tag] == 1){
             typePressed = @"Beer";
