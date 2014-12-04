@@ -147,7 +147,13 @@
 
 -(void)updateSessionLengthLabelWithSession:(DrinkingSession *)session{
     
-    NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:[session startTime]];
+    NSTimeInterval time;
+    
+    if ([session endTime]){
+        time = [[session endTime] timeIntervalSinceDate:[session startTime]];
+    } else {
+        time = [[NSDate date] timeIntervalSinceDate:[session startTime]];
+    }
     
     int numMinutes = time / 60.0;
     int numHours = numMinutes / 60;

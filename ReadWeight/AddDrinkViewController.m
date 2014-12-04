@@ -50,12 +50,14 @@
     drinkContext = [[AddDrinkContext alloc] initWithType:self.type];
     
     if ([self.type isEqualToString:@"Liquor"]){
-        [self.quantLabel setText:@"Strength"];
+        [self.multTitle setText:@"Strength"];
     } else if ([self.type isEqualToString:@"Wine"]){
-        [self.quantLabel setText:@"Glass Size"];
+        [self.multTitle setText:@"Glass Size"];
     } else {
-        [self.quantLabel setText:@"Beer Size"];
+        [self.multTitle setText:@"Beer Size"];
     }
+    
+    [self.multLabel setText:[drinkContext titleForMult]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,11 +70,10 @@
                                             rows:[drinkContext optionLabels]
                                 initialSelection:[drinkContext selectedIndex]
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
-                                           [drinkContext setSelectedMult:[NSNumber numberWithInteger:selectedIndex]];
+                                           [drinkContext setSelectedMult:[[drinkContext strengthOptions] objectAtIndex:selectedIndex]];
                                            [drinkContext setSelectedIndex:selectedIndex];
                                            
-                                           [self.multButton setTitle:[[drinkContext optionLabels] objectAtIndex:drinkContext.selectedMult.intValue]
-                                                            forState:UIControlStateNormal];
+                                           [self.multLabel setText:[drinkContext titleForMult]];
                                            
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
@@ -93,7 +94,7 @@
                                             rows:timeOptions
                                 initialSelection:2
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
-                                           [self.timeButton setTitle:[timeOptions objectAtIndex:selectedIndex] forState:UIControlStateNormal];
+                                           [self.timeLabel setText:[timeOptions objectAtIndex:selectedIndex]];
                                            offset = selectedIndex * 5 * 60;
                                            [drinkContext setTime:[[NSDate date] dateByAddingTimeInterval:-1 * offset]];
                                        }

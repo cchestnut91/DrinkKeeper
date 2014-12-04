@@ -303,6 +303,7 @@ CG_INLINE BOOL isIPhone4()
 {
     CGRect frame = CGRectMake(0, 0, self.viewSize.width, 44);
     UIToolbar *pickerToolbar = [[UIToolbar alloc] initWithFrame:frame];
+    [pickerToolbar setBackgroundColor:[UIColor redColor]];
     pickerToolbar.barStyle = (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) ? UIBarStyleDefault : UIBarStyleBlackTranslucent;
 
     NSMutableArray *barItems = [[NSMutableArray alloc] init];

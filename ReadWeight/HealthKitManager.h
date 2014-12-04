@@ -37,4 +37,6 @@
 
 +(NSString *)stringForSex;
 
+-(BOOL)isHealthAvailable;
+
 @end

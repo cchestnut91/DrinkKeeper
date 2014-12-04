@@ -19,7 +19,10 @@
 -(IBAction)pressMult:(id)sender;
 -(IBAction)pressGo:(id)sender;
 -(IBAction)pressTime:(id)sender;
-@property (weak, nonatomic) IBOutlet UILabel *quantLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UILabel *multLabel;
+@property (weak, nonatomic) IBOutlet UILabel *multTitle;
+@property (weak, nonatomic) IBOutlet UILabel *timeTitle;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end

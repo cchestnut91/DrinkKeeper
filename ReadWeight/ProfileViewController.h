@@ -11,6 +11,9 @@
 @interface ProfileViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *weightButton;
 @property (weak, nonatomic) IBOutlet UIButton *sexButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UILabel *sexValue;
+@property (weak, nonatomic) IBOutlet UILabel *weightValue;
 - (IBAction)pressWeight:(id)sender;
 - (IBAction)pressSex:(id)sender;
 - (IBAction)close:(id)sender;

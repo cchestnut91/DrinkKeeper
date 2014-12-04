@@ -37,10 +37,21 @@
 }
 
 -(void)updateBAC:(double)bacIn{
+    
     self.bac = [NSNumber numberWithDouble:bacIn];
-    if ([self.bac isEqual:@0] && !self.endTime){
-        self.endTime = [NSDate date];
+    
+    if (![self.bac isEqual:@0]){
+        
+        double secondsLeft = (([self.bac doubleValue] * 100) / 0.015) * 60 * 60;
+        
+        [self setProjectedEndTime:[NSDate dateWithTimeIntervalSinceNow:secondsLeft]];
+        
+    } else if (!self.endTime){
+        
+        self.endTime = self.projectedEndTime;
+        
     }
+    
     if (self.bac > self.peakValue){
         self.peak = self.bac;
     }
@@ -57,7 +68,7 @@
     }
     self.drinks = [self.drinks arrayByAddingObject:drinkIn];
     if (!self.startTime){
-        self.startTime = [NSDate date];
+        self.startTime = [drinkIn time];
         self.fileName = [NSString stringWithFormat:@"%f", [self.startTime timeIntervalSince1970]];
     }
     [self getUpdatedBAC];
@@ -125,6 +136,7 @@
     
     self.startTime = [aDecoder decodeObjectForKey:@"startTime"];
     self.endTime = [aDecoder decodeObjectForKey:@"endTime"];
+    self.projectedEndTime = [aDecoder decodeObjectForKey:@"projectedEnd"];
     self.fileName = [aDecoder decodeObjectForKey:@"fileName"];
     self.bac = [aDecoder decodeObjectForKey:@"bac"];
     self.drinks = [aDecoder decodeObjectForKey:@"drinks"];
@@ -137,6 +149,7 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.startTime forKey:@"startTime"];
     [aCoder encodeObject:self.endTime forKey:@"endTime"];
+    [aCoder encodeObject:self.projectedEndTime forKey:@"projectedEnd"];
     [aCoder encodeObject:self.fileName forKey:@"fileName"];
     [aCoder encodeObject:self.bac forKey:@"bac"];
     [aCoder encodeObject:self.drinks forKey:@"drinks"];

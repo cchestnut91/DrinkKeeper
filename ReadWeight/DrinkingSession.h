@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
+@property (strong, nonatomic) NSDate *projectedEndTime;
 @property (strong, nonatomic) NSString *fileName;
 @property (strong, nonatomic) NSNumber *bac;
 @property (strong, nonatomic) NSArray *drinks;

@@ -23,15 +23,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    
+    [self.weightButton.layer setCornerRadius:40];
+    [self.sexButton.layer setCornerRadius:40];
+    [self.saveButton.layer setCornerRadius:40];
+    
     // Do any additional setup after loading the view.
-    sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
-    weight = [[[StoredDataManager sharedInstance] getWeight] doubleValue];
-    [self.weightButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    [self.sexButton setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight]
-                       forState:UIControlStateNormal];
-    [self.sexButton setTitle:[self stringForSex]
-                    forState:UIControlStateNormal];
+    
+    [self updateValueLabels];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateValueLabels)
+                                                 name:@"healthValuesUpdated"
+                                               object:nil];
+    
+    [[HealthKitManager sharedInstance] updateHealthValues];
+    
+}
+
+-(void)updateValueLabels{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        sex = [[[StoredDataManager sharedInstance] getSex] integerValue];
+        weight = [[[StoredDataManager sharedInstance] getWeight] doubleValue];
+        
+        [self.weightValue setText:[NSString stringWithFormat:@"%.1f", weight]];
+        [self.sexValue setText:[self stringForSex]];
+    });
 }
 
 -(NSString *)stringForSex{
@@ -49,37 +69,22 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 - (IBAction)pressWeight:(id)sender {
+    
+// TODO handle if Health unavailable on this device. Like, everywhere. Shit
+    if ([[HealthKitManager sharedInstance] isHealthAvailable]){
+        
+    } else {
+        
+    }
+    
     UIAlertController *updateWeight = [UIAlertController alertControllerWithTitle:@"Update Weight"
-                                                                          message:@"How would you like to update weight? If you select Health, your weight will automatically update to match the latest Health data."
+                                                                          message:@"How would you like to update weight? If you select Health, your weight will automatically update to match the latest Health app data."
                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Enter Manually"
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction *action){
-                                                       UIAlertController *confirmManual = [UIAlertController alertControllerWithTitle:@"Enter Weight Manually"
-                                                                                                                              message:@"Are you sure you want to enter your weight manually? Using Health allows info to stay up to date and accurate"
-                                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
-                                                       [confirmManual addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                                                                         style:UIAlertActionStyleCancel
-                                                                                                       handler:nil]];
-                                                       [confirmManual addAction:[UIAlertAction actionWithTitle:@"Confirm"
-                                                                                                         style:UIAlertActionStyleDefault
-                                                                                                       handler:^(UIAlertAction *action){
-                                                                                                           [self getManualWeight];
-                                                                                                       }]];
-                                                       [self presentViewController:confirmManual
-                                                                          animated:YES
-                                                                        completion:nil];
+                                                       [self getManualWeight];
                                                    }]];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health"
                                                      style:UIAlertActionStyleDefault
@@ -131,20 +136,7 @@
         if (!error){
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (results.count == 0){
-                    UIAlertController *noWeightData = [UIAlertController alertControllerWithTitle:@"No Weight Data"
-                                                                                          message:@"There is no weight data available from Health. To proceed you must enter your weight."
-                                                                                   preferredStyle:UIAlertControllerStyleActionSheet];
-                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Enter Manually"
-                                                                     style:UIAlertActionStyleDefault
-                                                                   handler:^(UIAlertAction *action){
-                                                                       [self getManualWeight];
-                                                                   }]];
-                    [noWeightData addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                                     style:UIAlertActionStyleCancel
-                                                                   handler:nil]];
-                    [self presentViewController:noWeightData
-                                       animated:YES
-                                     completion:nil];
+                    [self getManualWeight];
                 } else {
                     weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
                     [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight]
@@ -226,8 +218,7 @@
                                            // Move On
                                            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
                                                                                                    forKey:[StoredDataManager sexKey]];
-                                           [self.sexButton setTitle:[self stringForSex]
-                                                           forState:UIControlStateNormal];
+                                           [self.sexValue setText:[self stringForSex]];
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                          NSLog(@"Block Picker Canceled");

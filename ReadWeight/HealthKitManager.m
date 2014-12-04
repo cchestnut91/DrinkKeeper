@@ -69,13 +69,11 @@ static HealthKitManager *sharedObject;
 -(void)updateHealthValues{
     [self performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
         double newWeight = 0.0;
-        if (!error){
-            if (results.count > 0){
-                newWeight = [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
-                if (newWeight != [[[StoredDataManager sharedInstance] getWeight] doubleValue]){
-                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:newWeight]
-                                                                            forKey:[StoredDataManager weightKey]];
-                }
+        if (!error && results.count > 0 && [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]] != 0){
+            newWeight = [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
+            if (newWeight != [[[StoredDataManager sharedInstance] getWeight] doubleValue]){
+                [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:newWeight]
+                                                                        forKey:[StoredDataManager weightKey]];
             }
         }
         HKBiologicalSex sex = [[self performSexQuery] biologicalSex];
@@ -87,6 +85,9 @@ static HealthKitManager *sharedObject;
         }
         
         [self saveBacWithValue:[[StoredDataManager sharedInstance] getCurrentBAC]];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"healthValuesUpdated"
+                                                            object:nil];
     }];
 }
 
@@ -131,4 +132,9 @@ static HealthKitManager *sharedObject;
     }
     return HKBiologicalSexNotSet;
 }
+
+-(BOOL)isHealthAvailable{
+    return [HKHealthStore isHealthDataAvailable];
+}
+
 @end
