@@ -34,6 +34,8 @@
     
     [self setTitle:[NSString stringWithFormat:@"Add %@", self.type]];
     
+    [self updateStaticLabels];
+    
     // Do any additional setup after loading the view.
     [self.multButton addTarget:self
                         action:@selector(pressMult:)
@@ -58,6 +60,11 @@
     }
     
     [self.multLabel setText:[drinkContext titleForMult]];
+}
+
+-(void)updateStaticLabels{
+    [self.timeTitle setText:@"When"];
+    [self.timeLabel setText:@"Now"];
 }
 
 - (void)didReceiveMemoryWarning {

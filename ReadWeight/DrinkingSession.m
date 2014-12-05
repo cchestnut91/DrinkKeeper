@@ -38,6 +38,8 @@
 
 -(void)updateBAC:(double)bacIn{
     
+// TODO Account for BAC at time of drink
+    
     self.bac = [NSNumber numberWithDouble:bacIn];
     
     if (![self.bac isEqual:@0]){
@@ -48,11 +50,15 @@
         
     } else if (!self.endTime){
         
-        self.endTime = self.projectedEndTime;
+        if (!self.projectedEndTime){
+            self.endTime = [NSDate date];
+        } else {
+            self.endTime = self.projectedEndTime;
+        }
         
     }
     
-    if (self.bac > self.peakValue){
+    if ([self.bac doubleValue] > [self.peakValue doubleValue]){
         self.peak = self.bac;
     }
 }

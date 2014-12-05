@@ -27,7 +27,7 @@
             </objects>
             <point key="canvasLocation" x="-591" y="-2106"/>
         </scene>
-        <!--Add-->
+        <!--add.title-->
         <scene sceneID="b8c-5z-2Fv">
             <objects>
                 <viewController id="3rb-tT-QHh" customClass="AddDrinkViewController" sceneMemberID="viewController">
@@ -68,7 +68,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jTP-dH-Xiz">
-                                <rect key="frame" x="277" y="343" width="46" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -76,7 +76,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mYw-FK-s8f">
                                 <rect key="frame" x="0.0" y="136" width="600" height="300"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Size" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ET-uP-6rK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add.time.size" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ET-uP-6rK">
                                         <rect key="frame" x="300" y="20" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="ukZ-1T-NZH"/>
@@ -85,7 +85,7 @@
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soe-b5-V2c">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add.time.label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soe-b5-V2c">
                                         <rect key="frame" x="0.0" y="20" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="LDS-yS-D9L"/>
@@ -95,7 +95,7 @@
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yz9-3Y-rrC">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add.time.value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yz9-3Y-rrC">
                                         <rect key="frame" x="0.0" y="51" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="XOZ-n4-Ulh"/>
@@ -104,7 +104,7 @@
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 oz." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Osj-Ku-2xI">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add.time.value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Osj-Ku-2xI">
                                         <rect key="frame" x="300" y="51" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="RKr-f7-y9t"/>
@@ -189,7 +189,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Add" id="GGQ-FP-zZG">
+                    <navigationItem key="navigationItem" title="add.title" id="GGQ-FP-zZG">
                         <barButtonItem key="backBarButtonItem" title="Back" id="8NW-MP-xDj"/>
                     </navigationItem>
                     <connections>
@@ -206,7 +206,7 @@
             </objects>
             <point key="canvasLocation" x="883" y="-1724"/>
         </scene>
-        <!--Update Health Info-->
+        <!--profile.title-->
         <scene sceneID="Xyu-p0-t2l">
             <objects>
                 <viewController id="4zG-aB-iEK" customClass="ProfileViewController" sceneMemberID="viewController">
@@ -255,7 +255,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Mh-zo-kh3">
                                 <rect key="frame" x="0.0" y="136" width="600" height="300"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sex" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAL-3T-PQi">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="profile.label.sex" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAL-3T-PQi">
                                         <rect key="frame" x="300" y="20" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="h1W-DN-zVO"/>
@@ -264,7 +264,7 @@
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-eX-WiM">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="profile.label.weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmR-eX-WiM">
                                         <rect key="frame" x="0.0" y="20" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="UEk-aL-zss"/>
@@ -274,7 +274,7 @@
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="175" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOU-at-Dnb">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="profile.value.weight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GOU-at-Dnb">
                                         <rect key="frame" x="0.0" y="51" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="nts-nb-Jrm"/>
@@ -283,7 +283,7 @@
                                         <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gender" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVy-mN-aaS">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="profile.value.sex" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVy-mN-aaS">
                                         <rect key="frame" x="300" y="51" width="300" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="FOp-l3-UL2"/>
@@ -319,8 +319,8 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="EEp-m1-n7d"/>
                                         <exclude reference="0Uv-24-8Al"/>
+                                        <exclude reference="EEp-m1-n7d"/>
                                         <exclude reference="bHV-ZS-y2n"/>
                                     </mask>
                                 </variation>
@@ -335,6 +335,9 @@
                                 <state key="normal" image="check">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="close:" destination="4zG-aB-iEK" eventType="touchUpInside" id="BVf-8c-byv"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -359,24 +362,20 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="84K-T6-UVg"/>
-                                <exclude reference="yhI-tl-OaT"/>
                                 <exclude reference="naJ-KL-EnW"/>
+                                <exclude reference="yhI-tl-OaT"/>
                                 <exclude reference="Hzd-DG-jIh"/>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Update Health Info" id="KCr-k1-pQL">
-                        <barButtonItem key="rightBarButtonItem" title="Cancel" style="done" id="SI8-EO-Yhx">
-                            <connections>
-                                <action selector="close:" destination="4zG-aB-iEK" id="haR-0Y-TuN"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="profile.title" id="KCr-k1-pQL"/>
                     <connections>
                         <outlet property="saveButton" destination="0pw-T8-lMc" id="j8V-lL-usH"/>
                         <outlet property="sexButton" destination="xlb-ri-lMZ" id="qD8-lh-qsx"/>
+                        <outlet property="sexLabel" destination="nAL-3T-PQi" id="nwM-zX-bks"/>
                         <outlet property="sexValue" destination="tVy-mN-aaS" id="SoU-n1-MNQ"/>
                         <outlet property="weightButton" destination="E3l-3x-E3r" id="x5j-rO-sQX"/>
+                        <outlet property="weightLabel" destination="dmR-eX-WiM" id="prc-2f-AQU"/>
                         <outlet property="weightValue" destination="GOU-at-Dnb" id="zf3-jQ-Cu6"/>
                     </connections>
                 </viewController>
@@ -496,7 +495,7 @@
             </objects>
             <point key="canvasLocation" x="888" y="-945"/>
         </scene>
-        <!--Drink Keeper-->
+        <!--main.title-->
         <scene sceneID="zTz-fj-mpm">
             <objects>
                 <viewController id="ZBg-rM-ccY" customClass="MainViewController" sceneMemberID="viewController">
@@ -508,7 +507,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="0.000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ST-7H-skQ">
+                            <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="main.bac.value" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ST-7H-skQ">
                                 <rect key="frame" x="16" y="20" width="568" height="68"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="68" id="aad-dF-6vf"/>
@@ -517,7 +516,7 @@
                                 <color key="textColor" red="0.8980392157" green="0.18823529410000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current B.A.C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-e8-kpW">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="main.bac.label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4c6-e8-kpW">
                                 <rect key="frame" x="16" y="96" width="568" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="7V3-QA-GMs"/>
@@ -529,7 +528,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S2V-df-bFj">
                                 <rect key="frame" x="0.0" y="136" width="600" height="300"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Session" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9N-CS-Sgj">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="main.session.title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c9N-CS-Sgj">
                                         <rect key="frame" x="20" y="271" width="560" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="8cT-Bm-Owe"/>
@@ -607,7 +606,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbW-a8-SMz">
                                 <rect key="frame" x="0.0" y="436" width="600" height="256"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="No Session" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZU8-fr-O27">
+                                    <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="main.session.header" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZU8-fr-O27">
                                         <rect key="frame" x="10" y="10" width="580" height="68"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="68" id="udG-Jz-qt6"/>
@@ -616,7 +615,7 @@
                                         <color key="textColor" red="0.8980392157" green="0.18823529410000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="4" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVJ-Dl-WyS">
+                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="main.session.drinks.value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVJ-Dl-WyS">
                                         <rect key="frame" x="10" y="129" width="580" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="iza-i8-a3W"/>
@@ -625,7 +624,7 @@
                                         <color key="textColor" red="0.8980392157" green="0.18823529410000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of Drinks" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miA-bi-Idr">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="main.session.drinks.label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="miA-bi-Idr">
                                         <rect key="frame" x="10" y="100" width="580" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="sfe-BI-b0v"/>
@@ -634,7 +633,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="0.031" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agv-z4-fBw">
+                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="main.session.peak.value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agv-z4-fBw">
                                         <rect key="frame" x="10" y="201" width="580" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="pYO-ak-Fhe"/>
@@ -644,7 +643,7 @@
                                         <color key="textColor" red="0.8980392157" green="0.18823529410000001" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peak B.A.C." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmq-et-cAN">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="main.session.peak.label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmq-et-cAN">
                                         <rect key="frame" x="10" y="172" width="580" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="78x-UK-tQZ"/>
@@ -738,8 +737,8 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Drink Keeper" id="Nl7-hy-RTu">
-                        <barButtonItem key="rightBarButtonItem" title="Profile" id="jrn-eg-t6p">
+                    <navigationItem key="navigationItem" title="main.title" id="Nl7-hy-RTu">
+                        <barButtonItem key="rightBarButtonItem" title="main.barbutton.profile" id="jrn-eg-t6p">
                             <connections>
                                 <segue destination="XXl-6Z-7cn" kind="presentation" identifier="openOptions" modalTransitionStyle="flipHorizontal" id="pn3-JW-f9G"/>
                             </connections>
@@ -757,6 +756,7 @@
                         <outlet property="numberDrinksValueLabel" destination="yVJ-Dl-WyS" id="lUh-UV-1U2"/>
                         <outlet property="peakTitleLabel" destination="tmq-et-cAN" id="Ls9-Mv-GiX"/>
                         <outlet property="peakValueLabel" destination="agv-z4-fBw" id="uli-IC-ffQ"/>
+                        <outlet property="profileButton" destination="jrn-eg-t6p" id="o5h-wu-N9d"/>
                         <outlet property="sessionDetailsContainerView" destination="RbW-a8-SMz" id="PrW-lD-i4w"/>
                         <outlet property="sessionDetailsHeight" destination="gKM-lm-dHi" id="G2P-90-t2U"/>
                         <outlet property="sessionDetailsVerticalSpace" destination="wXs-4a-7a1" id="HCQ-cJ-lfN"/>

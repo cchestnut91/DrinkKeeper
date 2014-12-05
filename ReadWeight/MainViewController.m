@@ -25,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setTitle:@"Drink Keeper"];
+    [[self profileButton] setTitle:@"Profile"];
+    
     [self.view bringSubviewToFront:self.sessionDetailsContainerView];
     
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
@@ -261,6 +264,9 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"addDrink"]){
+        if ([[self.navigationController viewControllers] count] > 1){
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }
         NSString *typePressed;
         
         if ([sender isKindOfClass:[NSString class]]){

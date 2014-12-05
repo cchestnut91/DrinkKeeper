@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UILabel *sexValue;
 @property (weak, nonatomic) IBOutlet UILabel *weightValue;
+@property (weak, nonatomic) IBOutlet UILabel *weightLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sexLabel;
 - (IBAction)pressWeight:(id)sender;
 - (IBAction)pressSex:(id)sender;
 - (IBAction)close:(id)sender;

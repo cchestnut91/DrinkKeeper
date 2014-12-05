@@ -36,6 +36,9 @@ static HealthKitManager *sharedObject;
     self.sortRecentFirst = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                        ascending:NO];
     
+    self.hasAskedPerission = NO;
+    self.userRequestsHealth = NO;
+    
     return self;
 }
 
@@ -62,40 +65,47 @@ static HealthKitManager *sharedObject;
 }
 
 -(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(BOOL success, NSError *error))callback{
-    [self.healthStore saveObject:sampleIn
-                  withCompletion:callback];
+    if (self.hasAskedPerission){
+        [self.healthStore saveObject:sampleIn
+                      withCompletion:callback];
+    }
 }
 
 -(void)updateHealthValues{
-    [self performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
-        double newWeight = 0.0;
-        if (!error && results.count > 0 && [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]] != 0){
-            newWeight = [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
-            if (newWeight != [[[StoredDataManager sharedInstance] getWeight] doubleValue]){
-                [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:newWeight]
-                                                                        forKey:[StoredDataManager weightKey]];
+    if (self.hasAskedPerission){
+        [self performWeightQueryWithCallback:^(HKSampleQuery *query, NSArray *results, NSError *error){
+            double newWeight = 0.0;
+            if (!error && results.count > 0 && [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]] != 0){
+                newWeight = [[[results lastObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
+                if (newWeight != [[[StoredDataManager sharedInstance] getWeight] doubleValue]){
+                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:newWeight]
+                                                                            forKey:[StoredDataManager weightKey]];
+                }
             }
-        }
-        HKBiologicalSex sex = [[self performSexQuery] biologicalSex];
-        if (sex != [[[StoredDataManager sharedInstance] getSex] integerValue]){
-            if (sex != HKBiologicalSexNotSet){
-                [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
-                                                                        forKey:[StoredDataManager sexKey]];
+            HKBiologicalSex sex = [[self performSexQuery] biologicalSex];
+            if (sex != [[[StoredDataManager sharedInstance] getSex] integerValue]){
+                if (sex != HKBiologicalSexNotSet){
+                    [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                            forKey:[StoredDataManager sexKey]];
+                }
             }
-        }
-        
-        [self saveBacWithValue:[[StoredDataManager sharedInstance] getCurrentBAC]];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"healthValuesUpdated"
-                                                            object:nil];
-    }];
+            
+            [self saveBacWithValue:[[StoredDataManager sharedInstance] getCurrentBAC]];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"healthValuesUpdated"
+                                                                object:nil];
+        }];
+    }
 }
 
 -(void)performHealthKitRequestWithCallback:(void (^)(BOOL success, NSError *error))callback{
-    if (self.healthStore){
-        [self.healthStore requestAuthorizationToShareTypes:self.writeTypes
-                                                 readTypes:self.readTypes
-                                                completion:callback];
+    if (!self.hasAskedPerission && self.userRequestsHealth){
+        if (self.healthStore){
+            [self.healthStore requestAuthorizationToShareTypes:self.writeTypes
+                                                     readTypes:self.readTypes
+                                                    completion:callback];
+            self.hasAskedPerission = YES;
+        }
     }
 }
 
@@ -106,11 +116,27 @@ static HealthKitManager *sharedObject;
                                                                      limit:1
                                                            sortDescriptors:@[self.sortRecentFirst]
                                                             resultsHandler:callback];
-    [self.healthStore executeQuery:weightQuery];
+    
+    if (self.hasAskedPerission){
+        [self.healthStore executeQuery:weightQuery];
+    } else {
+        if (self.userRequestsHealth){
+            [self performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
+                [self performWeightQueryWithCallback:callback];
+            }];
+        }
+    }
     
 }
 
 -(HKBiologicalSexObject *)performSexQuery{
+    
+    if (self.userRequestsHealth && !self.hasAskedPerission){
+        [self performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
+            [self updateHealthValues];
+        }];
+        return nil;
+    }
     NSError *error = nil;
     HKBiologicalSexObject *sex = [self.healthStore biologicalSexWithError:&error];
     if (error == nil){
@@ -135,6 +161,13 @@ static HealthKitManager *sharedObject;
 
 -(BOOL)isHealthAvailable{
     return [HKHealthStore isHealthDataAvailable];
+}
+
+-(BOOL)shouldRequestAccess{
+    if (!self.hasAskedPerission && self.userRequestsHealth){
+        return YES;
+    }
+    return NO;
 }
 
 @end

@@ -32,6 +32,8 @@
     
     // Do any additional setup after loading the view.
     
+    [self updateStaticLabels];
+    
     [self updateValueLabels];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -41,6 +43,13 @@
     
     [[HealthKitManager sharedInstance] updateHealthValues];
     
+}
+
+-(void)updateStaticLabels{
+    [self setTitle:@"Update Health Info"];
+    
+    [self.weightLabel setText:@"Weight"];
+    [self.sexLabel setText:@"Sex"];
 }
 
 -(void)updateValueLabels{
@@ -89,6 +98,7 @@
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health"
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction *action){
+                                                       [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
                                                        [self performWeightQuery];
                                                    }]];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Cancel"
@@ -116,8 +126,7 @@
                                                         weight = [[enterWeight textFields][0] text].doubleValue;
                                                         [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
                                                                     forKey:[StoredDataManager weightKey]];
-                                                        [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight]
-                                                                           forState:UIControlStateNormal];
+                                                        [self.weightValue setText:[NSString stringWithFormat:@"%.1f", weight]];
                                                     } else {
                                                         [self presentViewController:enterWeight
                                                                            animated:YES
@@ -139,8 +148,7 @@
                     [self getManualWeight];
                 } else {
                     weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
-                    [self.weightButton setTitle:[NSString stringWithFormat:@"%.1f", weight]
-                                       forState:UIControlStateNormal];
+                    [self.weightValue setText:[NSString stringWithFormat:@"%.1f", weight]];
                     [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithDouble:weight]
                                                                             forKey:[StoredDataManager weightKey]];
                 }
@@ -163,6 +171,7 @@
     [updateSex addAction:[UIAlertAction actionWithTitle:@"Use Health"
                                                   style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *action){
+                                                    [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
                                                     sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
                                                     if (sex == HKBiologicalSexNotSet){
                                                         UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex"
@@ -181,8 +190,7 @@
                                                                                                            // Move on
                                                                                                            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
                                                                                                                                                                    forKey:[StoredDataManager sexKey]];
-                                                                                                           [self.sexButton setTitle:[HealthKitManager stringForSex]
-                                                                                                                           forState:UIControlStateNormal];
+                                                                                                           [self.sexValue setText:[HealthKitManager stringForSex]];
                                                                                                        }]];
                                                         [self presentViewController:confirmOther
                                                                            animated:YES
@@ -191,8 +199,7 @@
                                                         
                                                         [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
                                                                                                                 forKey:[StoredDataManager sexKey]];
-                                                        [self.sexButton setTitle:[self stringForSex]
-                                                                        forState:UIControlStateNormal];
+                                                        [self.sexValue setText:[self stringForSex]];
                                                     }
                                                 }]];
     [updateSex addAction:[UIAlertAction actionWithTitle:@"Cancel"

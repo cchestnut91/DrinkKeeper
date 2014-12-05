@@ -118,6 +118,7 @@
 }
 
 - (IBAction)handleHealthPressed:(id)sender {
+    [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
     
     [[HealthKitManager sharedInstance] performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
         if (success) {

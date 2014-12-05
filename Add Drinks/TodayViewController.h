@@ -14,6 +14,7 @@
 
 @interface TodayViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *bacLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentLabel;
 - (IBAction)addBeer:(id)sender;
 - (IBAction)addWine:(id)sender;
 - (IBAction)addLiquor:(id)sender;

@@ -18,6 +18,8 @@
 @property HKCharacteristicType *sexType;
 @property HKSampleType *bacType;
 @property NSSortDescriptor *sortRecentFirst;
+@property BOOL hasAskedPerission;
+@property BOOL userRequestsHealth;
 
 +(HealthKitManager *)sharedInstance;
 

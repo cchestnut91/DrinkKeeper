@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *peakTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *peakValueLabel;
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *profileButton;
+
 -(void)addDrinkFromURL:(NSNotification *)notification;
 -(void)addDrink:(NSNotification *)notification;
 -(void)recalcBAC;
