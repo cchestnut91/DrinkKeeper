@@ -204,7 +204,6 @@ static StoredDataManager *sharedObject;
 
 -(double)getCurrentBAC{
     if ([self currentSession]){
-// TODO Save Current Session?
         return [[self currentSession] getUpdatedBAC];
     }
     return 0.0;

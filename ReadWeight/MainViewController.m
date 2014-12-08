@@ -201,21 +201,35 @@
     [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
     [self recalcBAC];
     
-// TODO If we have other notifications, only cancel the one that needs to be canceled.
-    // NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    NSMutableArray *notificationsToKeep = [[NSMutableArray alloc] init];
+    
+    for (UILocalNotification *notification in notifications){
+        if ([notification userInfo]){
+            if (![[[notification userInfo] objectForKey:@"type"] isEqualToString:@"sober"]){
+                [notificationsToKeep addObject:notification];
+            }
+        }
+    }
     
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     UILocalNotification *sober = [[UILocalNotification alloc] init];
     
+    [sober setUserInfo:@{@"type":@"sober"}];
+    
     // TODO why is this 0.015? Should be metabolism constant?
-    double secondsLeft = (bac / 0.015) * 60 * 60;
+    double secondsLeft = ((bac * 100) / 0.015) * 60 * 60;
     
     [sober setFireDate:[NSDate dateWithTimeIntervalSinceNow:secondsLeft]];
     [sober setAlertBody:@"BAC has reached zero"];
     [sober setSoundName:UILocalNotificationDefaultSoundName];
     
-    [[UIApplication sharedApplication] scheduleLocalNotification:sober];
+    [notificationsToKeep addObject:sober];
+    
+    for (UILocalNotification *notification in notificationsToKeep){
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
 }
 
 -(void)addDrinkFromURL:(NSNotification *)notification{
