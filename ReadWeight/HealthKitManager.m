@@ -39,6 +39,8 @@ static HealthKitManager *sharedObject;
     self.hasAskedPerission = NO;
     self.userRequestsHealth = NO;
     
+    self.hasAskedPerission = [self.healthStore authorizationStatusForType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent]] != HKAuthorizationStatusNotDetermined;
+    
     return self;
 }
 
@@ -131,7 +133,7 @@ static HealthKitManager *sharedObject;
 
 -(HKBiologicalSexObject *)performSexQuery{
     
-    if (self.userRequestsHealth && !self.hasAskedPerission){
+    if ([self shouldRequestAccess]){
         [self performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
             [self updateHealthValues];
         }];

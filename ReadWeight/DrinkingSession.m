@@ -130,6 +130,10 @@
     return nil;
 }
 
+-(NSString *)hangoverRatingStringValue{
+    return nil;
+}
+
 -(NSNumber *)hangoverRating{
 // TODO Hangovers
     if (true){
