@@ -97,8 +97,8 @@
                                                    }]];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health"
                                                      style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction *action){
-                                                       [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
+												   handler:^(UIAlertAction *action){
+													   [[StoredDataManager sharedInstance] userRequestsHealth];
                                                        [self performWeightQuery];
                                                    }]];
     
@@ -178,8 +178,8 @@
                                                 }]];
     [updateSex addAction:[UIAlertAction actionWithTitle:@"Use Health"
                                                   style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction *action){
-                                                    [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
+												handler:^(UIAlertAction *action){
+													[[StoredDataManager sharedInstance] userRequestsHealth];
                                                     sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
                                                     if (sex == HKBiologicalSexNotSet){
                                                         UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex"

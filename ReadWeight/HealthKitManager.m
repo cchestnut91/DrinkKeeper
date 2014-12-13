@@ -37,7 +37,6 @@ static HealthKitManager *sharedObject;
                                                        ascending:NO];
     
     self.hasAskedPerission = [_healthStore authorizationStatusForType:_bacType] != HKAuthorizationStatusNotDetermined;
-    self.userRequestsHealth = NO;
     
     return self;
 }
@@ -99,7 +98,7 @@ static HealthKitManager *sharedObject;
 }
 
 -(void)performHealthKitRequestWithCallback:(void (^)(BOOL success, NSError *error))callback{
-    if (!self.hasAskedPerission && self.userRequestsHealth){
+    if (!self.hasAskedPerission && [[StoredDataManager sharedInstance] userHasRequestedHealth]){
         if (self.healthStore){
             [self.healthStore requestAuthorizationToShareTypes:self.writeTypes
                                                      readTypes:self.readTypes
@@ -120,7 +119,7 @@ static HealthKitManager *sharedObject;
     if (self.hasAskedPerission){
         [self.healthStore executeQuery:weightQuery];
     } else {
-        if (self.userRequestsHealth){
+        if ([[StoredDataManager sharedInstance] userHasRequestedHealth]){
             [self performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
                 [self performWeightQueryWithCallback:callback];
                 [self updateHealthValues];
@@ -167,7 +166,7 @@ static HealthKitManager *sharedObject;
 }
 
 -(BOOL)shouldRequestAccess{
-    if (!self.hasAskedPerission && self.userRequestsHealth){
+    if (!self.hasAskedPerission && [[StoredDataManager sharedInstance] userHasRequestedHealth]){
         return YES;
     }
     return NO;

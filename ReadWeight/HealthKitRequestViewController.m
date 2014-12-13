@@ -22,6 +22,12 @@
     HKBiologicalSexObject *userSex;
     BOOL noWeightData;
     BOOL noSexData;
+	__weak IBOutlet NSLayoutConstraint *infoButtonPositionA;
+	__weak IBOutlet NSLayoutConstraint *infoButtonPositionB;
+	__weak IBOutlet NSLayoutConstraint *manualButtonPositionA;
+	__weak IBOutlet NSLayoutConstraint *manualButtonPositionB;
+	__weak IBOutlet NSLayoutConstraint *healthButtonPositionA;
+	__weak IBOutlet NSLayoutConstraint *healthButtonPositionB;
 }
 
 - (void)viewDidLoad {
@@ -30,7 +36,8 @@
     
     noWeightData = YES;
     noSexData = YES;
-    
+	
+	
 }
 
 - (void)didReceiveMemoryWarning {
@@ -118,7 +125,7 @@
 }
 
 - (IBAction)handleHealthPressed:(id)sender {
-    [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
+    [[StoredDataManager sharedInstance] userRequestsHealth];
     
     [[HealthKitManager sharedInstance] performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
         if (success) {

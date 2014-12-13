@@ -100,18 +100,6 @@ static StoredDataManager *sharedObject;
     NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.sessionDirectory
                                                                                 error:&error];
     
-    if (!forceSession){
-        forceSession = [[DrinkingSession alloc] init];
-        AddDrinkContext *newContext = [[AddDrinkContext alloc] initWithType:@"Beer"];
-        [newContext setTime:[NSDate dateWithTimeIntervalSinceNow:-1740]];
-        Drink *newDrink = [[Drink alloc] initWithDrinkContext:newContext];
-        [forceSession addDrinkToSession:newDrink];
-        
-        [forceSession setPeak:@0.00022];
-    }
-    
-    return forceSession;
-    
     for (NSString *sessionFile in sessionFiles){
         DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
         if ([session getUpdatedBAC] == 0.0){
@@ -148,6 +136,18 @@ static StoredDataManager *sharedObject;
  [forceSession addDrinkToSession:toAdd];
  
  [forceSession setPeak:@0.00026];
+ }
+ 
+ return forceSession;
+ 
+ if (!forceSession){
+ forceSession = [[DrinkingSession alloc] init];
+ AddDrinkContext *newContext = [[AddDrinkContext alloc] initWithType:@"Beer"];
+ [newContext setTime:[NSDate dateWithTimeIntervalSinceNow:-1740]];
+ Drink *newDrink = [[Drink alloc] initWithDrinkContext:newContext];
+ [forceSession addDrinkToSession:newDrink];
+ 
+ [forceSession setPeak:@0.00022];
  }
  
  return forceSession;
@@ -234,6 +234,14 @@ static StoredDataManager *sharedObject;
         return YES;
     }
     return NO;
+}
+
+-(void)userRequestsHealth{
+	[self updateDictionaryWithObject:@1 forKey:@"hasRequestedHealth"];
+}
+
+-(BOOL)userHasRequestedHealth{
+	return [[self healthDictionary] objectForKey:@"hasRequestedHealth"];
 }
 
 -(NSDictionary *)healthDictionary{

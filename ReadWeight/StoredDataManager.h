@@ -36,5 +36,7 @@
 -(double)genderStandard;
 -(double)metabolismConstant;
 -(double)getCurrentBAC;
+-(void)userRequestsHealth;
+-(BOOL)userHasRequestedHealth;
 
 @end
