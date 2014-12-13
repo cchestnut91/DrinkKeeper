@@ -11,7 +11,7 @@
 
 @interface HealthKitManager : NSObject
 
-@property HKHealthStore *healthStore;
+@property (strong, nonatomic) HKHealthStore *healthStore;
 @property NSSet *readTypes;
 @property NSSet *writeTypes;
 @property HKSampleType *weightType;

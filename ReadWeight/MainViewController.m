@@ -62,14 +62,20 @@
         
         [self.sessionLengthValueLabel setHidden:NO];
         
-        DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
+        DrinkingSession *session = [[StoredDataManager sharedInstance] currentSession];
+        if (!session){
+            session = [[StoredDataManager sharedInstance] lastSession];
+        }
         
         if (!session){
             
             hasCurrentSession = NO;
             
             [self.sessionLengthValueLabel setText:@"No Sessions"];
+
         } else {
+            
+            hasCurrentSession = YES;
             
             [self updateSessionSectionWithSection:session];
             
@@ -94,6 +100,19 @@
         
         [[HealthKitManager sharedInstance] updateHealthValues];
         
+        if (hasCurrentSession){
+            
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                         action:@selector(slideView)];
+            [self.sessionDetailsContainerView addGestureRecognizer:tapGesture];
+            
+            UITapGestureRecognizer *blurTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(slideView)];
+            
+            [self.blurView addGestureRecognizer:blurTap];
+            
+        }
+        
         timer = [NSTimer scheduledTimerWithTimeInterval:30
                                                  target:self
                                                selector:@selector(recalcBAC)
@@ -101,16 +120,6 @@
                                                 repeats:YES];
         
         [timer fire];
-        
-        if (hasCurrentSession){
-            
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(slideView)];
-            [self.sessionDetailsContainerView addGestureRecognizer:tapGesture];
-            
-            UITapGestureRecognizer *blurTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(slideView)];
-            [self.blurView addGestureRecognizer:blurTap];
-            
-        }
     }
     
 }
@@ -153,9 +162,18 @@
     NSTimeInterval time;
     
     if ([session endTime]){
+        
         time = [[session endTime] timeIntervalSinceDate:[session startTime]];
+        
+    } else if ([session projectedEndTime] && [session getUpdatedBAC] == 0.0){
+        
+        [session setEndTime:[session projectedEndTime]];
+        time = [[session projectedEndTime] timeIntervalSinceDate:[session endTime]];
+        
     } else {
+        
         time = [[NSDate date] timeIntervalSinceDate:[session startTime]];
+        
     }
     
     int numMinutes = time / 60.0;
@@ -173,7 +191,12 @@
         
     } else {
         
-        [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d Minutes", numMinutes]];
+        if (numMinutes == 0){
+            [self.sessionLengthValueLabel setText:@"Just Started"];
+        } else {
+            NSString *minuteText = numMinutes == 1 ? @"Minute" : @"Minutes";
+            [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d %@", numMinutes, minuteText]];
+        }
         
     }
 }

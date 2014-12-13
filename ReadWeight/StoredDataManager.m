@@ -11,6 +11,7 @@
 NSString *weightKey = @"weight";
 NSString *sexKey = @"sex";
 NSString *sessionDir;
+DrinkingSession *forceSession;
 
 @implementation StoredDataManager
 
@@ -93,9 +94,23 @@ static StoredDataManager *sharedObject;
 }
 
 -(DrinkingSession *)currentSession{
+
     NSError *error = nil;
+    
     NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.sessionDirectory
                                                                                 error:&error];
+    
+    if (!forceSession){
+        forceSession = [[DrinkingSession alloc] init];
+        AddDrinkContext *newContext = [[AddDrinkContext alloc] initWithType:@"Beer"];
+        [newContext setTime:[NSDate dateWithTimeIntervalSinceNow:-1740]];
+        Drink *newDrink = [[Drink alloc] initWithDrinkContext:newContext];
+        [forceSession addDrinkToSession:newDrink];
+        
+        [forceSession setPeak:@0.00022];
+    }
+    
+    return forceSession;
     
     for (NSString *sessionFile in sessionFiles){
         DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
@@ -113,8 +128,31 @@ static StoredDataManager *sharedObject;
 
 - (NSString *)applicationDocumentsDirectory
 {
-    return [[[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"] path];
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSURL *container = [manager containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
+    NSString *ret = [container path];
+    return ret;
 }
+// This block gives a static demo session for screenshots and demos
+/*
+ if (!forceSession){
+ AddDrinkContext *newContext = [[AddDrinkContext alloc] initWithType:@"Beer"];
+ [newContext setTime:[NSDate dateWithTimeIntervalSinceNow:-4320]];
+ Drink *toAdd = [[Drink alloc] initWithDrinkContext:newContext];
+ forceSession = [[DrinkingSession alloc] init];
+ [forceSession addDrinkToSession:toAdd];
+ 
+ newContext = [[AddDrinkContext alloc] initWithType:@"Beer"];
+ [newContext setTime:[NSDate dateWithTimeIntervalSinceNow:-1000]];
+ toAdd = [[Drink alloc] initWithDrinkContext:newContext];
+ [forceSession addDrinkToSession:toAdd];
+ 
+ [forceSession setPeak:@0.00026];
+ }
+ 
+ return forceSession;
+ 
+ */
 
 -(void)updateDictionaryWithObject:(id)objectIn forKey:(NSString *)keyIn{
     NSMutableDictionary *healthDic = [NSMutableDictionary dictionaryWithDictionary:self.healthDictionary];

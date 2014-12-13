@@ -93,7 +93,7 @@
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Enter Manually"
                                                      style:UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction *action){
-                                                       [self getManualWeight];
+                                                       [self getManualWeightWithMessage:nil];
                                                    }]];
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health"
                                                      style:UIAlertActionStyleDefault
@@ -101,6 +101,7 @@
                                                        [[HealthKitManager sharedInstance] setUserRequestsHealth:YES];
                                                        [self performWeightQuery];
                                                    }]];
+    
     [updateWeight addAction:[UIAlertAction actionWithTitle:@"Cancel"
                                                      style:UIAlertActionStyleCancel
                                                    handler:nil]];
@@ -109,9 +110,9 @@
                      completion:nil];
 }
 
--(void)getManualWeight{
+-(void)getManualWeightWithMessage:(NSString *)messageIn{
     UIAlertController *enterWeight = [UIAlertController alertControllerWithTitle:@"Enter Weight"
-                                                                         message:nil
+                                                                         message:messageIn
                                                                   preferredStyle:UIAlertControllerStyleAlert];
     [enterWeight addTextFieldWithConfigurationHandler:^(UITextField *textField){
         [textField setKeyboardType:UIKeyboardTypeDecimalPad];
@@ -119,6 +120,13 @@
     [enterWeight addAction:[UIAlertAction actionWithTitle:@"Cancel"
                                                     style:UIAlertActionStyleCancel
                                                   handler:nil]];
+    if (messageIn){
+        [enterWeight addAction:[UIAlertAction actionWithTitle:@"Try Health Again"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action){
+                                                          [self performWeightQuery];
+                                                      }]];
+    }
     [enterWeight addAction:[UIAlertAction actionWithTitle:@"Done"
                                                     style:UIAlertActionStyleDefault
                                                   handler:^(UIAlertAction *action){
@@ -145,7 +153,7 @@
         if (!error){
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (results.count == 0){
-                    [self getManualWeight];
+                    [self getManualWeightWithMessage:@"No Available Weight Data In Health. To adjust your sharing preferences, open the Health App, select Sources, and allow Drink Keeper to read weight data."];
                 } else {
                     weight = [[[results firstObject] quantity] doubleValueForUnit:[HKUnit poundUnit]];
                     [self.weightValue setText:[NSString stringWithFormat:@"%.1f", weight]];
@@ -192,6 +200,7 @@
                                                                                                                                                                    forKey:[StoredDataManager sexKey]];
                                                                                                            [self.sexValue setText:[HealthKitManager stringForSex]];
                                                                                                        }]];
+                                                        
                                                         [self presentViewController:confirmOther
                                                                            animated:YES
                                                                          completion:nil];

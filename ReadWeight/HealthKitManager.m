@@ -15,7 +15,7 @@ static HealthKitManager *sharedObject;
 
 +(HealthKitManager *) sharedInstance{
     if (sharedObject == nil){
-        sharedObject = [[super allocWithZone:NULL] init];
+        sharedObject = [[HealthKitManager alloc] init];
     }
     
     return sharedObject;
@@ -36,10 +36,8 @@ static HealthKitManager *sharedObject;
     self.sortRecentFirst = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                        ascending:NO];
     
-    self.hasAskedPerission = NO;
+    self.hasAskedPerission = [_healthStore authorizationStatusForType:_bacType] != HKAuthorizationStatusNotDetermined;
     self.userRequestsHealth = NO;
-    
-    self.hasAskedPerission = [self.healthStore authorizationStatusForType:[HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent]] != HKAuthorizationStatusNotDetermined;
     
     return self;
 }
@@ -125,6 +123,9 @@ static HealthKitManager *sharedObject;
         if (self.userRequestsHealth){
             [self performHealthKitRequestWithCallback:^(BOOL success, NSError *error){
                 [self performWeightQueryWithCallback:callback];
+                [self updateHealthValues];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"healthValuesUpdated"
+                                                                    object:nil];
             }];
         }
     }
