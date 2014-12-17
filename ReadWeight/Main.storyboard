@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ur4-wt-9DU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C68k" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ur4-wt-9DU">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -724,7 +724,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can also enter this information manually" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXE-6N-9Za">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can also enter this information manually if Health is unavailable." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qXE-6N-9Za">
                                 <rect key="frame" x="16" y="326" width="568" height="187"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="j0P-YK-YFk"/>
@@ -786,6 +786,10 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfe-J0-Bnk">
                                 <rect key="frame" x="289" y="550" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="W9O-1D-xSI"/>
+                                    <constraint firstAttribute="width" constant="22" id="a1J-ML-Z5Y"/>
+                                </constraints>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -817,7 +821,6 @@
                             <constraint firstAttribute="centerX" secondItem="mfe-J0-Bnk" secondAttribute="centerX" id="fsz-oZ-nVn"/>
                             <constraint firstItem="nfE-mE-ZYX" firstAttribute="top" secondItem="mfe-J0-Bnk" secondAttribute="bottom" priority="1" constant="8" id="gQz-r7-OPT"/>
                             <constraint firstItem="nfE-mE-ZYX" firstAttribute="leading" secondItem="8zA-iq-yNY" secondAttribute="leading" id="gXx-x6-Awi"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nfE-mE-ZYX" secondAttribute="trailing" priority="1" id="jmX-95-av3"/>
                             <constraint firstItem="Bx2-hJ-Cbh" firstAttribute="leading" secondItem="8zA-iq-yNY" secondAttribute="leadingMargin" id="m9j-vD-1Wr"/>
                             <constraint firstItem="Uze-YF-llb" firstAttribute="top" secondItem="mfe-J0-Bnk" secondAttribute="bottom" constant="28" id="nuE-Jh-Jaf"/>
                             <constraint firstItem="nfE-mE-ZYX" firstAttribute="top" secondItem="qXE-6N-9Za" secondAttribute="bottom" constant="8" id="o1D-3B-Ssg"/>
@@ -825,6 +828,7 @@
                             <constraint firstItem="z4o-f2-LRE" firstAttribute="leading" secondItem="mfe-J0-Bnk" secondAttribute="trailing" constant="8" id="poU-HK-q54"/>
                             <constraint firstItem="nfE-mE-ZYX" firstAttribute="width" secondItem="8zA-iq-yNY" secondAttribute="width" multiplier="1:2" id="qJN-rD-d3f"/>
                             <constraint firstItem="xFt-zB-Gvi" firstAttribute="top" secondItem="Bx2-hJ-Cbh" secondAttribute="bottom" constant="8" id="rLb-34-whv"/>
+                            <constraint firstAttribute="trailing" secondItem="nfE-mE-ZYX" secondAttribute="trailing" priority="1" id="xVU-nr-NjF"/>
                             <constraint firstItem="qXE-6N-9Za" firstAttribute="top" secondItem="xFt-zB-Gvi" secondAttribute="bottom" constant="8" id="zax-tA-aCu"/>
                         </constraints>
                         <variation key="default">
@@ -839,11 +843,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="wlg-Nj-AVb"/>
                     <connections>
+                        <outlet property="healthButtonPositionA" destination="poU-HK-q54" id="ZCI-xF-Kwn"/>
+                        <outlet property="healthButtonPositionB" destination="iTK-wx-hHZ" id="AwQ-Rf-9Uf"/>
                         <outlet property="healthImage" destination="xFt-zB-Gvi" id="Vih-td-ors"/>
-                        <outlet property="infoButtonPositionA" destination="nuE-Jh-Jaf" id="AjV-YV-Cb1"/>
+                        <outlet property="infoButtonPositionA" destination="nuE-Jh-Jaf" id="EFz-v9-R7e"/>
+                        <outlet property="infoButtonPositionB" destination="gQz-r7-OPT" id="k2Z-UD-zDy"/>
                         <outlet property="introLabel" destination="Bx2-hJ-Cbh" id="Wfi-SW-7sF"/>
                         <outlet property="loadingView" destination="Uca-gR-lA0" id="EJd-Yk-Tkq"/>
-                        <outlet property="manualButtonPositionB" destination="jmX-95-av3" id="y8T-tC-EC2"/>
+                        <outlet property="manualButtonPositionA" destination="P4q-pM-snz" id="8Ot-Z6-sD2"/>
+                        <outlet property="manualButtonPositionB" destination="xVU-nr-NjF" id="1hw-VM-Mcw"/>
                         <outlet property="subtextLabel" destination="qXE-6N-9Za" id="7tI-CF-05a"/>
                         <outlet property="useHealthButton" destination="z4o-f2-LRE" id="nPX-8C-xeS"/>
                         <outlet property="useManualButton" destination="nfE-mE-ZYX" id="Naa-KY-lpd"/>

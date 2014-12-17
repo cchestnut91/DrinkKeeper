@@ -28,6 +28,8 @@
     bac = newBac - metabolized;
     if (bac <= 0.0){
         bac = 0.0;
+    } else {
+        bac = bac / 100;
     }
     
     bac = bac / 100;

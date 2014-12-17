@@ -36,8 +36,22 @@
     
     noWeightData = YES;
     noSexData = YES;
+    
+    if (true){
+        [self setSecondaryConstraints];
+    }
 	
 	
+}
+
+-(void)setSecondaryConstraints{
+    [infoButtonPositionA setPriority:1];
+    [manualButtonPositionA setPriority:1];
+    [healthButtonPositionA setPriority:1];
+    
+    [infoButtonPositionB setPriority:1000];
+    [manualButtonPositionB setPriority:1000];
+    [healthButtonPositionB setPriority:1000];
 }
 
 - (void)didReceiveMemoryWarning {

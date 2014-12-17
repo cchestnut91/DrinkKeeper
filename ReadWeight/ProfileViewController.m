@@ -83,31 +83,30 @@
 // TODO handle if Health unavailable on this device. Like, everywhere. Shit
     if ([[HealthKitManager sharedInstance] isHealthAvailable]){
         
-    } else {
+        UIAlertController *updateWeight = [UIAlertController alertControllerWithTitle:@"Update Weight"
+                                                                              message:@"How would you like to update weight? If you select Health, your weight will automatically update to match the latest Health app data."
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
+        [updateWeight addAction:[UIAlertAction actionWithTitle:@"Enter Manually"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action){
+                                                           [self getManualWeightWithMessage:nil];
+                                                       }]];
+        [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction *action){
+                                                           [[StoredDataManager sharedInstance] userRequestsHealth];
+                                                           [self performWeightQuery];
+                                                       }]];
         
+        [updateWeight addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleCancel
+                                                       handler:nil]];
+        [self presentViewController:updateWeight
+                           animated:YES
+                         completion:nil];
+    } else {
+        [self getManualWeightWithMessage:nil];
     }
-    
-    UIAlertController *updateWeight = [UIAlertController alertControllerWithTitle:@"Update Weight"
-                                                                          message:@"How would you like to update weight? If you select Health, your weight will automatically update to match the latest Health app data."
-                                                                   preferredStyle:UIAlertControllerStyleActionSheet];
-    [updateWeight addAction:[UIAlertAction actionWithTitle:@"Enter Manually"
-                                                     style:UIAlertActionStyleDefault
-                                                   handler:^(UIAlertAction *action){
-                                                       [self getManualWeightWithMessage:nil];
-                                                   }]];
-    [updateWeight addAction:[UIAlertAction actionWithTitle:@"Use Health"
-                                                     style:UIAlertActionStyleDefault
-												   handler:^(UIAlertAction *action){
-													   [[StoredDataManager sharedInstance] userRequestsHealth];
-                                                       [self performWeightQuery];
-                                                   }]];
-    
-    [updateWeight addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:nil]];
-    [self presentViewController:updateWeight
-                       animated:YES
-                     completion:nil];
 }
 
 -(void)getManualWeightWithMessage:(NSString *)messageIn{
@@ -168,55 +167,60 @@
 }
 
 - (IBAction)pressSex:(id)sender {
-    UIAlertController *updateSex = [UIAlertController alertControllerWithTitle:@"Update Sex"
-                                                                       message:@"How would you like to update your sex?"
-                                                                preferredStyle:UIAlertControllerStyleActionSheet];
-    [updateSex addAction:[UIAlertAction actionWithTitle:@"Select Manually"
-                                                  style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction *action){
-                                                    [self selectSexManual];
-                                                }]];
-    [updateSex addAction:[UIAlertAction actionWithTitle:@"Use Health"
-                                                  style:UIAlertActionStyleDefault
-												handler:^(UIAlertAction *action){
-													[[StoredDataManager sharedInstance] userRequestsHealth];
-                                                    sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
-                                                    if (sex == HKBiologicalSexNotSet){
-                                                        UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex"
-                                                                                                                              message:@"Health indicates you identify as 'Other'. Is this correct?"
-                                                                                                                       preferredStyle:UIAlertControllerStyleAlert];
-                                                        [confirmOther addAction:[UIAlertAction actionWithTitle:@"Change"
-                                                                                                         style:UIAlertActionStyleDestructive
-                                                                                                       handler:^(UIAlertAction *action){
-                                                                                                           dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                                               [self selectSexManual];
-                                                                                                           });
-                                                                                                       }]];
-                                                        [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm"
-                                                                                                         style:UIAlertActionStyleDefault
-                                                                                                       handler:^(UIAlertAction *action){
-                                                                                                           // Move on
-                                                                                                           [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
-                                                                                                                                                                   forKey:[StoredDataManager sexKey]];
-                                                                                                           [self.sexValue setText:[HealthKitManager stringForSex]];
-                                                                                                       }]];
-                                                        
-                                                        [self presentViewController:confirmOther
-                                                                           animated:YES
-                                                                         completion:nil];
-                                                    } else {
-                                                        
-                                                        [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
-                                                                                                                forKey:[StoredDataManager sexKey]];
-                                                        [self.sexValue setText:[self stringForSex]];
-                                                    }
-                                                }]];
-    [updateSex addAction:[UIAlertAction actionWithTitle:@"Cancel"
-                                                  style:UIAlertActionStyleCancel
-                                                handler:nil]];
-    [self presentViewController:updateSex
-                       animated:YES
-                     completion:nil];
+    
+    if ([[HealthKitManager sharedInstance] isHealthAvailable]){
+        UIAlertController *updateSex = [UIAlertController alertControllerWithTitle:@"Update Sex"
+                                                                           message:@"How would you like to update your sex?"
+                                                                    preferredStyle:UIAlertControllerStyleActionSheet];
+        [updateSex addAction:[UIAlertAction actionWithTitle:@"Select Manually"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action){
+                                                        [self selectSexManual];
+                                                    }]];
+        [updateSex addAction:[UIAlertAction actionWithTitle:@"Use Health"
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action){
+                                                        [[StoredDataManager sharedInstance] userRequestsHealth];
+                                                        sex = [[[HealthKitManager sharedInstance] performSexQuery] biologicalSex];
+                                                        if (sex == HKBiologicalSexNotSet){
+                                                            UIAlertController *confirmOther = [UIAlertController alertControllerWithTitle:@"Confirm Sex"
+                                                                                                                                  message:@"Health indicates you identify as 'Other'. Is this correct?"
+                                                                                                                           preferredStyle:UIAlertControllerStyleAlert];
+                                                            [confirmOther addAction:[UIAlertAction actionWithTitle:@"Change"
+                                                                                                             style:UIAlertActionStyleDestructive
+                                                                                                           handler:^(UIAlertAction *action){
+                                                                                                               dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                                   [self selectSexManual];
+                                                                                                               });
+                                                                                                           }]];
+                                                            [confirmOther addAction:[UIAlertAction actionWithTitle:@"Confirm"
+                                                                                                             style:UIAlertActionStyleDefault
+                                                                                                           handler:^(UIAlertAction *action){
+                                                                                                               // Move on
+                                                                                                               [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                                                                                                                       forKey:[StoredDataManager sexKey]];
+                                                                                                               [self.sexValue setText:[HealthKitManager stringForSex]];
+                                                                                                           }]];
+                                                            
+                                                            [self presentViewController:confirmOther
+                                                                               animated:YES
+                                                                             completion:nil];
+                                                        } else {
+                                                            
+                                                            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
+                                                                                                                    forKey:[StoredDataManager sexKey]];
+                                                            [self.sexValue setText:[self stringForSex]];
+                                                        }
+                                                    }]];
+        [updateSex addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:nil]];
+        [self presentViewController:updateSex
+                           animated:YES
+                         completion:nil];
+    } else {
+        [self selectSexManual];
+    }
 }
 
 -(void)selectSexManual{
