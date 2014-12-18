@@ -162,7 +162,6 @@ static HealthKitManager *sharedObject;
 }
 
 -(BOOL)isHealthAvailable{
-    return NO;
     return [HKHealthStore isHealthDataAvailable];
 }
 
