@@ -168,7 +168,7 @@
     } else if ([session projectedEndTime] && [session getUpdatedBAC] == 0.0){
         
         [session setEndTime:[session projectedEndTime]];
-        time = [[session projectedEndTime] timeIntervalSinceDate:[session endTime]];
+        time = [[session endTime] timeIntervalSinceDate:[session startTime]];
         
     } else {
         

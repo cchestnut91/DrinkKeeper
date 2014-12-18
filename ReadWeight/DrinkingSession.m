@@ -32,8 +32,6 @@
         bac = bac / 100;
     }
     
-    bac = bac / 100;
-    
     [self updateBAC:bac];
     return bac;
 }
@@ -57,6 +55,8 @@
         } else {
             self.endTime = self.projectedEndTime;
         }
+		
+		[[StoredDataManager sharedInstance] saveDrinkingSession:self];
         
     }
     

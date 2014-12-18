@@ -241,7 +241,8 @@ static StoredDataManager *sharedObject;
 }
 
 -(BOOL)userHasRequestedHealth{
-	return [[self healthDictionary] objectForKey:@"hasRequestedHealth"];
+	id hasRequestedHealth = [[self healthDictionary] objectForKey:@"hasRequestedHealth"];
+	return hasRequestedHealth != nil;
 }
 
 -(NSDictionary *)healthDictionary{
