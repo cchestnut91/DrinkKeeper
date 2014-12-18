@@ -37,7 +37,7 @@
     noWeightData = YES;
     noSexData = YES;
     
-    if (true){
+    if (![[HealthKitManager sharedInstance] isHealthAvailable]){
         [self setSecondaryConstraints];
     }
 	
