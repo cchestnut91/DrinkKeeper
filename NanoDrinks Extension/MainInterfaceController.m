@@ -70,7 +70,6 @@ NSString *hangIdent = @"rateHang";
 
 -(IBAction)addLastDrinkAgain{
     [[StoredDataManager sharedInstance] duplicateLastDrink];
-    [[HealthKitManager sharedInstance] saveDrinkingSession:[StoredDataManager sharedInstance].currentSession withCallback:nil];
     
     [self updateBACLabel];
 }
@@ -78,7 +77,6 @@ NSString *hangIdent = @"rateHang";
 - (void)removeLastDrink {
     [[StoredDataManager sharedInstance] removeLastDrink];
     DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
-    [[HealthKitManager sharedInstance] saveDrinkingSession:session withCallback:nil];
     if ([[[[StoredDataManager sharedInstance] lastSession] drinks] count] == 0) {
         [[StoredDataManager sharedInstance] removeDrinkingSession:[[StoredDataManager sharedInstance] lastSession]];
     }

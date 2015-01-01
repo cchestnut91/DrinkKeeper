@@ -48,6 +48,7 @@
 -(void)handleMessage:(NSDictionary *)message;
 -(void)handleContext:(NSDictionary *)context;
 - (NSArray *)pastSessions;
+- (NSArray *)sessionsToSave;
 - (void)updateWatchContext;
 - (void)updateUserPreferenceContext;
 - (void)updateSavedSessionContextWithContext:(NSDictionary *)dict;

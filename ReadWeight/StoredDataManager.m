@@ -182,6 +182,19 @@ static StoredDataManager *sharedObject;
     return ret;
 }
 
+- (NSArray *)sessionsToSave
+{
+    NSMutableArray *ret = [NSMutableArray new];
+    
+    for (DrinkingSession *session in [self pastSessions]) {
+        if (session.needsSaveToHealth) {
+            [ret addObject:session];
+        }
+    }
+    
+    return ret;
+}
+
 - (NSString *)applicationDocumentsDirectory
 {
     NSFileManager *manager = [NSFileManager defaultManager];

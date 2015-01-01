@@ -85,6 +85,8 @@
 														   action:@selector(slideView)];
 	
 	[self.blurView addGestureRecognizer:self.blurTap];
+    
+    [[HealthKitManager sharedInstance] saveSessions];
 }
 
 - (BOOL)canBecomeFirstResponder {
@@ -319,7 +321,6 @@
     Drink *newDrink = [userInfo objectForKey:@"newDrink"];
 	
     [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
-    [[HealthKitManager sharedInstance] saveDrinkingSession:[StoredDataManager sharedInstance].currentSession withCallback:nil];
     
     [self recalcBAC];
 }
@@ -388,7 +389,6 @@
 															handler:^(UIAlertAction *action) {
                                                                 [[StoredDataManager sharedInstance] removeLastDrink];
                                                                 DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
-                                                                [[HealthKitManager sharedInstance] saveDrinkingSession:session withCallback:nil];
                                                                 
                                                                 if ([[[[StoredDataManager sharedInstance] lastSession] drinks] count] == 0) {
                                                                     [[StoredDataManager sharedInstance] removeDrinkingSession:[[StoredDataManager sharedInstance] lastSession]];

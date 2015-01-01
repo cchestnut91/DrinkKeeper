@@ -38,6 +38,8 @@
 
 -(void)saveBacWithValue:(double)bacValue;
 
+- (void)saveSessions;
+
 -(void)updateHealthValues;
 
 +(NSString *)stringForSex;

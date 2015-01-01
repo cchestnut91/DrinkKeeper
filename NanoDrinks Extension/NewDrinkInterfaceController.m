@@ -119,7 +119,6 @@
     Drink *newDrink = [[Drink alloc] initWithDrinkContext:self.drinkContext];
     
     [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
-    [[HealthKitManager sharedInstance] saveDrinkingSession:[StoredDataManager sharedInstance].currentSession withCallback:nil];
     [self popToRootController];
 }
 @end
