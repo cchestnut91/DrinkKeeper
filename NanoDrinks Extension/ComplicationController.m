@@ -54,10 +54,22 @@
     // Call the handler with the timeline entries prior to the given date
     NSArray *items = [[StoredDataManager sharedInstance] getTimelineItemsBeforeDate:date withLimit:limit];
     
-    NSArray *ret = [NSArray new];
+    NSMutableArray *ret = [NSMutableArray new];
+    
+    BACTimelineItem *lastItem = items.firstObject;
     
     for (BACTimelineItem *item in items) {
-        ret = [ret arrayByAddingObject:[self getTimelineEntryForItem:item inComplication:complication]];
+        
+        if ([item isEqual:lastItem]) {
+            [ret addObject:item];
+        } else {
+            NSString *lastValue = [NSString stringWithFormat:@"%.3f", lastItem.bac.doubleValue * 100];
+            NSString *newValue = [NSString stringWithFormat:@"%.3f", item.bac.doubleValue * 100];
+            if (![newValue isEqualToString:lastValue]) {
+                [ret addObject:item];
+            }
+            lastItem = item;
+        }
     }
     handler(ret);
 }
@@ -66,10 +78,22 @@
     // Call the handler with the timeline entries after to the given date
     NSArray *items = [[StoredDataManager sharedInstance] getTimelineItemsAfterDate:date withLimit:limit];
     
-    NSArray *ret = [NSArray new];
+    NSMutableArray *ret = [NSMutableArray new];
+    
+    BACTimelineItem *lastItem = items.firstObject;
     
     for (BACTimelineItem *item in items) {
-        ret = [ret arrayByAddingObject:[self getTimelineEntryForItem:item inComplication:complication]];
+        
+        if ([item isEqual:lastItem]) {
+            [ret addObject:item];
+        } else {
+            NSString *lastValue = [NSString stringWithFormat:@"%.3f", lastItem.bac.doubleValue * 100];
+            NSString *newValue = [NSString stringWithFormat:@"%.3f", item.bac.doubleValue * 100];
+            if (![newValue isEqualToString:lastValue]) {
+                [ret addObject:item];
+            }
+            lastItem = item;
+        }
     }
     handler(ret);
 }
