@@ -34,7 +34,7 @@
                                 action:nil];
     self.navigationController.navigationBar.topItem.backBarButtonItem=btnBack;
     
-    [self.unitButton setTitle:[[UserPreferences sharedInstance] prefersMetric] ? @"ml" : @"oz."];
+    [self.unitButton setTitle:[[UserPreferences sharedInstance] prefersMetric] ? @"oz." : @"ml"];
     
     [self setTitle:[NSString stringWithFormat:@"Add %@", self.type]];
     
@@ -127,14 +127,14 @@
 
 - (IBAction)pressUnitButton:(id)sender {
     BOOL prefersMetric = NO;
-    if ([[(UIBarButtonItem *)sender title] isEqualToString:@"oz."]) {
+    if (![[(UIBarButtonItem *)sender title] isEqualToString:@"oz."]) {
         prefersMetric = YES;
     }
     
     [[UserPreferences sharedInstance] setPrefersMetric:prefersMetric];
     
     [self.multLabel setText:[drinkContext titleForMult:[[UserPreferences sharedInstance] prefersMetric]]];
-    [self.unitButton setTitle:[[UserPreferences sharedInstance] prefersMetric] ? @"ml" : @"oz."];
+    [self.unitButton setTitle:[[UserPreferences sharedInstance] prefersMetric] ? @"oz." : @"ml"];
 }
 
 @end

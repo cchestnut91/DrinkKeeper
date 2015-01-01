@@ -415,14 +415,13 @@ static StoredDataManager *sharedObject;
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:savedSessionsFile]) {
         NSMutableDictionary *mutableSessions = [NSMutableDictionary new];
-        NSError *error;
-        NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:savedSessionsFile
-                                                                                    error:&error];
+        NSString *sessionFile = [savedSessionsFile stringByAppendingPathComponent:session.fileName];
         
-        for (NSString *sessionFile in sessionFiles){
-            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedUnarchiver unarchiveObjectWithFile:[savedSessionsFile stringByAppendingPathComponent:sessionFile]]];
-            [mutableSessions setObject:[NSKeyedArchiver archivedDataWithRootObject:array] forKey:sessionFile];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:sessionFile]) {
+            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedUnarchiver unarchiveObjectWithFile:sessionFile]];
+            [mutableSessions setObject:[NSKeyedArchiver archivedDataWithRootObject:array] forKey:session.fileName];
         }
+        
         [dict setObject:mutableSessions forKey:@"savedSessions"];
     }
     

@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E0E1FE81BA6F16200CF81DB /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E1FE71BA6F16200CF81DB /* MainInterfaceController.m */; settings = {ASSET_TAGS = (); }; };
-		3E23477E1BA06333007A99D7 /* SessionDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8E08041A22C46700D81388 /* SessionDetailsController.m */; settings = {ASSET_TAGS = (); }; };
-		3E23477F1BA06333007A99D7 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA0671A22536D00B824A0 /* NotificationController.m */; settings = {ASSET_TAGS = (); }; };
-		3E2347811BA0647B007A99D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
-		3E2527541BAE0182001C4827 /* GlanceInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2527531BAE0182001C4827 /* GlanceInterfaceController.m */; settings = {ASSET_TAGS = (); }; };
+		3E0E1FE81BA6F16200CF81DB /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E1FE71BA6F16200CF81DB /* MainInterfaceController.m */; };
+		3E23477E1BA06333007A99D7 /* SessionDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8E08041A22C46700D81388 /* SessionDetailsController.m */; };
+		3E23477F1BA06333007A99D7 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA0671A22536D00B824A0 /* NotificationController.m */; };
+		3E2347811BA0647B007A99D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
+		3E2527541BAE0182001C4827 /* GlanceInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2527531BAE0182001C4827 /* GlanceInterfaceController.m */; };
 		3E37F9AE1B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
 		3E37F9AF1B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
 		3E37F9B71B912A2200F2F446 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9B51B912A2200F2F446 /* Interface.storyboard */; };
@@ -28,21 +28,21 @@
 		3E3F16AB1B1FF4AC0066A508 /* ANDBackgroundChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */; };
 		3E3F16AC1B1FF4AC0066A508 /* ANDInternalLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */; };
 		3E3F16AD1B1FF4AC0066A508 /* ANDLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */; };
-		3E4E7B491B952859008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
-		3E4E7B4A1B952859008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
-		3E4E7B4B1B95CDEC008FC487 /* StoredDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */; settings = {ASSET_TAGS = (); }; };
-		3E4E7B4D1B95CDFB008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
-		3E4E7B501B9874AE008FC487 /* WatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B4F1B9874AE008FC487 /* WatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		3E4E7B491B952859008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; };
+		3E4E7B4A1B952859008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; };
+		3E4E7B4B1B95CDEC008FC487 /* StoredDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */; };
+		3E4E7B4D1B95CDFB008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; };
+		3E4E7B501B9874AE008FC487 /* WatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B4F1B9874AE008FC487 /* WatchConnectionManager.m */; };
 		3EBB1C2A1A5993610006EAC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EBB1C2C1A5993610006EAC5 /* Main.storyboard */; };
-		3ECBAE401BA5C94C005DE4A2 /* SessionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBAE3F1BA5C94C005DE4A2 /* SessionDetailsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3ECBAE401BA5C94C005DE4A2 /* SessionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBAE3F1BA5C94C005DE4A2 /* SessionDetailsViewController.m */; };
 		3ECBAE421BA5F146005DE4A2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ECBAE411BA5F146005DE4A2 /* HealthKit.framework */; };
-		3ECBAE441BA62C40005DE4A2 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD49FED1A1F772700A3A059 /* HealthKitManager.m */; settings = {ASSET_TAGS = (); }; };
-		3EEB1C201BA47A83004EB78A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; settings = {ASSET_TAGS = (); }; };
-		3EEB1C211BA47A83004EB78A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; settings = {ASSET_TAGS = (); }; };
-		3EEF1FC61BA8F6720000F8D0 /* iOSWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1FC51BA8F6720000F8D0 /* iOSWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
-		3EEF1FC91BA98DCE0000F8D0 /* NewDrinkInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1FC81BA98DCE0000F8D0 /* NewDrinkInterfaceController.m */; settings = {ASSET_TAGS = (); }; };
-		3EEF1FCA1BA997750000F8D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9B81B912A2200F2F446 /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
-		3EEF1FCE1BAC37F10000F8D0 /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; settings = {ASSET_TAGS = (); }; };
+		3ECBAE441BA62C40005DE4A2 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD49FED1A1F772700A3A059 /* HealthKitManager.m */; };
+		3EEB1C201BA47A83004EB78A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; };
+		3EEB1C211BA47A83004EB78A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; };
+		3EEF1FC61BA8F6720000F8D0 /* iOSWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1FC51BA8F6720000F8D0 /* iOSWatchConnectionManager.m */; };
+		3EEF1FC91BA98DCE0000F8D0 /* NewDrinkInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1FC81BA98DCE0000F8D0 /* NewDrinkInterfaceController.m */; };
+		3EEF1FCA1BA997750000F8D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9B81B912A2200F2F446 /* Assets.xcassets */; };
+		3EEF1FCE1BAC37F10000F8D0 /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; };
 		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
 		AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
 		AB3B1F841A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
@@ -196,7 +196,6 @@
 		3EEF1FC51BA8F6720000F8D0 /* iOSWatchConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSWatchConnectionManager.m; sourceTree = "<group>"; };
 		3EEF1FC71BA98DCE0000F8D0 /* NewDrinkInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDrinkInterfaceController.h; sourceTree = "<group>"; };
 		3EEF1FC81BA98DCE0000F8D0 /* NewDrinkInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDrinkInterfaceController.m; sourceTree = "<group>"; };
-		3EEF1FCC1BABA5400000F8D0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		AB125D8E19D8790A00D16008 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		AB125D8F19D8790A00D16008 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		AB3B1F811A217496004CD7C2 /* DrinkingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinkingSession.h; sourceTree = "<group>"; };
@@ -560,7 +559,6 @@
 		ABE4F48519D750990048D853 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3EEF1FCC1BABA5400000F8D0 /* Crashlytics.framework */,
 				3ECBAE411BA5F146005DE4A2 /* HealthKit.framework */,
 				ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */,
 				ABE4F48619D750990048D853 /* NotificationCenter.framework */,
@@ -834,7 +832,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 6e63974ab6878886d46e46575c43005ded0cfa08 f6ab159dc485d68d8e3ab7929d50ea2fa90052c3518ce0f98874b30bfe22a3e8";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 

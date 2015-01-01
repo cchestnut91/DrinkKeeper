@@ -30,7 +30,7 @@ static AppWatchConnectionManager *sharedObject;
     NSError *error;
     [[WCSession defaultSession] updateApplicationContext:newContext error:&error];
     if (error) {
-        NSLog(@"Error updating watch context");
+        NSLog(@"Error updating watch context: %@", error);
     } else {
         [(AppWatchConnectionManager *)[[WCSession defaultSession] delegate] updateComplication];
     }

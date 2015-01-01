@@ -72,6 +72,10 @@ static HealthKitManager *sharedObject;
     if ([[StoredDataManager sharedInstance].savedSessions objectForKey:session.fileName]) {
         NSArray *existing = [[StoredDataManager sharedInstance].savedSessions objectForKey:session.fileName];
         
+        if (![existing isKindOfClass:[NSArray class]]) {
+            existing = [NSKeyedUnarchiver unarchiveObjectWithData:[[StoredDataManager sharedInstance].savedSessions objectForKey:session.fileName]];
+        }
+        
         if ([[all.firstObject startDate] compare:[[existing firstObject] startDate]] != NSOrderedSame) {
             toDelete = [existing mutableCopy];
             toAdd = all;
@@ -118,8 +122,9 @@ static HealthKitManager *sharedObject;
     }
     
     if ([toDelete count]) {
+        
         [self.healthStore deleteObjects:toDelete withCompletion:^(BOOL success, NSError * _Nullable error) {
-            if (!toAdd.count) {
+            if (toAdd.count) {
                 [self.healthStore saveObjects:toAdd withCompletion:^(BOOL success, NSError * _Nullable error) {
                     if (callback) {
                         callback(success, error);
@@ -127,6 +132,7 @@ static HealthKitManager *sharedObject;
                 }];
             }
         }];
+        
     } else {
         if (toAdd.count) {
             [self.healthStore saveObjects:toAdd withCompletion:^(BOOL success, NSError * _Nullable error) {

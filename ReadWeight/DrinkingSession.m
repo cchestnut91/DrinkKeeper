@@ -54,35 +54,34 @@
 }
 
 - (NSArray *)getTimelineItemsBeforeDate:(NSDate *)date withLimit:(NSUInteger)limit {
-    NSArray *ret = [NSArray new];
+    NSMutableArray *ret = [NSMutableArray new];
     int current = 0;
     for (int i = (int)self.timeline.count - 1; i >= 0; i--) {
         BACTimelineItem *item = [self.timeline objectAtIndex:i];
         if ([[item date] compare:date] == NSOrderedAscending) {
             current = i;
-            ret = [ret arrayByAddingObject:item];
+            [ret addObject:item];
         }
     }
     
     int remaining = (int)self.timeline.count - current;
     
-    if (remaining > limit) {
-        for (int i = current; i > 0; i -= (remaining / limit)) {
-            BACTimelineItem *item = [self.timeline objectAtIndex:i];
-            ret = [ret arrayByAddingObject:item];
-        }
-    } else {
-        for (int i = current; i > 0; i--) {
-            BACTimelineItem *item = [self.timeline objectAtIndex:i];
-            ret = [ret arrayByAddingObject:item];
-        }
+    int workingLimit = limit > remaining ? remaining : (int)limit;
+    
+    for (int i = current; i > 0; i -= ceil((remaining / workingLimit))) {
+        BACTimelineItem *item = [self.timeline objectAtIndex:i];
+        [ret addObject:item];
+    }
+    
+    while (ret.count > limit) {
+        [ret removeObjectAtIndex:ret.count-2];
     }
     
     return ret;
 }
 
 - (NSArray *)getTimelineItemsAfterDate:(NSDate *)date withLimit:(NSUInteger)limit {
-    NSArray *ret = [NSArray new];
+    NSMutableArray *ret = [NSMutableArray new];
     
     int currentIndex = 0;
     for (int i = 0; i < self.timeline.count; i++) {
@@ -94,20 +93,16 @@
     }
     
     int remaining = (int)self.timeline.count - currentIndex;
-    if (remaining > limit) {
-        for (int i = currentIndex; i < self.timeline.count; i += (remaining / limit)) {
-            BACTimelineItem *item = [self.timeline objectAtIndex:i];
-            ret = [ret arrayByAddingObject:item];
-        }
-    } else {
-        for (int i = currentIndex; i < self.timeline.count; i++) {
-            BACTimelineItem *item = [self.timeline objectAtIndex:i];
-            ret = [ret arrayByAddingObject:item];
-        }
+    
+    double workingLimit = limit > remaining ? remaining : (int)limit;
+    
+    for (int i = currentIndex; i < self.timeline.count; i += ceil((remaining / workingLimit))) {
+        BACTimelineItem *item = [self.timeline objectAtIndex:i];
+        [ret addObject:item];
     }
     
-    if (ret.count > limit) {
-        
+    while (ret.count > limit) {
+        [ret removeObjectAtIndex:ret.count-2];
     }
     
     return ret;
@@ -156,8 +151,8 @@
             peakBac = bac;
         }
         
-        BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:drinkTime andNumDrinks:[NSNumber numberWithInt:i + 1]];
-        [timeline addObject:newItem];
+        BACTimelineItem *lastItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:drinkTime andNumDrinks:[NSNumber numberWithInt:i + 1]];
+        [timeline addObject:lastItem];
         
         int count = 1;
         
@@ -180,7 +175,11 @@
                 }
                 
                 BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime] andNumDrinks:[NSNumber numberWithInt:i + 1]];
-                [timeline addObject:newItem];
+                NSString *lastValue = [NSString stringWithFormat:@"%.3f", lastItem.bac.doubleValue * 100];
+                NSString *newValue = [NSString stringWithFormat:@"%.3f", newItem.bac.doubleValue * 100];
+                if (![newValue isEqualToString:lastValue]) {
+                    [timeline addObject:newItem];
+                }
                 count++;
             }
             
