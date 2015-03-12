@@ -9,14 +9,44 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Glance - Watch App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Notification - Watch App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>ReadWeight Watch App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>ReadWeight.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>Watch App.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>AB7FA05B1A22536D00B824A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AB7FA06F1A22536D00B824A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>ABB53BE019D48F9F006F9DBD</key>
 		<dict>
 			<key>primary</key>

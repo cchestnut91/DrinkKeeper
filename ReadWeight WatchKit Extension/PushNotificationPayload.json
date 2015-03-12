@@ -1,0 +1,27 @@
+{
+    "aps": {
+        "alert": "Drinking Session has finished\n\nBAC has reached 0.0",
+        "title": "Session Complete",
+        "category": "SessionComplete"
+    },
+    
+    "WatchKit Simulator Actions": [
+        {
+            "title": "See Details",
+            "identifier": "showDetails"
+        },
+        {
+            "title": "Rate Hangover",
+            "identifier": "rateHang"
+        }
+    ],
+    
+    "sessionInfo":
+    {
+            "duration": "1:24",
+            "numDrinks": "4",
+            "peakBAC": "0.34"
+    },
+    
+    "sessionID": "1416805592.838526"
+}
