@@ -33,6 +33,10 @@
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
     
     [self maskButtons];
+	
+	if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft){
+		[self.currentSessionLabel setTextAlignment:NSTextAlignmentRight];
+	}
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addDrink:)

@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3EBB1C2A1A5993610006EAC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EBB1C2C1A5993610006EAC5 /* Main.storyboard */; };
 		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
 		AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
 		AB3B1F841A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
 		AB3B1F851A218A1F004CD7C2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
 		AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
-		AB56FA3A19D5F5C100E04C87 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB56FA3919D5F5C100E04C87 /* Main.storyboard */; };
 		AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABA19D4EC0900793572 /* ActionSheetStringPicker.m */; };
 		AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABD19D4EFAB00793572 /* AbstractActionSheetPicker.m */; };
 		AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAAC119D4F00900793572 /* ActionSheetCustomPicker.m */; };
@@ -87,13 +87,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3EBB1C2B1A5993610006EAC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB125D8E19D8790A00D16008 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		AB125D8F19D8790A00D16008 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		AB3B1F811A217496004CD7C2 /* DrinkingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinkingSession.h; sourceTree = "<group>"; };
 		AB3B1F821A217496004CD7C2 /* DrinkingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinkingSession.m; sourceTree = "<group>"; };
 		AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
 		AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNKeychain.m; sourceTree = "<group>"; };
-		AB56FA3919D5F5C100E04C87 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		AB5FAAB919D4EC0900793572 /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
 		AB5FAABA19D4EC0900793572 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
 		AB5FAABC19D4EFAB00793572 /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
@@ -289,7 +289,7 @@
 				ABBB43FA1A28B83D004D197C /* DrinkingSession Data */,
 				AB3B1F801A21396E004CD7C2 /* Widgets */,
 				AB5FAABF19D4EFB100793572 /* Action Picker */,
-				AB56FA3919D5F5C100E04C87 /* Main.storyboard */,
+				3EBB1C2C1A5993610006EAC5 /* Main.storyboard */,
 				ABB53BF119D48F9F006F9DBD /* Images.xcassets */,
 				ABB53BE419D48F9F006F9DBD /* Supporting Files */,
 			);
@@ -510,7 +510,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB56FA3A19D5F5C100E04C87 /* Main.storyboard in Resources */,
+				3EBB1C2A1A5993610006EAC5 /* Main.storyboard in Resources */,
 				ABB53BF219D48F9F006F9DBD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,6 +620,17 @@
 			targetProxy = ABE4F49319D750990048D853 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3EBB1C2C1A5993610006EAC5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3EBB1C2B1A5993610006EAC5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		ABB53C0219D48F9F006F9DBD /* Debug */ = {
