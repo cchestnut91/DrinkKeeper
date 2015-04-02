@@ -21,30 +21,35 @@ NSString *hangIdent = @"rateHang";
     double bac;
 }
 
-- (instancetype)initWithContext:(id)context {
-    self = [super initWithContext:context];
-    if (self){
-        // Initialize variables here.
-        // Configure interface objects here.
-        NSLog(@"%@ initWithContext", self);
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(updateBACLabel)
-                                                     name:@"updatedHealthValues"
-                                                   object:nil];
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(finishSetup)
-                                                     name:@"finishSetup"
-                                                   object:nil];
-        [self setupView];
-        
-    }
-    return self;
+- (instancetype)init{
+	self = [super init];
+	
+	if (self){
+		// Initialize variables here.
+		// Configure interface objects here.
+		NSLog(@"%@ initWithContext", self);
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(updateBACLabel)
+													 name:@"updatedHealthValues"
+												   object:nil];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(finishSetup)
+													 name:@"finishSetup"
+												   object:nil];
+		
+	}
+	return self;
+}
+
+- (void)awakeWithContext:(id)context {
+    [super awakeWithContext:context];
+	[self setupView];
 }
 
 -(void)setupView{
-    
+	
     if ([[StoredDataManager sharedInstance] needsSetup]){
         [self.setupGroup setHidden:NO];
         [self.defaultGroup setHidden:YES];

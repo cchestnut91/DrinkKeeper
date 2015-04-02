@@ -12,46 +12,52 @@
     NSDateFormatter *formatter;
 }
 
--(instancetype)initWithContext:(id)context{
-    self = [super initWithContext:context];
+-(instancetype)init{
+	self = [super init];
     if (self){
-        self.drinkContext = (AddDrinkContext *)context;
-        if (self.drinkContext.title){
-            [self setTitle:self.drinkContext.title];
-        }
-        if ([[self.drinkContext strengthOptions] count] == 4){
-            [self.threeOptionSlider setHidden:YES];
-            self.strengthSlider = self.fourOptionSlider;
-            [self.fourOptionSlider setHidden:NO];
-        } else {
-            [self.threeOptionSlider setHidden:NO];
-            self.strengthSlider = self.threeOptionSlider;
-            [self.fourOptionSlider setHidden:YES];
-        }
-        if (![[self.drinkContext type] isEqualToString:@"Beer"]){
-            [self.strengthSlider setValue:1];
-            [self.strengthPreviewLabel setText:[[self.drinkContext optionLabels] objectAtIndex:1]];
-        } else {
-            [self.strengthPreviewLabel setText:[[self.drinkContext optionLabels] firstObject]];
-        }
-        
-        if (![[self.drinkContext type] isEqualToString:@"Liquor"]){
-            [self.strengthLabel setText:@"Size"];
-        }
-        
-        
-        [self.whenSlider setValue:19];
-        
         formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"h:mm a"];
-        
-        [self.whenPreview setText:[formatter stringFromDate:self.drinkContext.time]];
+		[formatter setDateFormat:@"h:mm a"];
+		[self setTitle:@""];
     }
     return self;
 }
 
+- (void)awakeWithContext:(id)context{
+	[super awakeWithContext:context];
+	
+	self.drinkContext = (AddDrinkContext *)context;
+	if (self.drinkContext.title){
+		[self setTitle:self.drinkContext.title];
+	}
+	if ([[self.drinkContext strengthOptions] count] == 4){
+		[self.threeOptionSlider setHidden:YES];
+		self.strengthSlider = self.fourOptionSlider;
+		[self.fourOptionSlider setHidden:NO];
+	} else {
+		[self.threeOptionSlider setHidden:NO];
+		self.strengthSlider = self.threeOptionSlider;
+		[self.fourOptionSlider setHidden:YES];
+	}
+	if (![[self.drinkContext type] isEqualToString:@"Beer"]){
+		[self.strengthSlider setValue:1];
+		[self.strengthPreviewLabel setText:[[self.drinkContext optionLabels] objectAtIndex:1]];
+	} else {
+		[self.strengthPreviewLabel setText:[[self.drinkContext optionLabels] firstObject]];
+	}
+	
+	if (![[self.drinkContext type] isEqualToString:@"Liquor"]){
+		[self.strengthLabel setText:@"Size"];
+	}
+	
+	
+	[self.whenSlider setValue:19];
+	
+	
+	[self.whenPreview setText:[formatter stringFromDate:self.drinkContext.time]];
+}
+
 -(void)willActivate{
-    
+	
 }
 
 - (IBAction)sizeValueChanged:(float)value {

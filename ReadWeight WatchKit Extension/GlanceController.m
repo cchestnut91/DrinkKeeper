@@ -11,41 +11,50 @@
 
 @interface GlanceController()
 
+@property (strong, nonatomic) NSTimer *timer;
+
 @end
 
 
 @implementation GlanceController
 
-- (instancetype)initWithContext:(id)context {
-    self = [super initWithContext:context];
+- (instancetype)init {
+	self = [super init];
     if (self){
         // Initialize variables here.
         // Configure interface objects here.
         NSLog(@"%@ initWithContext", self);
         
-        if ([[StoredDataManager sharedInstance] needsSetup]){
-            [self.bacGroup setHidden:YES];
-            [self.setupGroup setHidden:NO];
-        } else {
-            [self.bacGroup setHidden:NO];
-            [self.setupGroup setHidden:YES];
-        }
-        
     }
     return self;
+}
+
+- (void)awakeWithContext:(id)context{
+	if ([[StoredDataManager sharedInstance] needsSetup]){
+		[self.bacGroup setHidden:YES];
+		[self.setupGroup setHidden:NO];
+	} else {
+		[self.bacGroup setHidden:NO];
+		[self.setupGroup setHidden:YES];
+	}
+	self.timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(reloadBac:) userInfo:nil repeats:YES];
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     NSLog(@"%@ will activate", self);
-    
-    double bac = [[StoredDataManager sharedInstance] getCurrentBAC];
-    [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
+	[self.timer fire];
+}
+
+- (void)reloadBac:(NSTimer *)timer {
+	double bac = [[StoredDataManager sharedInstance] getCurrentBAC];
+	[self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
 }
 
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     NSLog(@"%@ did deactivate", self);
+	[self.timer invalidate];
 }
 
 @end

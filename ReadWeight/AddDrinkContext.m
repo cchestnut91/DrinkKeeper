@@ -15,7 +15,7 @@
     if (self){
         if ([[type lowercaseString] isEqualToString:[AddDrinkContext beerType]]){
             
-            [self setTitle:@"Add Beer"];
+            [self setTitle:@"Beer"];
             
             [self setType:@"Beer"];
             
@@ -28,7 +28,7 @@
 
         } else if ([[type lowercaseString] isEqualToString:[AddDrinkContext wineType]]){
             
-            [self setTitle:@"Add Wine"];
+            [self setTitle:@"Wine"];
             
             [self setType:@"Wine"];
             
@@ -41,7 +41,7 @@
             
         } else if ([[type lowercaseString] isEqualToString:[AddDrinkContext liquorType]]){
             
-            [self setTitle:@"Add Drink"];
+            [self setTitle:@"Drink"];
             
             [self setType:@"Liquor"];
             

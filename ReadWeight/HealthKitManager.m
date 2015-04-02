@@ -35,7 +35,6 @@ static HealthKitManager *sharedObject;
     
     self.sortRecentFirst = [[NSSortDescriptor alloc] initWithKey:HKSampleSortIdentifierEndDate
                                                        ascending:NO];
-    
     self.hasAskedPerission = [_healthStore authorizationStatusForType:_bacType] != HKAuthorizationStatusNotDetermined;
     
     return self;
@@ -98,7 +97,7 @@ static HealthKitManager *sharedObject;
 }
 
 -(void)performHealthKitRequestWithCallback:(void (^)(BOOL success, NSError *error))callback{
-    if (!self.hasAskedPerission && [[StoredDataManager sharedInstance] userHasRequestedHealth]){
+    if ((!self.hasAskedPerission && [[StoredDataManager sharedInstance] userHasRequestedHealth]) || ![self shouldRequestAccess]){
         if (self.healthStore){
             [self.healthStore requestAuthorizationToShareTypes:self.writeTypes
                                                      readTypes:self.readTypes

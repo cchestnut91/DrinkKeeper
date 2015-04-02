@@ -10,14 +10,16 @@
 
 @implementation SessionDetailsController
 
--(id)initWithContext:(id)context{
-    self = [super initWithContext:context];
-    if (self){
-        self.session = (DrinkingSession *)context;
-        
-        [self updateLabels];
-    }
-    return self;
+- (id)init{
+	self = [super init];
+	
+	return self;
+}
+
+- (void)awakeWithContext:(id)context{
+	self.session = (DrinkingSession *)context;
+	
+	[self updateLabels];
 }
 
 -(void)updateLabels{
