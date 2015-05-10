@@ -82,22 +82,36 @@ NSString *hangIdent = @"rateHang";
     [self updateBACLabel];
 }
 
+- (void)removeLastDrink {
+	[[StoredDataManager sharedInstance] removeLastDrink];
+	
+	[self updateBACLabel];
+}
+
 -(void)updateBACLabel{
     bac = [[StoredDataManager sharedInstance] getCurrentBAC];
     
     [self.bacLabel setText:[NSString stringWithFormat:@"%.3f", bac * 100]];
+	
+	[self updateMenuItems];
+}
+
+- (void)updateMenuItems{
+	[self clearAllMenuItems];
+	if ([[StoredDataManager sharedInstance] currentSession]){
+		[self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"Session Details" action:@selector(showSessionDetails)];
+		[self addMenuItemWithImageNamed:@"liquorGlassSmall" title:@"Duplicate Drink" action:@selector(addLastDrinkAgain)];
+		[self addMenuItemWithImageNamed:@"undoIcon" title:@"Remove Last" action:@selector(removeLastDrink)];
+	} else if ([[StoredDataManager sharedInstance] lastSession]){
+		[self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"Session Details" action:@selector(showSessionDetails)];
+	}
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     NSLog(@"%@ will activate", self);
     [self clearAllMenuItems];
-    if ([[StoredDataManager sharedInstance] currentSession]){
-        [self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"Session Details" action:@selector(showSessionDetails)];
-        [self addMenuItemWithImageNamed:@"liquorGlassSmall" title:@"Duplicate Drink" action:@selector(addLastDrinkAgain)];
-    } else if ([[StoredDataManager sharedInstance] lastSession]){
-        [self addMenuItemWithItemIcon:WKMenuItemIconMore title:@"Session Details" action:@selector(showSessionDetails)];
-    }
+	[self updateMenuItems];
     [self setupView];
 }
 

@@ -33,7 +33,7 @@
             [self setType:@"Wine"];
             
             NSArray *options = @[@0.75, @1, @1.25];
-            NSArray *optionLabels = @[@"Small", @"Normal", @"Large"];
+            NSArray *optionLabels = @[@"Small (< 5 oz.)", @"Normal (5-6 oz.)", @"Large (> 6 oz.)"];
             
             [self setStrengthOptions:options];
             [self setOptionLabels:optionLabels];
@@ -46,7 +46,7 @@
             [self setType:@"Liquor"];
             
             NSArray *options = @[@0.75, @1, @1.5, @2];
-            NSArray *optionLabels = @[@"Weak", @"Normal", @"Strong", @"Woah!"];
+            NSArray *optionLabels = @[@"Weak (< 1 oz.)", @"Normal (1.5 oz.)", @"Strong (2-3 oz.)", @"Woah! (> 3 oz.)"];
             
             [self setStrengthOptions:options];
             [self setOptionLabels:optionLabels];

@@ -31,12 +31,16 @@
 -(DrinkingSession *)currentSession;
 -(DrinkingSession *)getSessionForID:(NSString *)sessionID;
 -(void)saveDrinkingSession:(DrinkingSession *)session;
+-(void)removeDrinkingSession:(DrinkingSession *)session;
 -(void)addDrinkToCurrentSession:(Drink *)drinkIn;
+-(void)removeLastDrink;
 -(void)updateDictionaryWithObject:(id)objectIn forKey:(NSString *)keyIn;
 -(double)genderStandard;
 -(double)metabolismConstant;
 -(double)getCurrentBAC;
 -(void)userRequestsHealth;
 -(BOOL)userHasRequestedHealth;
+-(BOOL)hasDisplayedShakeInfo;
+-(void)hasDisplayedShakeAlert;
 
 @end

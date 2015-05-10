@@ -82,6 +82,19 @@
     [self getUpdatedBAC];
 }
 
+-(void)removeLastDrink {
+	NSMutableArray *replaceDrinks = [NSMutableArray new];
+	for (Drink *drink in self.drinks) {
+		if (![drink isEqual:[self.drinks lastObject]]){
+			[replaceDrinks addObject:drink];
+		}
+	}
+	
+	self.drinks = [NSArray arrayWithArray:replaceDrinks];
+	
+	[self getUpdatedBAC];
+}
+
 -(NSNumber *)totalDrinks{
     return [NSNumber numberWithInteger:[self.drinks count]];
 }

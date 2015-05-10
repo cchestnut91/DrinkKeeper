@@ -45,6 +45,8 @@
             }
         }
     }
+	
+	application.applicationSupportsShakeToEdit = YES;
     
     [Crashlytics startWithAPIKey:@"6e63974ab6878886d46e46575c43005ded0cfa08"];
     return YES;

@@ -75,9 +75,14 @@ static StoredDataManager *sharedObject;
 }
 
 -(void)saveDrinkingSession:(DrinkingSession *)session{
-    
-    [NSKeyedArchiver archiveRootObject:session
-                                toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+	
+	[NSKeyedArchiver archiveRootObject:session
+								toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+}
+
+-(void)removeDrinkingSession:(DrinkingSession *)session{
+	
+	[[NSFileManager defaultManager] removeItemAtPath:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]] error:nil];
 }
 
 -(DrinkingSession *)getSessionForID:(NSString *)sessionID{
@@ -196,9 +201,19 @@ static StoredDataManager *sharedObject;
     }
     [session addDrinkToSession:drinkIn];
     
-    
     [NSKeyedArchiver archiveRootObject:session
                                 toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+}
+
+-(void)removeLastDrink{
+	DrinkingSession *session = [self currentSession];
+	if (session.drinks.count == 1) {
+		[self removeDrinkingSession:session];
+	} else {
+		[session removeLastDrink];
+		[NSKeyedArchiver archiveRootObject:session
+									toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+	}
 }
 
 -(double)metabolismConstant{
@@ -243,6 +258,15 @@ static StoredDataManager *sharedObject;
 -(BOOL)userHasRequestedHealth{
 	id hasRequestedHealth = [[self healthDictionary] objectForKey:@"hasRequestedHealth"];
 	return hasRequestedHealth != nil;
+}
+
+-(BOOL)hasDisplayedShakeInfo{
+	id hasShownShake = [[self healthDictionary] objectForKey:@"hasShownShakeInfo"];
+	return hasShownShake != nil;
+}
+
+-(void)hasDisplayedShakeAlert{
+	[self updateDictionaryWithObject:@1 forKey:@"hasShownShakeInfo"];
 }
 
 -(NSDictionary *)healthDictionary{

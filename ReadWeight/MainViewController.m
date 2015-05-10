@@ -10,6 +10,9 @@
 
 @interface MainViewController ()
 
+@property (strong, nonatomic) UITapGestureRecognizer *blurTap;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
+
 @end
 
 @implementation MainViewController {
@@ -47,11 +50,26 @@
                                                  name:@"addFromURL"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLaunchURL"
-                                                        object:nil];
+														object:nil];
+	
+	self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+															  action:@selector(slideView)];
+	[self.sessionDetailsContainerView addGestureRecognizer:self.tapGesture];
+	
+	self.blurTap = [[UITapGestureRecognizer alloc] initWithTarget:self
+														   action:@selector(slideView)];
+	
+	[self.blurView addGestureRecognizer:self.blurTap];
+}
+
+- (BOOL)canBecomeFirstResponder {
+	return YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+	
+	[self becomeFirstResponder];
     
 // setup labels
     
@@ -104,19 +122,6 @@
         
         [[HealthKitManager sharedInstance] updateHealthValues];
         
-        if (hasCurrentSession){
-            
-            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                         action:@selector(slideView)];
-            [self.sessionDetailsContainerView addGestureRecognizer:tapGesture];
-            
-            UITapGestureRecognizer *blurTap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                      action:@selector(slideView)];
-            
-            [self.blurView addGestureRecognizer:blurTap];
-            
-        }
-        
         timer = [NSTimer scheduledTimerWithTimeInterval:30
                                                  target:self
                                                selector:@selector(recalcBAC)
@@ -124,6 +129,16 @@
                                                 repeats:YES];
         
         [timer fire];
+		
+		if (![[StoredDataManager sharedInstance] hasDisplayedShakeInfo] && [[StoredDataManager sharedInstance] currentSession]){
+			UIAlertController *shake = [UIAlertController alertControllerWithTitle:@"Shake to remove"
+																		   message:@"To remove the last drink added to the session, just shake your phone!"
+																	preferredStyle:UIAlertControllerStyleAlert];
+			[shake addAction:[UIAlertAction actionWithTitle:@"Ok!" style:UIAlertActionStyleDefault handler:nil]];
+			[self presentViewController:shake animated:YES completion:^{
+				[[StoredDataManager sharedInstance] hasDisplayedShakeAlert];
+			}];
+		}
     }
     
 }
@@ -202,7 +217,12 @@
             [self.sessionLengthValueLabel setText:[NSString stringWithFormat:@"%d %@", numMinutes, minuteText]];
         }
         
-    }
+	}
+	if ([[StoredDataManager sharedInstance] currentSession]){
+		[self.currentSessionLabel setText:@"Current Session"];
+	} else {
+		[self.currentSessionLabel setText:@"Last Session"];
+	}
 }
 
 #pragma mark data managers
@@ -215,16 +235,26 @@
     DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
     
     if (session){
+		hasCurrentSession = YES;
+		
         [self updateSessionLengthLabelWithSession:session];
-    }
+	} else {
+		if (!self.blurView.hidden){
+			[self slideView];
+		}
+		
+		hasCurrentSession = NO;
+		
+		[self.sessionLengthValueLabel setText:@"No Sessions"];
+	}
 }
 
 -(void)addDrink:(NSNotification *)notification{
-    
+	
     NSDictionary *userInfo = [notification userInfo];
-    
+	
     Drink *newDrink = [userInfo objectForKey:@"newDrink"];
-    
+	
     [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
     [self recalcBAC];
     
@@ -268,27 +298,27 @@
 #pragma mark IBActions
 
 -(void)slideView{
-    
-    if (self.sessionDetailsVerticalSpace.constant == 0){
-        self.sessionDetailsVerticalSpace.constant = (self.sessionDetailsHeight.constant - 100) * -1;
-        
-    } else {
-        self.sessionDetailsVerticalSpace.constant = 0;
-    }
-    
-    [UIView animateWithDuration:0.5 animations:^{
-        if (self.blurView.hidden){
-            [self.blurView setHidden:NO];
-            [self.blurView setAlpha:1];
-        } else {
-            [self.blurView setAlpha:0];
-        }
-        [self.view layoutIfNeeded];
-    } completion:^(BOOL finished){
-        if ([self.blurView alpha] == 0 && self.blurView.hidden == NO){
-            [self.blurView setHidden:YES];
-        }
-    }];
+	if (hasCurrentSession){
+		if (self.sessionDetailsVerticalSpace.constant == 0){
+			self.sessionDetailsVerticalSpace.constant = (self.sessionDetailsHeight.constant - 100) * -1;
+		} else {
+			self.sessionDetailsVerticalSpace.constant = 0;
+		}
+		
+		[UIView animateWithDuration:0.5 animations:^{
+			if (self.blurView.hidden){
+				[self.blurView setHidden:NO];
+				[self.blurView setAlpha:1];
+			} else {
+				[self.blurView setAlpha:0];
+			}
+			[self.view layoutIfNeeded];
+		} completion:^(BOOL finished){
+			if ([self.blurView alpha] == 0 && self.blurView.hidden == NO){
+				[self.blurView setHidden:YES];
+			}
+		}];
+	}
 }
 
 - (IBAction)handleLiquorPressed:(id)sender {
@@ -299,6 +329,34 @@
 }
 - (IBAction)handleWinePressed:(id)sender {
     [self performSegueWithIdentifier:@"addDrink" sender:sender];
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+	if (motion == UIEventSubtypeMotionShake) {
+		DrinkingSession *session = [[StoredDataManager sharedInstance] currentSession];
+		if (session){
+			UIAlertController *confirmRemove = [UIAlertController alertControllerWithTitle:@"Remove Last Drink"
+																				   message:@"Are you sure you want to remove your last drink from the session?"
+																			preferredStyle:UIAlertControllerStyleAlert];
+			UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+															 style:UIAlertActionStyleCancel
+														   handler:nil];
+			UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm"
+															  style:UIAlertActionStyleDestructive
+															handler:^(UIAlertAction *action) {
+																[[StoredDataManager sharedInstance] removeLastDrink];
+																[self recalcBAC];
+															}];
+			
+			[confirmRemove addAction:cancel];
+			[confirmRemove addAction:confirm];
+			
+			[self presentViewController:confirmRemove
+							   animated:YES
+							 completion:nil];
+		}
+	}
 }
 
 #pragma mark ViewController Overrides

@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSNumber *hangoverRating;
 
 -(void)addDrinkToSession:(Drink *)drinkIn;
+-(void)removeLastDrink;
 -(double)getUpdatedBAC;
 -(void)updateHangover:(NSNumber *)ratingIn;
 -(void)updateBAC:(double)bacIn;
