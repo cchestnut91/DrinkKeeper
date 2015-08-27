@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3E24947B1AB3AD29009D6F1A /* AddDrinkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDA7D291A28BB1700CD61C7 /* AddDrinkContext.m */; };
+		3E3F16AB1B1FF4AC0066A508 /* ANDBackgroundChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */; };
+		3E3F16AC1B1FF4AC0066A508 /* ANDInternalLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */; };
+		3E3F16AD1B1FF4AC0066A508 /* ANDLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */; };
 		3E7394CC1ACB916300159414 /* SessionDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8E08041A22C46700D81388 /* SessionDetailsController.m */; };
 		3EBB1C2A1A5993610006EAC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EBB1C2C1A5993610006EAC5 /* Main.storyboard */; };
 		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
@@ -120,6 +123,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E3F16A51B1FF4AC0066A508 /* ANDBackgroundChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDBackgroundChartView.h; sourceTree = "<group>"; };
+		3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDBackgroundChartView.m; sourceTree = "<group>"; };
+		3E3F16A71B1FF4AC0066A508 /* ANDInternalLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDInternalLineChartView.h; sourceTree = "<group>"; };
+		3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDInternalLineChartView.m; sourceTree = "<group>"; };
+		3E3F16A91B1FF4AC0066A508 /* ANDLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDLineChartView.h; sourceTree = "<group>"; };
+		3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDLineChartView.m; sourceTree = "<group>"; };
 		3EBB1C2B1A5993610006EAC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB125D8E19D8790A00D16008 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		AB125D8F19D8790A00D16008 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
@@ -243,6 +252,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E3F16AE1B1FF4B20066A508 /* ANDLineChartView */ = {
+			isa = PBXGroup;
+			children = (
+				3E3F16A51B1FF4AC0066A508 /* ANDBackgroundChartView.h */,
+				3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */,
+				3E3F16A71B1FF4AC0066A508 /* ANDInternalLineChartView.h */,
+				3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */,
+				3E3F16A91B1FF4AC0066A508 /* ANDLineChartView.h */,
+				3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */,
+			);
+			name = ANDLineChartView;
+			sourceTree = "<group>";
+		};
 		AB3B1F7E1A213451004CD7C2 /* Data Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +292,7 @@
 			children = (
 				AB5FAAD319D4F17A00793572 /* TransLoadingIndicator.h */,
 				AB5FAAD419D4F17A00793572 /* TransLoadingIndicator.m */,
+				3E3F16AE1B1FF4B20066A508 /* ANDLineChartView */,
 			);
 			name = Widgets;
 			sourceTree = "<group>";
@@ -769,7 +792,10 @@
 				ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */,
 				AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */,
 				AB5FAAD119D4F00900793572 /* DistancePickerView.m in Sources */,
+				3E3F16AC1B1FF4AC0066A508 /* ANDInternalLineChartView.m in Sources */,
+				3E3F16AD1B1FF4AC0066A508 /* ANDLineChartView.m in Sources */,
 				ABE4F47C19D610240048D853 /* Drink.m in Sources */,
+				3E3F16AB1B1FF4AC0066A508 /* ANDBackgroundChartView.m in Sources */,
 				ABB53BEA19D48F9F006F9DBD /* AppDelegate.m in Sources */,
 				ABA72CEA1A2A163100D0B2A9 /* MainViewController.m in Sources */,
 				AB5FAACD19D4F00900793572 /* ActionSheetCustomPicker.m in Sources */,

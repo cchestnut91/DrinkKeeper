@@ -13,11 +13,14 @@
 #import "HealthKitManager.h"
 #import "AddDrinkViewController.h"
 #import "DrinkingSession.h"
+#import "ANDLineChartView.h"
 
 @interface MainViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UILabel *bacLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bacSubHead;
+
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UIVisualEffectView *blurView;
 
@@ -38,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numberDrinksValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *peakTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *peakValueLabel;
+@property (weak, nonatomic) IBOutlet ANDLineChartView *lineChartView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *profileButton;
 

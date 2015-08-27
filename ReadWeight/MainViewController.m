@@ -163,8 +163,7 @@
     [self.numberDrinksValueLabel setText:[NSString stringWithFormat:@"%@", [session totalDrinks]]];
     
     [self.peakTitleLabel setText:@"Peak B.A.C."];
-    [self.peakValueLabel setText:[NSString stringWithFormat:@"%.3f", [[session peakValue] floatValue] * 100]];
-    
+	[self.peakValueLabel setText:[NSString stringWithFormat:@"%.3f", [[session peakValue] floatValue] * 100]];
     
     [self.currentSessionLabel setHidden:NO];
     if ([[StoredDataManager sharedInstance] currentSession]){
@@ -300,9 +299,13 @@
 -(void)slideView{
 	if (hasCurrentSession){
 		if (self.sessionDetailsVerticalSpace.constant == 0){
-			self.sessionDetailsVerticalSpace.constant = (self.sessionDetailsHeight.constant - 100) * -1;
+			self.sessionDetailsVerticalSpace.constant = ((self.sessionDetailsHeight.constant) - 100) * -1;
+			[self.scrollView setScrollEnabled:YES];
 		} else {
+			[self.scrollView setContentOffset:CGPointMake(0, -self.scrollView.contentInset.top)
+									 animated:YES];
 			self.sessionDetailsVerticalSpace.constant = 0;
+			[self.scrollView setScrollEnabled:NO];
 		}
 		
 		[UIView animateWithDuration:0.5 animations:^{

@@ -206,7 +206,7 @@
 
 -(void)finishCollectingData{
     UIAlertController *important = [UIAlertController alertControllerWithTitle:@"Important Message"
-                                                                       message:@"Drink Keeper is for entertainment purposes only. Given the info about you and what you've had to drink, it can estimate blood alcohol content. This is not a definitive reading, and should not be taken as infallible. Never drink and drive."
+                                                                       message:@"Drink Keeper can estimate blood alcohol content given information about your body and what you've had to drink. This is not a definitive reading, and should not be taken as infallible. Never drink and drive."
                                                                 preferredStyle:UIAlertControllerStyleAlert];
     [important addAction:[UIAlertAction actionWithTitle:@"Understood"
                                                   style:UIAlertActionStyleDefault
