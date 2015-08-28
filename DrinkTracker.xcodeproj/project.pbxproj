@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3E24947B1AB3AD29009D6F1A /* AddDrinkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDA7D291A28BB1700CD61C7 /* AddDrinkContext.m */; };
+		3E37F9AE1B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
+		3E37F9AF1B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
+		3E37F9B01B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
 		3E3F16AB1B1FF4AC0066A508 /* ANDBackgroundChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */; };
 		3E3F16AC1B1FF4AC0066A508 /* ANDInternalLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */; };
 		3E3F16AD1B1FF4AC0066A508 /* ANDLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */; };
@@ -123,6 +126,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E37F9AC1B91295B00F2F446 /* BACTimelineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACTimelineItem.h; sourceTree = "<group>"; };
+		3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACTimelineItem.m; sourceTree = "<group>"; };
 		3E3F16A51B1FF4AC0066A508 /* ANDBackgroundChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDBackgroundChartView.h; sourceTree = "<group>"; };
 		3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDBackgroundChartView.m; sourceTree = "<group>"; };
 		3E3F16A71B1FF4AC0066A508 /* ANDInternalLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDInternalLineChartView.h; sourceTree = "<group>"; };
@@ -467,6 +472,8 @@
 				AB3B1F821A217496004CD7C2 /* DrinkingSession.m */,
 				ABDA7D281A28BB1700CD61C7 /* AddDrinkContext.h */,
 				ABDA7D291A28BB1700CD61C7 /* AddDrinkContext.m */,
+				3E37F9AC1B91295B00F2F446 /* BACTimelineItem.h */,
+				3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */,
 			);
 			name = "DrinkingSession Data";
 			sourceTree = "<group>";
@@ -772,6 +779,7 @@
 				3E24947B1AB3AD29009D6F1A /* AddDrinkContext.m in Sources */,
 				AB40B4241A225C1D00CDB971 /* Drink.m in Sources */,
 				AB40B4231A225C1900CDB971 /* DrinkingSession.m in Sources */,
+				3E37F9B01B91295B00F2F446 /* BACTimelineItem.m in Sources */,
 				AB7FA0681A22536D00B824A0 /* NotificationController.m in Sources */,
 				AB7FA0651A22536D00B824A0 /* InterfaceController.m in Sources */,
 				AB7FA06B1A22536D00B824A0 /* GlanceController.m in Sources */,
@@ -791,6 +799,7 @@
 				AB68BF431A1D927100CD87F3 /* RegistrationWorkflowNavigationController.m in Sources */,
 				ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */,
 				AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */,
+				3E37F9AE1B91295B00F2F446 /* BACTimelineItem.m in Sources */,
 				AB5FAAD119D4F00900793572 /* DistancePickerView.m in Sources */,
 				3E3F16AC1B1FF4AC0066A508 /* ANDInternalLineChartView.m in Sources */,
 				3E3F16AD1B1FF4AC0066A508 /* ANDLineChartView.m in Sources */,
@@ -828,6 +837,7 @@
 				AB85F45719D75FA700298746 /* JNKeychain.m in Sources */,
 				AB85F45619D75F4600298746 /* Drink.m in Sources */,
 				AB68BF561A1EE8B200CD87F3 /* StoredDataManager.m in Sources */,
+				3E37F9AF1B91295B00F2F446 /* BACTimelineItem.m in Sources */,
 				ABE4F48D19D750990048D853 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
