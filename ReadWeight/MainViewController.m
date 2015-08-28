@@ -8,10 +8,13 @@
 
 #import "MainViewController.h"
 
+#import "BACTimelineItem.h"
+
 @interface MainViewController ()
 
 @property (strong, nonatomic) UITapGestureRecognizer *blurTap;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGesture;
+@property (strong, nonatomic) NSDateFormatter *df;
 
 @end
 
@@ -34,6 +37,9 @@
     [self.view bringSubviewToFront:self.sessionDetailsContainerView];
     
     [[self.navigationController navigationBar] setBarStyle:UIBarStyleBlackTranslucent];
+    
+    self.df = [[NSDateFormatter alloc] init];
+    [self.df setDateFormat:@"h:mm"];
     
     [self maskButtons];
 	
@@ -183,7 +189,7 @@
         
         time = [[session endTime] timeIntervalSinceDate:[session startTime]];
         
-    } else if ([session projectedEndTime] && [session getUpdatedBAC] == 0.0){
+    } else if ([session projectedEndTime] && [session getCurrentBAC] == 0.0){
         
         [session setEndTime:[session projectedEndTime]];
         time = [[session endTime] timeIntervalSinceDate:[session startTime]];

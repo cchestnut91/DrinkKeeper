@@ -10,7 +10,6 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import <HealthKit/HealthKit.h>
 #import "StoredDataManager.h"
-#import "JNKeychain.h"
 
 @interface TodayViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *bacLabel;

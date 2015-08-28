@@ -107,10 +107,8 @@ static StoredDataManager *sharedObject;
     
     for (NSString *sessionFile in sessionFiles){
         DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
-        if ([session getUpdatedBAC] == 0.0){
-            continue;
-        }
-        if ([[session drinks] count] > 0){
+        
+        if ([[NSDate date] compare:[session projectedEndTime]] == NSOrderedAscending) {
             [NSKeyedArchiver archiveRootObject:session
                                         toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
             return session;
@@ -275,7 +273,7 @@ static StoredDataManager *sharedObject;
 
 -(double)getCurrentBAC{
     if ([self currentSession]){
-        return [[self currentSession] getUpdatedBAC];
+        return [[self currentSession] getCurrentBAC];
     }
     return 0.0;
 }

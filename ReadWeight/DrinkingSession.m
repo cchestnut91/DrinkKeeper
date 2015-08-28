@@ -7,62 +7,128 @@
 //
 
 #import "DrinkingSession.h"
+
+#import "BACTimelineItem.h"
 #import "StoredDataManager.h"
 
 @implementation DrinkingSession
 
--(double)getUpdatedBAC{
-    double bac;
-    double consumed = 0.0;
-    for (Drink *drink in [self drinks]){
-        double add = [[drink multiplier] doubleValue];
-        consumed += add;
+-(double)getCurrentBAC{
+    
+    NSDate *now = [NSDate date];
+    
+    if ([now compare:[[self.timeline lastObject] date]] == NSOrderedDescending) {
+        return 0.0;
     }
-    consumed = consumed * 0.806 * 1.2;
+    
+    for (int i = 0; i < self.timeline.count; i++) {
+        BACTimelineItem *item = [self.timeline objectAtIndex:i];
+        if ([[item date] compare:now] == NSOrderedDescending) {
+            return item.bac.doubleValue;
+        }
+    }
+    
+    return 0.0;
+}
+
+- (void)updateBACTimeline {
+    
+    // Define Constants
     double genderStandard = [[StoredDataManager sharedInstance] genderStandard];
     double kgweight =([[[StoredDataManager sharedInstance] getWeight] doubleValue] * 0.454);
     double weightMod = genderStandard * kgweight;
-    double newBac = consumed / weightMod;
-    double hoursDrinking = [[NSDate date] timeIntervalSinceDate:[self startTime]] / 60.0 / 60.0;
-    double metabolized = [[StoredDataManager sharedInstance] metabolismConstant] * hoursDrinking;
-    bac = newBac - metabolized;
-    if (bac <= 0.0){
-        bac = 0.0;
-    } else {
-        bac = bac / 100;
-    }
     
-    [self updateBAC:bac];
-    return bac;
-}
-
--(void)updateBAC:(double)bacIn{
+    // Calculation variables
+    double consumed = 0;
+    double bac = 0;
     
-// TODO Account for BAC at time of drink
+    double peakBac = 0;
     
-    self.bac = [NSNumber numberWithDouble:bacIn];
+    NSMutableArray *timeline = [[NSMutableArray alloc] init];
     
-    if (![self.bac isEqual:@0]){
+    // For each drink
+    for (int i = 0; i < self.drinks.count; i++) {
+        Drink *drink = [self.drinks objectAtIndex:i];
         
-        double secondsLeft = (([self.bac doubleValue] * 100) / 0.015) * 60 * 60;
+        // Calculate alcohol consumed
+        consumed = [[drink multiplier] doubleValue];
         
-        [self setProjectedEndTime:[NSDate dateWithTimeIntervalSinceNow:secondsLeft]];
+        double startBac = (bac * 100) + (consumed / weightMod);
+        bac = startBac;
         
-    } else if (!self.endTime){
+        NSDate *drinkTime = [drink time];
         
-        if (!self.projectedEndTime){
-            self.endTime = [NSDate date];
+        double metabolized = 0;
+        bac = startBac - metabolized;
+        if (bac <= 0.0) {
+            bac = 0.0;
         } else {
-            self.endTime = self.projectedEndTime;
+            bac = bac / 100;
         }
-		
-		[[StoredDataManager sharedInstance] saveDrinkingSession:self];
         
+        if (bac > peakBac) {
+            peakBac = bac;
+        }
+        
+        BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:drinkTime];
+        [timeline addObject:newItem];
+        
+        int count = 1;
+        
+        if (self.drinks.count > i + 1) {
+            // Calculate BAC until next drink
+            
+            NSDate *workingDate = [drink time];
+            workingDate = drinkTime;
+            while ([[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime] timeIntervalSinceDate:[[self.drinks objectAtIndex:i + 1] time]] < 0) {
+                metabolized = [[StoredDataManager sharedInstance] metabolismConstant] * (count * (1 / 60.0));
+                bac = startBac - metabolized;
+                if (bac <= 0.0) {
+                    bac = 0.0;
+                } else {
+                    bac = bac / 100;
+                }
+                
+                if (bac > peakBac) {
+                    peakBac = bac;
+                }
+                
+                BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime]];
+                [timeline addObject:newItem];
+                count++;
+            }
+            
+        } else {
+            // Calculate BAC until zero
+            while (bac * 100 >= 0.001) {
+                metabolized = [[StoredDataManager sharedInstance] metabolismConstant] * (count * (1 / 60.0));
+                bac = startBac - metabolized;
+                if (bac <= 0.0) {
+                    bac = 0.0;
+                } else {
+                    bac = bac / 100;
+                }
+                
+                if (bac > peakBac) {
+                    peakBac = bac;
+                }
+                
+                BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime]];
+                [timeline addObject:newItem];
+                count++;
+            }
+            
+            BACTimelineItem *final = [[BACTimelineItem alloc] initWithBAC:@0 andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime]];
+            [timeline addObject:final];
+        }
     }
+    self.timeline = timeline;
     
-    if ([self.bac doubleValue] > [self.peakValue doubleValue]){
-        self.peak = self.bac;
-    }
+    self.peak = [NSNumber numberWithDouble:peakBac];
+    
+    self.startTime = [[self.timeline firstObject] date];
+    self.projectedEndTime = [[self.timeline lastObject] date];
+    
 }
 
 -(void)updateHangover:(NSNumber *)ratingIn{
@@ -74,12 +140,17 @@
     if (!self.drinks){
         self.drinks = [[NSArray alloc] init];
     }
+    if (!self.timeline) {
+        self.timeline = [[NSMutableArray alloc] init];
+    }
     self.drinks = [self.drinks arrayByAddingObject:drinkIn];
-    if (!self.startTime){
-        self.startTime = [drinkIn time];
+    self.drinks = [self.drinks sortedArrayUsingComparator:^NSComparisonResult(id  __nonnull obj1, id  __nonnull obj2) {
+        return [[(Drink *)obj1 time] compare:[(Drink *)obj2 time]];
+    }];
+    [self updateBACTimeline];
+    if (!self.fileName) {
         self.fileName = [NSString stringWithFormat:@"%f", [self.startTime timeIntervalSince1970]];
     }
-    [self getUpdatedBAC];
 }
 
 -(void)removeLastDrink {
@@ -92,7 +163,7 @@
 	
 	self.drinks = [NSArray arrayWithArray:replaceDrinks];
 	
-	[self getUpdatedBAC];
+    [self updateBACTimeline];
 }
 
 -(NSNumber *)totalDrinks{
@@ -167,6 +238,7 @@
     self.drinks = [aDecoder decodeObjectForKey:@"drinks"];
     self.peak = [aDecoder decodeObjectForKey:@"peak"];
     self.hangoverRating = [aDecoder decodeObjectForKey:@"hangover"];
+    self.timeline = [aDecoder decodeObjectForKey:@"timeline"];
     
     return self;
 }
@@ -180,6 +252,7 @@
     [aCoder encodeObject:self.drinks forKey:@"drinks"];
     [aCoder encodeObject:self.peak forKey:@"peak"];
     [aCoder encodeObject:self.hangoverRating forKey:@"hangover"];
+    [aCoder encodeObject:self.timeline forKey:@"timeline"];
 }
 
 @end

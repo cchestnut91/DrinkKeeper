@@ -17,14 +17,15 @@
 @property (strong, nonatomic) NSString *fileName;
 @property (strong, nonatomic) NSNumber *bac;
 @property (strong, nonatomic) NSArray *drinks;
+@property (strong, nonatomic) NSMutableArray *timeline;
 @property (strong, nonatomic) NSNumber *peak;
 @property (strong, nonatomic) NSNumber *hangoverRating;
 
 -(void)addDrinkToSession:(Drink *)drinkIn;
 -(void)removeLastDrink;
--(double)getUpdatedBAC;
+-(double)getCurrentBAC;
 -(void)updateHangover:(NSNumber *)ratingIn;
--(void)updateBAC:(double)bacIn;
+-(void)updateBACTimeline;
 -(NSNumber *)totalDrinks;
 -(NSNumber *)numDrinks;
 -(NSNumber *)numBeers;
