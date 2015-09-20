@@ -15,7 +15,7 @@
 #import "DrinkingSession.h"
 #import "ANDLineChartView.h"
 
-@interface MainViewController : UIViewController
+@interface MainViewController : UIViewController <ANDLineChartViewDataSource, ANDLineChartViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *bacLabel;
 @property (weak, nonatomic) IBOutlet UILabel *bacSubHead;
@@ -34,6 +34,7 @@
 - (IBAction)handleWinePressed:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIView *sessionDetailsContainerView;
+@property (weak, nonatomic) IBOutlet UIView *sessionDetailsContainerSubview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sessionDetailsHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sessionDetailsVerticalSpace;
 @property (weak, nonatomic) IBOutlet UILabel *sessionLengthValueLabel;
@@ -42,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *peakTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *peakValueLabel;
 @property (weak, nonatomic) IBOutlet ANDLineChartView *lineChartView;
+@property (weak, nonatomic) IBOutlet UIVisualEffectView *chartLoadingView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *profileButton;
 

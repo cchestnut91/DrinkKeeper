@@ -60,7 +60,6 @@ CG_INLINE BOOL isIPhone4()
 @property(nonatomic, assign) SEL successAction;
 @property(nonatomic, assign) SEL cancelAction;
 @property(nonatomic, strong) SWActionSheet *actionSheet;
-@property(nonatomic, strong) UIPopoverController *popOverController;
 @property(nonatomic, strong) NSObject *selfReference;
 
 - (void)presentPickerForView:(UIView *)aView;
@@ -70,8 +69,6 @@ CG_INLINE BOOL isIPhone4()
 - (void)configureAndPresentActionSheetForView:(UIView *)aView;
 
 - (void)presentActionSheet:(SWActionSheet *)actionSheet;
-
-- (void)presentPopover:(UIPopoverController *)popover;
 
 - (void)dismissPicker;
 
@@ -219,10 +216,7 @@ CG_INLINE BOOL isIPhone4()
     if (self.actionSheet && [self.actionSheet isVisible])
 #endif
         [_actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-    else if ( self.popOverController && self.popOverController.popoverVisible )
-        [_popOverController dismissPopoverAnimated:YES];
     self.actionSheet = nil;
-    self.popOverController = nil;
     self.selfReference = nil;
 }
 
@@ -493,44 +487,6 @@ CG_INLINE BOOL isIPhone4()
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         viewController.contentSizeForViewInPopover = viewController.view.frame.size;
 #pragma clang diagnostic pop
-    }
-
-    _popOverController = [[UIPopoverController alloc] initWithContentViewController:viewController];
-    _popOverController.delegate = self;
-    [self presentPopover:_popOverController];
-}
-
-- (void)presentPopover:(UIPopoverController *)popover
-{
-    NSParameterAssert(popover != NULL);
-    if ( self.barButtonItem )
-    {
-        [popover presentPopoverFromBarButtonItem:_barButtonItem permittedArrowDirections:UIPopoverArrowDirectionAny
-                                        animated:YES];
-        return;
-    }
-    else if ( (self.containerView) )
-    {
-        [popover presentPopoverFromRect:_containerView.bounds inView:_containerView
-               permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        return;
-    }
-    // Unfortunately, things go to hell whenever you try to present a popover from a table view cell.  These are failsafes.
-    UIView *origin = nil;
-    CGRect presentRect = CGRectZero;
-    @try
-    {
-        origin = (_containerView.superview ? _containerView.superview : _containerView);
-        presentRect = origin.bounds;
-        [popover presentPopoverFromRect:presentRect inView:origin permittedArrowDirections:UIPopoverArrowDirectionAny
-                               animated:YES];
-    }
-    @catch (NSException *exception)
-    {
-        origin = [[[[UIApplication sharedApplication] keyWindow] rootViewController] view];
-        presentRect = CGRectMake(origin.center.x, origin.center.y, 1, 1);
-        [popover presentPopoverFromRect:presentRect inView:origin permittedArrowDirections:UIPopoverArrowDirectionAny
-                               animated:YES];
     }
 }
 

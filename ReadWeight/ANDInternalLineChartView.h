@@ -7,9 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+
+@protocol ANDInternalLineChartViewDelegate <NSObject>
+@required
+
+- (void)didStartReloadingChart;
+- (void)didFinishReloadingChart;
+
+@end
+
 @class ANDLineChartView;
 
 @interface ANDInternalLineChartView : UIView
+
+@property (weak, nonatomic) id<ANDInternalLineChartViewDelegate> delegate;
 
 @property (nonatomic, weak) ANDLineChartView *chartContainer;
 

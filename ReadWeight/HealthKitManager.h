@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <HealthKit/HealthKit.h>
 
+#import "DrinkingSession.h"
+
 @interface HealthKitManager : NSObject
 
 @property (strong, nonatomic) HKHealthStore *healthStore;
@@ -32,11 +34,15 @@
 
 -(void)storeSample:(HKSample *)sampleIn withCallback:(void (^)(BOOL success, NSError *error))callback;
 
+-(void)saveDrinkingSession:(DrinkingSession *)session withCallback:(void (^)(BOOL success, NSError *error))callback;
+
 -(void)saveBacWithValue:(double)bacValue;
 
 -(void)updateHealthValues;
 
 +(NSString *)stringForSex;
+
+- (NSArray *)valuesForSession:(DrinkingSession *)session;
 
 -(BOOL)isHealthAvailable;
 

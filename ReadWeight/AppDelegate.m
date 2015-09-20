@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 #import "StoredDataManager.h"
+#import "iOSWatchConnectionManager.h"
 #import "JNKeychain.h"
-#import <Crashlytics/Crashlytics.h>
 #import "Drink.h"
 
 @interface AppDelegate ()
@@ -24,12 +24,20 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //[Crashlytics startWithAPIKey:@"6e63974ab6878886d46e46575c43005ded0cfa08"];
     // Override point for customization after application launch.
+    
+    [[iOSWatchConnectionManager sharedInstance] appDidLaunch];
+    
+    
+    [UserPreferences sharedInstance];
+    
+    if ([self watchAppNeedsSync]) {
+        [[StoredDataManager sharedInstance] updateWatchContext];
+    }
     
     // Transfers any saved keychain values from previous versions
     [self clearKeychain];
-    
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsURLKey]){
         NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
@@ -46,10 +54,43 @@
         }
     }
 	
-	application.applicationSupportsShakeToEdit = YES;
+    application.applicationSupportsShakeToEdit = YES;
     
-    [Crashlytics startWithAPIKey:@"6e63974ab6878886d46e46575c43005ded0cfa08"];
     return YES;
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    NSString *key = shortcutItem.type;
+    NSString *type;
+    if ([key isEqualToString:@"com.calvinchestnut.drinkKeeper.shortcut.addBeer"]) {
+        type = @"Beer";
+    } else if ([key isEqualToString:@"com.calvinchestnut.drinkKeeper.shortcut.addWine"]) {
+        type = @"Wine";
+    } else if ([key isEqualToString:@"com.calvinchestnut.drinkKeeper.shortcut.addDrink"]) {
+        type = @"Liquor";
+    } else if ([key isEqualToString:@"com.calvinchestnut.drinkKeeper.shortcut.duplicate"]) {
+        type = @"Dupe";
+    }
+    if (type) {
+        launchParams = @{@"type" : type};
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(openLaunchURL:)
+                                                     name:@"checkLaunchURL"
+                                                   object:nil];
+        completionHandler(YES);
+        
+    } else {
+        completionHandler(NO);
+    }
+}
+
+- (BOOL)watchAppNeedsSync {
+    if (![[UserPreferences sharedInstance] hasSyncedWatchApp] && [[WCSession defaultSession] isWatchAppInstalled] && ![[StoredDataManager sharedInstance] needsSetup]) {
+        return true;
+    } else if ([[UserPreferences sharedInstance] hasSyncedWatchApp] && ![[WCSession defaultSession] isWatchAppInstalled]) {
+        [[UserPreferences sharedInstance] setHasSyncedWatchApp:NO];
+    }
+    return false;
 }
 
 -(void)clearKeychain{
@@ -73,6 +114,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"addFromURL"
                                                         object:nil
                                                       userInfo:launchParams];
+    launchParams = nil;
 }
 
 -(NSDictionary *)getParamsFromURL:(NSURL *)url{
@@ -86,15 +128,6 @@
     }
     
     return ret;
-}
-
--(void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{
-    
-    double bac = [[StoredDataManager sharedInstance] getCurrentBAC];
-    
-    [[HealthKitManager sharedInstance] saveBacWithValue:bac];
-
-    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
@@ -124,22 +157,21 @@
                                                              // Create a mutable set to store the category definitions.
                                                              NSMutableSet* categories = [NSMutableSet set];
                                                              
-                                                             // Define the actions for a meeting invite notification.
                                                              UIMutableUserNotificationAction* showDetails = [[UIMutableUserNotificationAction alloc] init];
                                                              showDetails.title = @"Show Details";
                                                              showDetails.identifier = @"showDetails";
                                                              showDetails.activationMode = UIUserNotificationActivationModeForeground;
                                                              showDetails.authenticationRequired = NO;
                                                              
-                                                             UIMutableUserNotificationAction* rate = [[UIMutableUserNotificationAction alloc] init];
-                                                             showDetails.title = @"Rate Hangover";
-                                                             showDetails.identifier = @"rateHang";
-                                                             showDetails.activationMode = UIUserNotificationActivationModeForeground;
+                                                             UIMutableUserNotificationAction *saveToHealth = [[UIMutableUserNotificationAction alloc] init];
+                                                             showDetails.title = @"Save";
+                                                             showDetails.identifier = @"saveToHealth";
+                                                             showDetails.activationMode = UIUserNotificationActivationModeBackground;
                                                              showDetails.authenticationRequired = NO;
                                                              
                                                              // Create the category object and add it to the set.
                                                              UIMutableUserNotificationCategory* details = [[UIMutableUserNotificationCategory alloc] init];
-                                                             [details setActions:@[showDetails, rate]
+                                                             [details setActions:@[saveToHealth]
                                                                       forContext:UIUserNotificationActionContextDefault];
                                                              details.identifier = @"SessionComplete";
                                                              

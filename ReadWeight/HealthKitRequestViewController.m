@@ -213,9 +213,13 @@
                                                 handler:^(UIAlertAction *action){
                                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"finishSetup"
                                                                                                         object:nil];
+                                                    if ([(AppDelegate *)[UIApplication sharedApplication].delegate watchAppNeedsSync]) {
+                                                        [[StoredDataManager sharedInstance] updateWatchContext];
+                                                    }
                                                     [self.navigationController dismissViewControllerAnimated:YES
                                                                                                   completion:^(void){
-                                                                                                      [(AppDelegate *)[UIApplication sharedApplication].delegate registerNotifications];
+                                                                                                      //TODO Notifications
+                                                                                                      //[(AppDelegate *)[UIApplication sharedApplication].delegate registerNotifications];
                                                                                                   }];
                                                 }]];
     [self presentViewController:important

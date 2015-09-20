@@ -8,12 +8,16 @@
 
 #import "DrinkingSession.h"
 
-#import "BACTimelineItem.h"
 #import "StoredDataManager.h"
+#import "HealthKitManager.h"
 
 @implementation DrinkingSession
 
 -(double)getCurrentBAC{
+    
+    if (self.timeline == nil) {
+        [self updateBACTimeline];
+    }
     
     NSDate *now = [NSDate date];
     
@@ -31,6 +35,84 @@
     return 0.0;
 }
 
+- (BACTimelineItem *)getCurrentTimelineEntry {
+    
+    NSDate *now = [NSDate date];
+    
+    if ([now compare:[[self.timeline lastObject] date]] == NSOrderedDescending) {
+        return self.timeline.lastObject;
+    }
+    
+    for (int i = 0; i < self.timeline.count; i++) {
+        BACTimelineItem *item = [self.timeline objectAtIndex:i];
+        if ([[item date] compare:now] == NSOrderedDescending) {
+            return item;
+        }
+    }
+    
+    return nil;
+}
+
+- (NSArray *)getTimelineItemsBeforeDate:(NSDate *)date withLimit:(NSUInteger)limit {
+    NSArray *ret = [NSArray new];
+    int current = 0;
+    for (int i = (int)self.timeline.count - 1; i >= 0; i--) {
+        BACTimelineItem *item = [self.timeline objectAtIndex:i];
+        if ([[item date] compare:date] == NSOrderedAscending) {
+            current = i;
+            ret = [ret arrayByAddingObject:item];
+        }
+    }
+    
+    int remaining = (int)self.timeline.count - current;
+    
+    if (remaining > limit) {
+        for (int i = current; i > 0; i -= (remaining / limit)) {
+            BACTimelineItem *item = [self.timeline objectAtIndex:i];
+            ret = [ret arrayByAddingObject:item];
+        }
+    } else {
+        for (int i = current; i > 0; i--) {
+            BACTimelineItem *item = [self.timeline objectAtIndex:i];
+            ret = [ret arrayByAddingObject:item];
+        }
+    }
+    
+    return ret;
+}
+
+- (NSArray *)getTimelineItemsAfterDate:(NSDate *)date withLimit:(NSUInteger)limit {
+    NSArray *ret = [NSArray new];
+    
+    int currentIndex = 0;
+    for (int i = 0; i < self.timeline.count; i++) {
+        BACTimelineItem *item = [self.timeline objectAtIndex:i];
+        if ([[item date] compare:date] == NSOrderedDescending) {
+            currentIndex = i;
+            break;
+        }
+    }
+    
+    int remaining = (int)self.timeline.count - currentIndex;
+    if (remaining > limit) {
+        for (int i = currentIndex; i < self.timeline.count; i += (remaining / limit)) {
+            BACTimelineItem *item = [self.timeline objectAtIndex:i];
+            ret = [ret arrayByAddingObject:item];
+        }
+    } else {
+        for (int i = currentIndex; i < self.timeline.count; i++) {
+            BACTimelineItem *item = [self.timeline objectAtIndex:i];
+            ret = [ret arrayByAddingObject:item];
+        }
+    }
+    
+    if (ret.count > limit) {
+        
+    }
+    
+    return ret;
+}
+
 - (void)updateBACTimeline {
     
     // Define Constants
@@ -45,6 +127,10 @@
     double peakBac = 0;
     
     NSMutableArray *timeline = [[NSMutableArray alloc] init];
+    
+    BACTimelineItem *firstItem = [[BACTimelineItem alloc] initWithBAC:@0 andDate:[NSDate dateWithTimeInterval:-60 sinceDate:[[self.drinks firstObject] time]] andNumDrinks:@0];
+    
+    [timeline addObject:firstItem];
     
     // For each drink
     for (int i = 0; i < self.drinks.count; i++) {
@@ -70,7 +156,7 @@
             peakBac = bac;
         }
         
-        BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:drinkTime];
+        BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:drinkTime andNumDrinks:[NSNumber numberWithInt:i + 1]];
         [timeline addObject:newItem];
         
         int count = 1;
@@ -93,7 +179,7 @@
                     peakBac = bac;
                 }
                 
-                BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime]];
+                BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime] andNumDrinks:[NSNumber numberWithInt:i + 1]];
                 [timeline addObject:newItem];
                 count++;
             }
@@ -113,12 +199,12 @@
                     peakBac = bac;
                 }
                 
-                BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime]];
+                BACTimelineItem *newItem = [[BACTimelineItem alloc] initWithBAC:[NSNumber numberWithDouble:bac] andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime] andNumDrinks:[NSNumber numberWithInt:i + 1]];
                 [timeline addObject:newItem];
                 count++;
             }
             
-            BACTimelineItem *final = [[BACTimelineItem alloc] initWithBAC:@0 andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime]];
+            BACTimelineItem *final = [[BACTimelineItem alloc] initWithBAC:@0 andDate:[NSDate dateWithTimeInterval:count * 60 sinceDate:drinkTime] andNumDrinks:@0];
             [timeline addObject:final];
         }
     }
@@ -129,6 +215,41 @@
     self.startTime = [[self.timeline firstObject] date];
     self.projectedEndTime = [[self.timeline lastObject] date];
     
+    if (!self.fileName) {
+        self.fileName = [NSString stringWithFormat:@"%f", [self.startTime timeIntervalSince1970]];
+    }
+    
+    /*
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    NSMutableArray *notificationsToKeep = [[NSMutableArray alloc] init];
+    
+    for (UILocalNotification *notification in notifications){
+        if ([notification userInfo]){
+            if (![[[notification userInfo] objectForKey:@"type"] isEqualToString:@"sober"]){
+                [notificationsToKeep addObject:notification];
+            }
+        }
+    }
+    
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
+    UILocalNotification *sober = [[UILocalNotification alloc] init];
+    
+    [sober setUserInfo:@{@"type":@"SessionComplete"}];
+    
+    [sober setFireDate:self.projectedEndTime];
+    [sober setAlertBody:@"BAC has reached 0.0. Would you like to save session to Health?"];
+    [sober setSoundName:UILocalNotificationDefaultSoundName];
+    
+    [notificationsToKeep addObject:sober];
+    
+    for (UILocalNotification *notification in notificationsToKeep){
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    }
+    */
+     
+    [[StoredDataManager sharedInstance] saveDrinkingSession:self];
+
 }
 
 -(void)updateHangover:(NSNumber *)ratingIn{
@@ -148,9 +269,6 @@
         return [[(Drink *)obj1 time] compare:[(Drink *)obj2 time]];
     }];
     [self updateBACTimeline];
-    if (!self.fileName) {
-        self.fileName = [NSString stringWithFormat:@"%f", [self.startTime timeIntervalSince1970]];
-    }
 }
 
 -(void)removeLastDrink {
@@ -216,6 +334,10 @@
     return nil;
 }
 
+- (BOOL)needsSaveToHealth {
+    return !self.hasSavedToHealth && [self.projectedEndTime compare:[[UserPreferences sharedInstance] verTwoUpdated]] == NSOrderedDescending;
+}
+
 -(NSString *)hangoverRatingStringValue{
     return nil;
 }
@@ -239,6 +361,7 @@
     self.peak = [aDecoder decodeObjectForKey:@"peak"];
     self.hangoverRating = [aDecoder decodeObjectForKey:@"hangover"];
     self.timeline = [aDecoder decodeObjectForKey:@"timeline"];
+    self.hasSavedToHealth = [aDecoder decodeBoolForKey:@"savedToHealth"];
     
     return self;
 }
@@ -253,6 +376,7 @@
     [aCoder encodeObject:self.peak forKey:@"peak"];
     [aCoder encodeObject:self.hangoverRating forKey:@"hangover"];
     [aCoder encodeObject:self.timeline forKey:@"timeline"];
+    [aCoder encodeBool:self.hasSavedToHealth forKey:@"savedToHealth"];
 }
 
 @end

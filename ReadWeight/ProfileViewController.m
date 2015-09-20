@@ -7,11 +7,17 @@
 //
 
 #import "ProfileViewController.h"
+
+#import "ActionSheetStringPicker.h"
 #import "AppDelegate.h"
 #import "StoredDataManager.h"
-#import "ActionSheetStringPicker.h"
+#import "SessionDetailsViewController.h"
 
 @interface ProfileViewController ()
+
+@property (strong, nonatomic) NSArray *pastSessions;
+@property (strong, nonatomic) NSArray *suffixArray;
+@property (strong, nonatomic) NSDateFormatter *df;
 
 @end
 
@@ -26,6 +32,34 @@
     
     [self.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     
+    self.suffixArray = @[@"st"];
+    
+    for (int i = 2; i < 32; i++) {
+        NSString *new;
+        switch (i) {
+            case 2:
+                new = @"nd";
+                break;
+            case 3:
+                new = @"rd";
+                break;
+            case 21:
+                new = @"st";
+                break;
+            case 31:
+                new = @"st";
+                break;
+            default:
+                new = @"th";
+                break;
+        }
+        self.suffixArray = [self.suffixArray arrayByAddingObject:new];
+    }
+    
+    self.df = [[NSDateFormatter alloc] init];
+    
+    [self.df setDateFormat:@"MMM. d yy"];
+    
     [self.weightButton.layer setCornerRadius:40];
     [self.sexButton.layer setCornerRadius:40];
     [self.saveButton.layer setCornerRadius:40];
@@ -36,6 +70,12 @@
     
     [self updateValueLabels];
     
+    self.pastSessions = [[StoredDataManager sharedInstance] pastSessions];
+    if (self.pastSessions.count == 0) {
+        [self.sessionsTableView setHidden:YES];
+        [self.sessionTableHeader setHidden:YES];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateValueLabels)
                                                  name:@"healthValuesUpdated"
@@ -45,8 +85,54 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 1.0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.pastSessions.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sessionCell" forIndexPath:indexPath];
+    
+    DrinkingSession *session = [self.pastSessions objectAtIndex:indexPath.row];
+    
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@ Drink%@ on %@", session.totalDrinks, session.totalDrinks.intValue == 1 ? @"" : @"s", [self stringForDate:session.startTime]]];
+    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    DrinkingSession *session = [self.pastSessions objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"sessionDetails" sender:session];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIAlertController *confirm = [UIAlertController alertControllerWithTitle:@"Confirm" message:@"Are you sure you want to delete this session?" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    
+    UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [[StoredDataManager sharedInstance] removeDrinkingSession:[self.pastSessions objectAtIndex:indexPath.row]];
+        self.pastSessions = [[StoredDataManager sharedInstance] pastSessions];
+        if (self.pastSessions.count == 0) {
+            [self.sessionsTableView setHidden:YES];
+            [self.sessionTableHeader setHidden:YES];
+        }
+        [self.sessionsTableView reloadData];
+    }];
+    
+    [confirm addAction:cancel];
+    [confirm addAction:confirmAction];
+    
+    [self presentViewController:confirm animated:YES completion:nil];
+}
+
 -(void)updateStaticLabels{
-    [self setTitle:@"Update Health Info"];
+    [self setTitle:@"Profile"];
     
     [self.weightLabel setText:@"Weight"];
     [self.sexLabel setText:@"Sex"];
@@ -78,9 +164,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)pressWeight:(id)sender {
+- (NSString *)stringForDate:(NSDate *)date {
     
-// TODO handle if Health unavailable on this device. Like, everywhere. Shit
+    [self.df setDateFormat:@"MMM."];
+    NSString *month = [self.df stringFromDate:date];
+    
+    [self.df setDateFormat:@"d"];
+    NSString *day = [self.df stringFromDate:date];
+    int dayInt = [day intValue] - 1;
+    day = [day stringByAppendingString:[self.suffixArray objectAtIndex:dayInt]];
+    
+    [self.df setDateFormat:@"yyyy"];
+    NSString *year = [self.df stringFromDate:date];
+    
+    NSString *ret = [NSString stringWithFormat:@"%@ %@ %@", month, day, year];
+    
+    return ret;
+}
+
+- (IBAction)pressWeight:(id)sender {
     if ([[HealthKitManager sharedInstance] isHealthAvailable]){
         
         UIAlertController *updateWeight = [UIAlertController alertControllerWithTitle:@"Update Weight"
@@ -161,7 +263,9 @@
                 }
             });
         } else {
-// TODO Error handling
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self getManualWeightWithMessage:@"No Available Weight Data In Health. To adjust your sharing preferences, open the Health App, select Sources, and allow Drink Keeper to read weight data."];
+            });
         }
     }];
 }
@@ -251,4 +355,14 @@
     [self.navigationController dismissViewControllerAnimated:YES
                                                   completion:nil];
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([sender isKindOfClass:[DrinkingSession class]]) {
+        DrinkingSession *session = sender;
+        SessionDetailsViewController *destination = [segue destinationViewController];
+        [destination setSession:session];
+        [destination setTitle:[NSString stringWithFormat:@"Drinks on %@", [self stringForDate:session.startTime]]];
+    }
+}
+
 @end

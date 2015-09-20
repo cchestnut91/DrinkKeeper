@@ -24,5 +24,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *multTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *unitButton;
 
 @end

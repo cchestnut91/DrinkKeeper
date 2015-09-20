@@ -10,12 +10,13 @@
 
 @interface BACTimelineItem : NSObject <NSCoding>
 
-- (__nonnull instancetype) initWithBAC:(__nonnull NSNumber *)bacIn andDate:(__nonnull NSDate *)date;
+- (__nonnull instancetype) initWithBAC:(NSNumber * _Nonnull )bacIn andDate:(NSDate * _Nonnull )date andNumDrinks:(NSNumber * _Nonnull )drinks;
 
-- (__nonnull instancetype) initWithCoder:(__nonnull NSCoder *)aDecoder;
-- (void)encodeWithCoder:(__nonnull NSCoder *)aCoder;
+- (_Nonnull instancetype) initWithCoder:(NSCoder * _Nonnull)aDecoder;
+- (void)encodeWithCoder:(NSCoder *_Nonnull)aCoder;
 
-@property (strong, nonatomic) __nonnull NSNumber *bac;
-@property (strong, nonatomic) __nonnull NSDate *date;
+@property (strong, nonatomic)  NSNumber * _Nonnull bac;
+@property (strong, nonatomic) NSDate * _Nonnull date;
+@property (strong, nonatomic) NSNumber * _Nonnull numberOfDrinks;
 
 @end

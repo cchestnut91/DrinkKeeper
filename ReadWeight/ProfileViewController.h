@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProfileViewController : UIViewController
+@interface ProfileViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *weightButton;
 @property (weak, nonatomic) IBOutlet UIButton *sexButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
@@ -16,6 +16,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *weightValue;
 @property (weak, nonatomic) IBOutlet UILabel *weightLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sexLabel;
+
+@property (weak, nonatomic) IBOutlet UITableView *sessionsTableView;
+@property (weak, nonatomic) IBOutlet UILabel *sessionTableHeader;
+
 - (IBAction)pressWeight:(id)sender;
 - (IBAction)pressSex:(id)sender;
 - (IBAction)close:(id)sender;

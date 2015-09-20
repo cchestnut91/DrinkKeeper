@@ -9,6 +9,10 @@
 #import "HealthKitManager.h"
 #import "StoredDataManager.h"
 
+@interface HealthKitManager()
+
+@end
+
 @implementation HealthKitManager
 
 static HealthKitManager *sharedObject;
@@ -16,6 +20,7 @@ static HealthKitManager *sharedObject;
 +(HealthKitManager *) sharedInstance{
     if (sharedObject == nil){
         sharedObject = [[HealthKitManager alloc] init];
+        
     }
     
     return sharedObject;
@@ -38,6 +43,106 @@ static HealthKitManager *sharedObject;
     self.hasAskedPerission = [_healthStore authorizationStatusForType:_bacType] != HKAuthorizationStatusNotDetermined;
     
     return self;
+}
+
+-(void)saveDrinkingSession:(DrinkingSession *)session withCallback:(void (^)(BOOL, NSError *))callback {
+    
+    if (!self.hasAskedPerission) {
+        [[StoredDataManager sharedInstance] markSessionSaved:session withValues:@[]];
+        return;
+    }
+    
+    HKQuantityType *type = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodAlcoholContent];
+    
+    NSMutableArray *all = [NSMutableArray new];
+    
+    for (BACTimelineItem *item in session.timeline) {
+        HKQuantitySample *bacSample = [HKQuantitySample quantitySampleWithType:type
+                                                                      quantity:[HKQuantity quantityWithUnit:[HKUnit percentUnit]
+                                                                                                doubleValue:item.bac.doubleValue]
+                                                                     startDate:item.date
+                                                                       endDate:item.date];
+        
+        [all addObject:bacSample];
+    }
+    
+    NSMutableArray *toAdd = [NSMutableArray new];
+    NSMutableArray *toDelete = [NSMutableArray new];
+    
+    if ([[StoredDataManager sharedInstance].savedSessions objectForKey:session.fileName]) {
+        NSArray *existing = [[StoredDataManager sharedInstance].savedSessions objectForKey:session.fileName];
+        
+        if ([[all.firstObject startDate] compare:[[existing firstObject] startDate]] != NSOrderedSame) {
+            toDelete = [existing mutableCopy];
+            toAdd = all;
+        } else {
+            int deleteAfterIndex = 0;
+            if (existing.count > all.count) {
+                for (int i = 0; i < all.count; i++) {
+                    HKQuantitySample *fromAll = [all objectAtIndex:i];
+                    HKQuantitySample *fromExisting = [existing objectAtIndex:i];
+                    
+                    if ([fromAll.startDate compare:fromExisting.startDate] != NSOrderedSame || [fromAll.quantity compare:fromAll.quantity] != NSOrderedSame) {
+                        deleteAfterIndex = i;
+                        break;
+                    }
+                }
+                
+                if (deleteAfterIndex > 0) {
+                    toAdd = [NSMutableArray arrayWithArray:[all objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(deleteAfterIndex, all.count - deleteAfterIndex)]]];
+                }
+                
+                toDelete = [NSMutableArray arrayWithArray:[existing objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(deleteAfterIndex, existing.count - deleteAfterIndex)]]];
+            } else {
+                for (int i = 0; i < existing.count; i++) {
+                    HKQuantitySample *fromAll = [all objectAtIndex:i];
+                    HKQuantitySample *fromExisting = [existing objectAtIndex:i];
+                    
+                    if ([fromAll.startDate compare:fromExisting.startDate] != NSOrderedSame || [fromAll.quantity compare:fromAll.quantity] != NSOrderedSame) {
+                        deleteAfterIndex = i;
+                        break;
+                    }
+                }
+                
+                if (deleteAfterIndex > 0) {
+                    toDelete = [NSMutableArray arrayWithArray:[existing objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(deleteAfterIndex, existing.count - deleteAfterIndex)]]];
+                }
+                
+                toAdd = [NSMutableArray arrayWithArray:[all objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(deleteAfterIndex, all.count - deleteAfterIndex)]]];
+                
+            }
+        }
+        
+    } else {
+        [toAdd addObjectsFromArray:all];
+    }
+    
+    if ([toDelete count]) {
+        [self.healthStore deleteObjects:toDelete withCompletion:^(BOOL success, NSError * _Nullable error) {
+            if (!toAdd.count) {
+                [self.healthStore saveObjects:toAdd withCompletion:^(BOOL success, NSError * _Nullable error) {
+                    if (callback) {
+                        callback(success, error);
+                    }
+                }];
+            }
+        }];
+    } else {
+        if (toAdd.count) {
+            [self.healthStore saveObjects:toAdd withCompletion:^(BOOL success, NSError * _Nullable error) {
+                if (callback) {
+                    callback(success, error);
+                }
+            }];
+        }
+    }
+    
+    [[StoredDataManager sharedInstance] markSessionSaved:session withValues:all];
+    
+}
+
+- (NSArray *)valuesForSession:(DrinkingSession *)session {
+    return [[StoredDataManager sharedInstance].savedSessions objectForKey:session.fileName];
 }
 
 -(void)saveBacWithValue:(double)bacValue{
@@ -87,8 +192,6 @@ static HealthKitManager *sharedObject;
                                                                             forKey:[StoredDataManager sexKey]];
                 }
             }
-            
-            [self saveBacWithValue:[[StoredDataManager sharedInstance] getCurrentBAC]];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"healthValuesUpdated"
                                                                 object:nil];

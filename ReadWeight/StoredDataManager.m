@@ -8,6 +8,12 @@
 
 #import "StoredDataManager.h"
 
+@interface StoredDataManager()
+
+@property (strong, nonatomic) NSString *savedSessionsFile;
+
+@end
+
 NSString *weightKey = @"weight";
 NSString *sexKey = @"sex";
 NSString *sessionDir;
@@ -27,7 +33,7 @@ static StoredDataManager *sharedObject;
 
 +(StoredDataManager *) sharedInstance{
     if (sharedObject == nil){
-        sharedObject = [[super allocWithZone:NULL] init];
+        sharedObject = [[super alloc] init];
     }
     
     return sharedObject;
@@ -43,6 +49,28 @@ static StoredDataManager *sharedObject;
                                   withIntermediateDirectories:YES
                                                    attributes:nil
                                                         error:NULL];
+    }
+    
+    self.savedSessions = [[NSMutableDictionary alloc] init];
+    
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSURL *container = [manager containerURLForSecurityApplicationGroupIdentifier:@"group.com.calvinchestnut.drinktracker.sessionData"];
+    self.savedSessionsFile = [[container path] stringByAppendingPathComponent:@"savedSessions"];
+    
+    if (![manager fileExistsAtPath:self.savedSessionsFile]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:self.savedSessionsFile withIntermediateDirectories:NO attributes:nil error:nil];
+    } else {
+        NSMutableDictionary *mutableSessions = [NSMutableDictionary new];
+        NSError *error;
+        NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.savedSessionsFile
+                                                                                    error:&error];
+        
+        for (NSString *sessionFile in sessionFiles){
+            
+            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedUnarchiver unarchiveObjectWithFile:[self.savedSessionsFile stringByAppendingPathComponent:sessionFile]]];
+            [mutableSessions setObject:array forKey:sessionFile];
+        }
+        self.savedSessions = mutableSessions;
     }
     
     return self;
@@ -78,6 +106,18 @@ static StoredDataManager *sharedObject;
 	
 	[NSKeyedArchiver archiveRootObject:session
 								toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+
+}
+
+- (void)markSessionSaved:(DrinkingSession *)session withValues:(NSArray *)values {
+    [self.savedSessions setObject:values forKey:session.fileName];
+    
+    for (NSString *key in self.savedSessions.allKeys) {
+        
+        [NSKeyedArchiver archiveRootObject:[NSKeyedArchiver archivedDataWithRootObject:self.savedSessions[key]] toFile:[self.savedSessionsFile stringByAppendingPathComponent:key]];
+    }
+    
+    [self updateLastSessionContext];
 }
 
 -(void)removeDrinkingSession:(DrinkingSession *)session{
@@ -94,8 +134,11 @@ static StoredDataManager *sharedObject;
 
 -(void)duplicateLastDrink{
     Drink *last = [[[self currentSession] drinks] lastObject];
-    [last setTime:[NSDate date]];
-    [self addDrinkToCurrentSession:last];
+    
+    if (last) {
+        [last setTime:[NSDate date]];
+        [self addDrinkToCurrentSession:last];
+    }
 }
 
 -(DrinkingSession *)currentSession{
@@ -109,12 +152,34 @@ static StoredDataManager *sharedObject;
         DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
         
         if ([[NSDate date] compare:[session projectedEndTime]] == NSOrderedAscending) {
-            [NSKeyedArchiver archiveRootObject:session
-                                        toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
             return session;
         }
     }
     return nil;
+}
+
+- (NSArray *)pastSessions {
+    NSArray *ret = [NSArray new];
+    
+    NSError *error = nil;
+    NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.sessionDirectory
+                                                                                error:&error];
+    
+    for (NSString *sessionFile in sessionFiles){
+        DrinkingSession *session = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
+        if ([session.projectedEndTime compare:[NSDate date]] == NSOrderedAscending && session.timeline != nil) {
+            ret = [ret arrayByAddingObject:session];
+        }
+    }
+    
+    ret = [ret sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        DrinkingSession *a = (DrinkingSession *)obj1;
+        DrinkingSession *b = (DrinkingSession *)obj2;
+        
+        return [b.projectedEndTime compare:a.projectedEndTime];
+    }];
+    
+    return ret;
 }
 
 - (NSString *)applicationDocumentsDirectory
@@ -124,6 +189,7 @@ static StoredDataManager *sharedObject;
     NSString *ret = [container path];
     return ret;
 }
+
 // This block gives a static demo session for screenshots and demos
 /*
  if (!forceSession){
@@ -166,6 +232,8 @@ static StoredDataManager *sharedObject;
                   forKey:keyIn];
     [NSKeyedArchiver archiveRootObject:healthDic
                                 toFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
+    [self updateHealthDictionaryContext];
+    
 }
 
 -(void)setWeight:(id)weightIn{
@@ -192,26 +260,30 @@ static StoredDataManager *sharedObject;
     return nil;
 }
 
--(void)addDrinkToCurrentSession:(Drink *)drinkIn{
+-(void)addDrinkToCurrentSession:(Drink *)drinkIn {
     DrinkingSession *session = [self currentSession];
     if (!session){
-        session = [[DrinkingSession alloc] init];
+        NSError *error;
+        NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.sessionDirectory
+                                                                                    error:&error];
+        
+        for (NSString *sessionFile in sessionFiles){
+            DrinkingSession *existingSession = (DrinkingSession *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.sessionDirectory stringByAppendingPathComponent:sessionFile]];
+            if ([existingSession.projectedEndTime compare:drinkIn.time] == NSOrderedDescending) {
+                session = existingSession;
+                break;
+            }
+        }
+        if (!session) {
+            session = [[DrinkingSession alloc] init];
+        }
     }
     [session addDrinkToSession:drinkIn];
-    
-    [NSKeyedArchiver archiveRootObject:session
-                                toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
 }
 
 -(void)removeLastDrink{
-	DrinkingSession *session = [self currentSession];
-	if (session.drinks.count == 1) {
-		[self removeDrinkingSession:session];
-	} else {
-		[session removeLastDrink];
-		[NSKeyedArchiver archiveRootObject:session
-									toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
-	}
+    DrinkingSession *session = [self lastSession];
+    [session removeLastDrink];
 }
 
 -(double)metabolismConstant{
@@ -258,17 +330,9 @@ static StoredDataManager *sharedObject;
 	return hasRequestedHealth != nil;
 }
 
--(BOOL)hasDisplayedShakeInfo{
-	id hasShownShake = [[self healthDictionary] objectForKey:@"hasShownShakeInfo"];
-	return hasShownShake != nil;
-}
-
--(void)hasDisplayedShakeAlert{
-	[self updateDictionaryWithObject:@1 forKey:@"hasShownShakeInfo"];
-}
-
 -(NSDictionary *)healthDictionary{
-    return (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
+    NSDictionary *ret = (NSDictionary *)[NSKeyedUnarchiver unarchiveObjectWithFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
+    return ret;
 }
 
 -(double)getCurrentBAC{
@@ -276,6 +340,192 @@ static StoredDataManager *sharedObject;
         return [[self currentSession] getCurrentBAC];
     }
     return 0.0;
+}
+
+- (BACTimelineItem *)getCurrentTimelineEntry {
+    return [self.lastSession getCurrentTimelineEntry];
+}
+
+- (NSArray *)getTimelineItemsBeforeDate:(NSDate *)date withLimit:(NSUInteger)limit {
+    return [self.lastSession getTimelineItemsBeforeDate:date withLimit:limit];
+}
+
+- (NSArray *)getTimelineItemsAfterDate:(NSDate *)date withLimit:(NSUInteger)limit {
+    return [self.lastSession getTimelineItemsAfterDate:date withLimit:limit];
+}
+
+- (void)updateWatchContext {
+    if ([WCSession isSupported] && ![self needsSetup]) {
+        [[UserPreferences sharedInstance] setHasSyncedWatchApp:YES];
+        [[AppWatchConnectionManager sharedInstance] updateContext:[self watchContext]];
+    }
+}
+
+- (void)updateUserPreferenceContext {
+    if ([WCSession isSupported] && ![self needsSetup]) {
+        [[AppWatchConnectionManager sharedInstance] updateContext:[self userPrefContext]];
+    }
+}
+
+- (void)updateHealthDictionaryContext {
+    if ([WCSession isSupported] && ![self needsSetup]) {
+        [[AppWatchConnectionManager sharedInstance] updateContext:[self healthContext]];
+    }
+}
+
+- (void)updateSavedSessionContextWithContext:(NSDictionary *)dict {
+    if ([WCSession isSupported] && ![self needsSetup]) {
+        [[AppWatchConnectionManager sharedInstance] updateContext:dict];
+    }
+}
+
+- (void)updateLastSessionContext {
+    if ([WCSession isSupported] && ![self needsSetup]) {
+        [[AppWatchConnectionManager sharedInstance] updateContext:[self lastSessionContext]];
+    }
+}
+
+- (NSDictionary *)watchContext {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    
+    NSMutableDictionary *sessions = [NSMutableDictionary new];
+    
+    DrinkingSession *session = [self lastSession];
+    
+    if (session) {
+        [sessions setObject:[NSKeyedArchiver archivedDataWithRootObject:session] forKey:session.fileName];
+    }
+    
+    [dict setObject:sessions forKey:@"sessions"];
+    
+    NSMutableDictionary *health = [NSMutableDictionary dictionaryWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]]];
+    
+    if (health) {
+        [dict setObject:health forKey:@"healthDictionary"];
+    }
+    
+    NSString *prefDirectory = [self.applicationDocumentsDirectory stringByAppendingPathComponent:@"userPreferences"];
+    NSString *prefFile = [prefDirectory stringByAppendingPathComponent:@"prefs.plist"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:prefFile]) {
+        [dict setObject:[NSKeyedUnarchiver unarchiveObjectWithFile:prefFile] forKey:@"userPreferences"];
+    }
+    
+    NSString *savedSessionsFile = [self.applicationDocumentsDirectory stringByAppendingPathComponent:@"savedSessions"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:savedSessionsFile]) {
+        NSMutableDictionary *mutableSessions = [NSMutableDictionary new];
+        NSError *error;
+        NSArray *sessionFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:savedSessionsFile
+                                                                                    error:&error];
+        
+        for (NSString *sessionFile in sessionFiles){
+            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedUnarchiver unarchiveObjectWithFile:[savedSessionsFile stringByAppendingPathComponent:sessionFile]]];
+            [mutableSessions setObject:[NSKeyedArchiver archivedDataWithRootObject:array] forKey:sessionFile];
+        }
+        [dict setObject:mutableSessions forKey:@"savedSessions"];
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (NSDictionary *)lastSessionContext {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    
+    NSMutableDictionary *sessions = [NSMutableDictionary new];
+    
+    DrinkingSession *session = [self lastSession];
+    
+    [sessions setObject:[NSKeyedArchiver archivedDataWithRootObject:session] forKey:session.fileName];
+    
+    [dict setObject:sessions forKey:@"sessions"];
+    
+    
+    NSString *savedSessionsFile = [self.applicationDocumentsDirectory stringByAppendingPathComponent:@"savedSessions"];
+    NSString *savedSessionArrayLoc = [savedSessionsFile stringByAppendingPathComponent:session.fileName];
+    NSData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:savedSessionArrayLoc];
+    NSArray *savedValues = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    [dict setObject:@{session.fileName : [NSKeyedArchiver archivedDataWithRootObject:savedValues]} forKey:@"savedSessions"];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (NSDictionary *)healthContext {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    
+    NSMutableDictionary *health = [NSMutableDictionary dictionaryWithDictionary:[NSKeyedUnarchiver unarchiveObjectWithFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]]];
+    
+    [dict setObject:health forKey:@"healthDictionary"];
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (NSDictionary *)userPrefContext {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    
+    NSString *prefDirectory = [self.applicationDocumentsDirectory stringByAppendingPathComponent:@"userPreferences"];
+    NSString *prefFile = [prefDirectory stringByAppendingPathComponent:@"prefs.plist"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:prefFile]) {
+        [dict setObject:[NSKeyedUnarchiver unarchiveObjectWithFile:prefFile] forKey:@"userPreferences"];
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:dict];
+}
+
+- (void)handleMessage:(NSDictionary *)message {
+    if (message[@"healthDictionary"]) {
+        [NSKeyedArchiver archiveRootObject:message[@"healthDictionary"]
+                                    toFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
+    }
+    if (message[@"sessions"]) {
+        NSArray *sessions = message[@"sessions"];
+        
+        for (DrinkingSession *session in sessions) {
+            [NSKeyedArchiver archiveRootObject:session toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+        }
+    }
+}
+
+- (void)handleContext:(NSDictionary *)context {
+    if (context[@"healthDictionary"]) {
+        [NSKeyedArchiver archiveRootObject:context[@"healthDictionary"]
+                                    toFile:[self.applicationDocumentsDirectory stringByAppendingPathComponent:_healthData]];
+    }
+    if (context[@"sessions"]) {
+        NSArray *sessions = [self sessionsFromDataArray:context[@"sessions"]];
+        
+        for (DrinkingSession *session in sessions) {
+            [NSKeyedArchiver archiveRootObject:session toFile:[self.sessionDirectory stringByAppendingPathComponent:[session fileName]]];
+        }
+        
+        [(AppWatchConnectionManager *)[[WCSession defaultSession] delegate] updateComplication];
+    }
+    if (context[@"userPreferences"]) {
+        [[UserPreferences sharedInstance] updateWithContext:context[@"userPreferences"]];
+    }
+    if (context[@"savedSessions"]) {
+        NSString *savedSessionsFile = [self.applicationDocumentsDirectory stringByAppendingPathComponent:@"savedSessions"];
+        
+        NSDictionary *dict = [context objectForKey:@"savedSessions"];
+        
+        for (NSString *key in dict.allKeys) {
+            [NSKeyedArchiver archiveRootObject:[NSKeyedArchiver archivedDataWithRootObject:[dict valueForKey:key]] toFile:[savedSessionsFile stringByAppendingPathComponent:key]];
+        }
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"contextReloaded" object:nil];
+}
+
+- (NSArray *)sessionsFromDataArray:(NSDictionary *)sessions {
+    NSArray *ret = [NSArray new];
+    
+    for (NSData *sessionData in [sessions allValues]) {
+        DrinkingSession *session = [NSKeyedUnarchiver unarchiveObjectWithData:sessionData];
+        
+        ret = [ret arrayByAddingObject:session];
+    }
+    
+    return ret;
 }
 
 @end

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ANDInternalLineChartView.h"
 
 @protocol ANDLineChartViewDataSource,ANDLineChartViewDelegate;
 
-@interface ANDLineChartView : UIView
+@interface ANDLineChartView : UIView <ANDInternalLineChartViewDelegate>
 
 @property (nonatomic, strong) UIFont *gridIntervalFont;
 
@@ -31,6 +32,9 @@
 @property (nonatomic, assign) BOOL shouldLabelsFloat; //default YES
 
 @property(nonatomic, readonly, strong) UIScrollView *scrollView;
+
+- (void)didStartReloadingChart;
+- (void)didFinishReloadingChart;
 
 - (void)reloadData;
 
@@ -65,5 +69,8 @@
 // from left border of view.
 // if you want to have the same spacing between every element, use elementSpacing property from ANDGraphView
 - (CGFloat)chartView:(ANDLineChartView *)chartView spacingForElementAtRow:(NSUInteger)row;
+
+- (void)didStartReloadingChart;
+- (void)didFinishReloadingChart;
 
 @end

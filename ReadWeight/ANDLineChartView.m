@@ -7,7 +7,6 @@
 //
 
 #import "ANDLineChartView.h"
-#import "ANDInternalLineChartView.h"
 #import "ANDBackgroundChartView.h"
 
 #define DEFAULT_ELEMENT_SPACING 30.0
@@ -27,6 +26,22 @@
 @end
 
 @implementation ANDLineChartView
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder:aDecoder];
+    if(self){
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _internalChartView = [[ANDInternalLineChartView alloc] initWithFrame:CGRectZero chartContainer:self];
+        _backgroundChartView = [[ANDBackgroundChartView alloc] initWithFrame:CGRectZero chartContainer:self];
+        
+        [_scrollView addSubview:_backgroundChartView];
+        [_scrollView addSubview:_internalChartView];
+        [self addSubview:_scrollView];
+        [self setupDefaultAppearence];
+        [self setupInitialConstraints];
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame{
   self = [super initWithFrame:frame];
@@ -213,6 +228,14 @@
     NSAssert([_dataSource respondsToSelector:@selector(chartView:descriptionForGridIntervalValue:)], @"chartView:descriptionForGridIntervalValue: not implemented.");
     return @"";
   }
+}
+
+- (void)didStartReloadingChart {
+    [self.delegate didStartReloadingChart];
+}
+
+- (void)didFinishReloadingChart {
+    [self.delegate didFinishReloadingChart];
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import "NotificationController.h"
 
+#import <UIKit/UIKit.h>
+
 
 @interface NotificationController()
 

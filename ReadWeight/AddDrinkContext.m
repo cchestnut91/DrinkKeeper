@@ -20,10 +20,13 @@
             [self setType:@"Beer"];
             
             NSArray *options = @[@1, @1.333, @1.666];
-            NSArray *optionLabels = @[@"12 oz.", @"16 oz.", @"20 oz."];
+            NSArray *optionLabelsImp = @[@"12 oz.", @"16 oz.", @"20 oz."];
+            NSArray *optionsMetric = @[@"350 ml", @"470 ml", @"590 ml"];
             
             [self setStrengthOptions:options];
-            [self setOptionLabels:optionLabels];
+            [self setOptionLabels:optionLabelsImp];
+            [self setMetricLabels:optionsMetric];
+            
             self.selectedIndex = 0;
 
         } else if ([[type lowercaseString] isEqualToString:[AddDrinkContext wineType]]){
@@ -33,10 +36,13 @@
             [self setType:@"Wine"];
             
             NSArray *options = @[@0.75, @1, @1.25];
-            NSArray *optionLabels = @[@"Small (< 5 oz.)", @"Normal (5-6 oz.)", @"Large (> 6 oz.)"];
+            NSArray *optionLabelsImp = @[@"Small (< 5 oz.)", @"Normal (5-6 oz.)", @"Large (> 6 oz.)"];
+            NSArray *optionsMetric = @[@"Small (< 150 ml)", @"Normal (150-175 ml)", @"Large (> 175 ml)"];
             
             [self setStrengthOptions:options];
-            [self setOptionLabels:optionLabels];
+            [self setOptionLabels:optionLabelsImp];
+            [self setMetricLabels:optionsMetric];
+            
             self.selectedIndex = 1;
             
         } else if ([[type lowercaseString] isEqualToString:[AddDrinkContext liquorType]]){
@@ -46,10 +52,12 @@
             [self setType:@"Liquor"];
             
             NSArray *options = @[@0.75, @1, @1.5, @2];
-            NSArray *optionLabels = @[@"Weak (< 1 oz.)", @"Normal (1.5 oz.)", @"Strong (2-3 oz.)", @"Woah! (> 3 oz.)"];
+            NSArray *optionLabelsImp = @[@"Weak (< 1 oz.)", @"Normal (1.5 oz.)", @"Strong (2-3 oz.)", @"Woah! (> 3 oz.)"];
+            NSArray *optionsMetric = @[@"Weak (< 30 ml)", @"Normal (45 ml)", @"Strong (60-90 ml)", @"Woah! (> 90 ml)"];
             
             [self setStrengthOptions:options];
-            [self setOptionLabels:optionLabels];
+            [self setOptionLabels:optionLabelsImp];
+            [self setMetricLabels:optionsMetric];
             
             self.selectedIndex = 1;
         }
@@ -64,12 +72,13 @@
     return self;
 }
 
--(NSString *)titleForMult{
+-(NSString *)titleForMult:(BOOL)metric{
     NSString *ret;
+    NSArray *options = metric ? self.metricLabels : self.optionLabels;
     
     for (NSNumber *num in self.strengthOptions){
         if (self.selectedMult == num){
-            ret = [[self optionLabels] objectAtIndex:[self.strengthOptions indexOfObject:num]];
+            ret = [options objectAtIndex:[self.strengthOptions indexOfObject:num]];
             self.selectedIndex = [self.strengthOptions indexOfObject:num];
         }
     }

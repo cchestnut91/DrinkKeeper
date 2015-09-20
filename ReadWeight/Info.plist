@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1</string>
+	<string>3.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,9 +32,57 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>16</string>
+	<string>17</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>beerGlassSmall</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Add Beer</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.calvinchestnut.drinkKeeper.shortcut.addBeer</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>wineSmall</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Add Wine</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.calvinchestnut.drinkKeeper.shortcut.addWine</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>liquorGlassSmall</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Add Drink</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.calvinchestnut.drinkKeeper.shortcut.addDrink</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict/>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Duplicate Last Drink</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.calvinchestnut.drinkKeeper.shortcut.duplicate</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key2</key>
+				<string>value2</string>
+			</dict>
+		</dict>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -41,6 +41,20 @@
     self.df = [[NSDateFormatter alloc] init];
     [self.df setDateFormat:@"h:mm"];
     
+    [self.lineChartView setDataSource:self];
+    [self.lineChartView setDelegate:self];
+    
+    UIColor *customRed = [UIColor colorWithRed:229/255.0 green:48/255.0 blue:75/255.0 alpha:1];
+    
+    [self.lineChartView setChartBackgroundColor:customRed];
+    
+    [self.lineChartView setGridIntervalFontColor:[UIColor whiteColor]];
+    [self.lineChartView setGridIntervalLinesColor:[UIColor whiteColor]];
+    
+    [self.lineChartView setLineColor:[UIColor whiteColor]];
+    [self.lineChartView setElementFillColor:customRed];
+    [self.lineChartView setElementStrokeColor:[UIColor whiteColor]];
+    
     [self maskButtons];
 	
 	if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft){
@@ -54,6 +68,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(addDrinkFromURL:)
                                                  name:@"addFromURL"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recalcBAC)
+                                                 name:@"contextReloaded"
                                                object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLaunchURL"
 														object:nil];
@@ -75,7 +94,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 	
-	[self becomeFirstResponder];
+    [self becomeFirstResponder];
     
 // setup labels
     
@@ -136,13 +155,13 @@
         
         [timer fire];
 		
-		if (![[StoredDataManager sharedInstance] hasDisplayedShakeInfo] && [[StoredDataManager sharedInstance] currentSession]){
+		if (![[UserPreferences sharedInstance] hasShownShakeInfo] && [[StoredDataManager sharedInstance] currentSession]){
 			UIAlertController *shake = [UIAlertController alertControllerWithTitle:@"Shake to remove"
 																		   message:@"To remove the last drink added to the session, just shake your phone!"
 																	preferredStyle:UIAlertControllerStyleAlert];
 			[shake addAction:[UIAlertAction actionWithTitle:@"Ok!" style:UIAlertActionStyleDefault handler:nil]];
 			[self presentViewController:shake animated:YES completion:^{
-				[[StoredDataManager sharedInstance] hasDisplayedShakeAlert];
+				[[UserPreferences sharedInstance] setHasShownShakeInfo:YES];
 			}];
 		}
     }
@@ -161,6 +180,42 @@
     [[self.wineButton layer] setCornerRadius:40];
 }
 
+-(NSUInteger)numberOfElementsInChartView:(ANDLineChartView *)chartView {
+    return [[[[StoredDataManager sharedInstance] lastSession] timeline] count] / 5;
+}
+
+-(CGFloat)chartView:(ANDLineChartView *)chartView valueForElementAtRow:(NSUInteger)row {
+    return [[(BACTimelineItem *)[[[[StoredDataManager sharedInstance] lastSession] timeline] objectAtIndex:row * 5] bac] floatValue];
+}
+
+- (NSUInteger)numberOfGridIntervalsInChartView:(ANDLineChartView *)chartView {
+    CGFloat peak = [[[[StoredDataManager sharedInstance] lastSession] peak] doubleValue];
+    
+    int ret = (peak + 0.00005) / 0.0001;
+    return ret > 10 ? 10 : ret;
+}
+
+- (NSString*)chartView:(ANDLineChartView *)chartView descriptionForGridIntervalValue:(CGFloat)interval {
+    return [NSString stringWithFormat:@"%.3f", interval * 100];
+}
+
+- (CGFloat)maxValueForGridIntervalInChartView:(ANDLineChartView *)chartView {
+    CGFloat peak = [[[[StoredDataManager sharedInstance] lastSession] peak] doubleValue];
+    return peak + 0.00005;
+}
+
+- (CGFloat)minValueForGridIntervalInChartView:(ANDLineChartView *)chartView {
+    return 0.0;
+}
+
+- (void)didStartReloadingChart {
+    [self.chartLoadingView setHidden:NO];
+}
+
+- (void)didFinishReloadingChart {
+    [self.chartLoadingView setHidden:YES];
+}
+
 -(void)updateSessionSectionWithSection:(DrinkingSession *)session{
     
     [self updateSessionLengthLabelWithSession:session];
@@ -177,6 +232,9 @@
     } else {
         [self.currentSessionLabel setText:@"Last Session"];
     }
+    
+    [self didStartReloadingChart];
+    [self.lineChartView reloadData];
     
     hasCurrentSession = YES;
 }
@@ -242,7 +300,7 @@
     if (session){
 		hasCurrentSession = YES;
 		
-        [self updateSessionLengthLabelWithSession:session];
+        [self updateSessionSectionWithSection:session];
 	} else {
 		if (!self.blurView.hidden){
 			[self slideView];
@@ -261,43 +319,19 @@
     Drink *newDrink = [userInfo objectForKey:@"newDrink"];
 	
     [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
+    [[HealthKitManager sharedInstance] saveDrinkingSession:[StoredDataManager sharedInstance].currentSession withCallback:nil];
+    
     [self recalcBAC];
-    
-    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    NSMutableArray *notificationsToKeep = [[NSMutableArray alloc] init];
-    
-    for (UILocalNotification *notification in notifications){
-        if ([notification userInfo]){
-            if (![[[notification userInfo] objectForKey:@"type"] isEqualToString:@"sober"]){
-                [notificationsToKeep addObject:notification];
-            }
-        }
-    }
-    
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-    UILocalNotification *sober = [[UILocalNotification alloc] init];
-    
-    [sober setUserInfo:@{@"type":@"sober"}];
-    
-    // TODO why is this 0.015? Should be metabolism constant?
-    double secondsLeft = ((bac * 100) / 0.015) * 60 * 60;
-    
-    [sober setFireDate:[NSDate dateWithTimeIntervalSinceNow:secondsLeft]];
-    [sober setAlertBody:@"BAC has reached zero"];
-    [sober setSoundName:UILocalNotificationDefaultSoundName];
-    
-    [notificationsToKeep addObject:sober];
-    
-    for (UILocalNotification *notification in notificationsToKeep){
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
 }
 
 -(void)addDrinkFromURL:(NSNotification *)notification{
     NSDictionary *userInfo = [notification userInfo];
     NSString *typePressed = [userInfo objectForKey:@"type"];
-    [self performSegueWithIdentifier:@"addDrink" sender:typePressed];
+    if ([typePressed isEqualToString:@"Dupe"]) {
+        [[StoredDataManager sharedInstance] duplicateLastDrink];
+    } else {
+        [self performSegueWithIdentifier:@"addDrink" sender:typePressed];
+    }
 }
 
 #pragma mark IBActions
@@ -306,12 +340,10 @@
 	if (hasCurrentSession){
 		if (self.sessionDetailsVerticalSpace.constant == 0){
 			self.sessionDetailsVerticalSpace.constant = ((self.sessionDetailsHeight.constant) - 100) * -1;
-			[self.scrollView setScrollEnabled:YES];
 		} else {
 			[self.scrollView setContentOffset:CGPointMake(0, -self.scrollView.contentInset.top)
 									 animated:YES];
 			self.sessionDetailsVerticalSpace.constant = 0;
-			[self.scrollView setScrollEnabled:NO];
 		}
 		
 		[UIView animateWithDuration:0.5 animations:^{
@@ -354,7 +386,13 @@
 			UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm"
 															  style:UIAlertActionStyleDestructive
 															handler:^(UIAlertAction *action) {
-																[[StoredDataManager sharedInstance] removeLastDrink];
+                                                                [[StoredDataManager sharedInstance] removeLastDrink];
+                                                                DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
+                                                                [[HealthKitManager sharedInstance] saveDrinkingSession:session withCallback:nil];
+                                                                
+                                                                if ([[[[StoredDataManager sharedInstance] lastSession] drinks] count] == 0) {
+                                                                    [[StoredDataManager sharedInstance] removeDrinkingSession:[[StoredDataManager sharedInstance] lastSession]];
+                                                                }
 																[self recalcBAC];
 															}];
 			

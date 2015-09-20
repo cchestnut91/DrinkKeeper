@@ -7,26 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E24947B1AB3AD29009D6F1A /* AddDrinkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDA7D291A28BB1700CD61C7 /* AddDrinkContext.m */; };
+		3E0E1FE81BA6F16200CF81DB /* MainInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0E1FE71BA6F16200CF81DB /* MainInterfaceController.m */; settings = {ASSET_TAGS = (); }; };
+		3E23477E1BA06333007A99D7 /* SessionDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8E08041A22C46700D81388 /* SessionDetailsController.m */; settings = {ASSET_TAGS = (); }; };
+		3E23477F1BA06333007A99D7 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA0671A22536D00B824A0 /* NotificationController.m */; settings = {ASSET_TAGS = (); }; };
+		3E2347811BA0647B007A99D7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		3E2527541BAE0182001C4827 /* GlanceInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2527531BAE0182001C4827 /* GlanceInterfaceController.m */; settings = {ASSET_TAGS = (); }; };
 		3E37F9AE1B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
 		3E37F9AF1B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
-		3E37F9B01B91295B00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
+		3E37F9B71B912A2200F2F446 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9B51B912A2200F2F446 /* Interface.storyboard */; };
+		3E37F9B91B912A2200F2F446 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9B81B912A2200F2F446 /* Assets.xcassets */; };
+		3E37F9C01B912A2200F2F446 /* NanoDrinks Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3E37F9BF1B912A2200F2F446 /* NanoDrinks Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3E37F9C91B912A2200F2F446 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9C81B912A2200F2F446 /* ExtensionDelegate.m */; };
+		3E37F9CC1B912A2300F2F446 /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9CB1B912A2300F2F446 /* ComplicationController.m */; };
+		3E37F9CE1B912A2300F2F446 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9CD1B912A2300F2F446 /* Assets.xcassets */; };
+		3E37F9D21B912A2300F2F446 /* NanoDrinks.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 3E37F9B31B912A2200F2F446 /* NanoDrinks.app */; };
+		3E37F9DC1B912B4A00F2F446 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
+		3E37F9DD1B912B4A00F2F446 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
+		3E37F9DE1B912B4A00F2F446 /* AddDrinkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDA7D291A28BB1700CD61C7 /* AddDrinkContext.m */; };
+		3E37F9DF1B912B4A00F2F446 /* BACTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */; };
 		3E3F16AB1B1FF4AC0066A508 /* ANDBackgroundChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */; };
 		3E3F16AC1B1FF4AC0066A508 /* ANDInternalLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */; };
 		3E3F16AD1B1FF4AC0066A508 /* ANDLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */; };
-		3E7394CC1ACB916300159414 /* SessionDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8E08041A22C46700D81388 /* SessionDetailsController.m */; };
+		3E4E7B491B952859008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		3E4E7B4A1B952859008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		3E4E7B4B1B95CDEC008FC487 /* StoredDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */; settings = {ASSET_TAGS = (); }; };
+		3E4E7B4D1B95CDFB008FC487 /* AppWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		3E4E7B501B9874AE008FC487 /* WatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4E7B4F1B9874AE008FC487 /* WatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
 		3EBB1C2A1A5993610006EAC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EBB1C2C1A5993610006EAC5 /* Main.storyboard */; };
+		3ECBAE401BA5C94C005DE4A2 /* SessionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBAE3F1BA5C94C005DE4A2 /* SessionDetailsViewController.m */; settings = {ASSET_TAGS = (); }; };
+		3ECBAE421BA5F146005DE4A2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ECBAE411BA5F146005DE4A2 /* HealthKit.framework */; };
+		3ECBAE441BA62C40005DE4A2 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABD49FED1A1F772700A3A059 /* HealthKitManager.m */; settings = {ASSET_TAGS = (); }; };
+		3EEB1C201BA47A83004EB78A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; settings = {ASSET_TAGS = (); }; };
+		3EEB1C211BA47A83004EB78A /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; settings = {ASSET_TAGS = (); }; };
+		3EEF1FC61BA8F6720000F8D0 /* iOSWatchConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1FC51BA8F6720000F8D0 /* iOSWatchConnectionManager.m */; settings = {ASSET_TAGS = (); }; };
+		3EEF1FC91BA98DCE0000F8D0 /* NewDrinkInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEF1FC81BA98DCE0000F8D0 /* NewDrinkInterfaceController.m */; settings = {ASSET_TAGS = (); }; };
+		3EEF1FCA1BA997750000F8D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E37F9B81B912A2200F2F446 /* Assets.xcassets */; settings = {ASSET_TAGS = (); }; };
+		3EEF1FCE1BAC37F10000F8D0 /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */; settings = {ASSET_TAGS = (); }; };
 		AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB125D8F19D8790A00D16008 /* ProfileViewController.m */; };
 		AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
 		AB3B1F841A217496004CD7C2 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
 		AB3B1F851A218A1F004CD7C2 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
-		AB40B41A1A22585C00CDB971 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
-		AB40B41B1A22585D00CDB971 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ABB53BF119D48F9F006F9DBD /* Images.xcassets */; };
-		AB40B41E1A22592B00CDB971 /* AddDrinkController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB40B41D1A22592B00CDB971 /* AddDrinkController.m */; };
-		AB40B4201A22599300CDB971 /* StoredDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */; };
-		AB40B4221A2259E800CDB971 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */; };
-		AB40B4231A225C1900CDB971 /* DrinkingSession.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3B1F821A217496004CD7C2 /* DrinkingSession.m */; };
-		AB40B4241A225C1D00CDB971 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		AB56FA3819D5F2EC00E04C87 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABA19D4EC0900793572 /* ActionSheetStringPicker.m */; };
 		AB5FAABE19D4EFAB00793572 /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB5FAABD19D4EFAB00793572 /* AbstractActionSheetPicker.m */; };
@@ -42,15 +62,6 @@
 		AB68BF4D1A1E261600CD87F3 /* HealthKitInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF4C1A1E261600CD87F3 /* HealthKitInfoViewController.m */; };
 		AB68BF541A1EDCF300CD87F3 /* StoredDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */; };
 		AB68BF561A1EE8B200CD87F3 /* StoredDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */; };
-		AB7FA05E1A22536D00B824A0 /* WatchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7FA05D1A22536D00B824A0 /* WatchKit.framework */; };
-		AB7FA0651A22536D00B824A0 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA0641A22536D00B824A0 /* InterfaceController.m */; };
-		AB7FA0681A22536D00B824A0 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA0671A22536D00B824A0 /* NotificationController.m */; };
-		AB7FA06B1A22536D00B824A0 /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB7FA06A1A22536D00B824A0 /* GlanceController.m */; };
-		AB7FA06D1A22536D00B824A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB7FA06C1A22536D00B824A0 /* Images.xcassets */; };
-		AB7FA0711A22536D00B824A0 /* ReadWeight Watch App.app in Resources */ = {isa = PBXBuildFile; fileRef = AB7FA0701A22536D00B824A0 /* ReadWeight Watch App.app */; };
-		AB7FA0781A22536D00B824A0 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB7FA0771A22536D00B824A0 /* Interface.storyboard */; };
-		AB7FA07A1A22536D00B824A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB7FA0791A22536D00B824A0 /* Images.xcassets */; };
-		AB7FA07D1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AB7FA05C1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AB85F45619D75F4600298746 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
 		AB85F45719D75FA700298746 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */; };
 		ABA72CEA1A2A163100D0B2A9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABA72CE91A2A163100D0B2A9 /* MainViewController.m */; };
@@ -64,7 +75,6 @@
 		ABDA7D2B1A28BB1700CD61C7 /* AddDrinkContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ABDA7D291A28BB1700CD61C7 /* AddDrinkContext.m */; };
 		ABE262E419D5FC4D00710A3F /* AddDrinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */; };
 		ABE4F47C19D610240048D853 /* Drink.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F47B19D610240048D853 /* Drink.m */; };
-		ABE4F47F19D640D10048D853 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F47E19D640D10048D853 /* Crashlytics.framework */; };
 		ABE4F48719D750990048D853 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABE4F48619D750990048D853 /* NotificationCenter.framework */; };
 		ABE4F48D19D750990048D853 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABE4F48C19D750990048D853 /* TodayViewController.m */; };
 		ABE4F48F19D750990048D853 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABE4F48E19D750990048D853 /* MainInterface.storyboard */; };
@@ -73,19 +83,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AB7FA0721A22536D00B824A0 /* PBXContainerItemProxy */ = {
+		3E37F9C11B912A2200F2F446 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ABB53BD919D48F9F006F9DBD /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AB7FA06F1A22536D00B824A0;
-			remoteInfo = "ReadWeight Watch App";
+			remoteGlobalIDString = 3E37F9BE1B912A2200F2F446;
+			remoteInfo = "NanoDrinks Extension";
 		};
-		AB7FA07B1A22536D00B824A0 /* PBXContainerItemProxy */ = {
+		3E37F9D01B912A2300F2F446 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = ABB53BD919D48F9F006F9DBD /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AB7FA05B1A22536D00B824A0;
-			remoteInfo = "ReadWeight WatchKit Extension";
+			remoteGlobalIDString = 3E37F9B21B912A2200F2F446;
+			remoteInfo = NanoDrinks;
 		};
 		ABB53BFB19D48F9F006F9DBD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -111,6 +121,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		3E37F9D81B912A2300F2F446 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3E37F9C01B912A2200F2F446 /* NanoDrinks Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3E37F9DA1B912A2300F2F446 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				3E37F9D21B912A2300F2F446 /* NanoDrinks.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ABE4F49819D750990048D853 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -118,7 +150,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				ABE4F49219D750990048D853 /* Add Drinks.appex in Embed App Extensions */,
-				AB7FA07D1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,21 +157,50 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E0E1FE61BA6F16200CF81DB /* MainInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInterfaceController.h; sourceTree = "<group>"; };
+		3E0E1FE71BA6F16200CF81DB /* MainInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInterfaceController.m; sourceTree = "<group>"; };
+		3E2527521BAE0182001C4827 /* GlanceInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlanceInterfaceController.h; sourceTree = "<group>"; };
+		3E2527531BAE0182001C4827 /* GlanceInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlanceInterfaceController.m; sourceTree = "<group>"; };
 		3E37F9AC1B91295B00F2F446 /* BACTimelineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BACTimelineItem.h; sourceTree = "<group>"; };
 		3E37F9AD1B91295B00F2F446 /* BACTimelineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BACTimelineItem.m; sourceTree = "<group>"; };
+		3E37F9B31B912A2200F2F446 /* NanoDrinks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NanoDrinks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E37F9B61B912A2200F2F446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		3E37F9B81B912A2200F2F446 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3E37F9BA1B912A2200F2F446 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E37F9BF1B912A2200F2F446 /* NanoDrinks Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "NanoDrinks Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E37F9C71B912A2200F2F446 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		3E37F9C81B912A2200F2F446 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
+		3E37F9CA1B912A2200F2F446 /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
+		3E37F9CB1B912A2300F2F446 /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
+		3E37F9CD1B912A2300F2F446 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3E37F9CF1B912A2300F2F446 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E37F9DB1B912A9800F2F446 /* NanoDrinks Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "NanoDrinks Extension.entitlements"; sourceTree = "<group>"; };
 		3E3F16A51B1FF4AC0066A508 /* ANDBackgroundChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDBackgroundChartView.h; sourceTree = "<group>"; };
 		3E3F16A61B1FF4AC0066A508 /* ANDBackgroundChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDBackgroundChartView.m; sourceTree = "<group>"; };
 		3E3F16A71B1FF4AC0066A508 /* ANDInternalLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDInternalLineChartView.h; sourceTree = "<group>"; };
 		3E3F16A81B1FF4AC0066A508 /* ANDInternalLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDInternalLineChartView.m; sourceTree = "<group>"; };
 		3E3F16A91B1FF4AC0066A508 /* ANDLineChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANDLineChartView.h; sourceTree = "<group>"; };
 		3E3F16AA1B1FF4AC0066A508 /* ANDLineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANDLineChartView.m; sourceTree = "<group>"; };
+		3E4E7B461B92767B008FC487 /* NanoDrinks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = NanoDrinks.entitlements; sourceTree = "<group>"; };
+		3E4E7B471B952859008FC487 /* AppWatchConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppWatchConnectionManager.h; sourceTree = "<group>"; };
+		3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppWatchConnectionManager.m; sourceTree = "<group>"; };
+		3E4E7B4E1B9874AE008FC487 /* WatchConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WatchConnectionManager.h; sourceTree = "<group>"; };
+		3E4E7B4F1B9874AE008FC487 /* WatchConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WatchConnectionManager.m; sourceTree = "<group>"; };
 		3EBB1C2B1A5993610006EAC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3ECBAE3E1BA5C94C005DE4A2 /* SessionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionDetailsViewController.h; sourceTree = "<group>"; };
+		3ECBAE3F1BA5C94C005DE4A2 /* SessionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsViewController.m; sourceTree = "<group>"; };
+		3ECBAE411BA5F146005DE4A2 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		3EEB1C1E1BA47A82004EB78A /* UserPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPreferences.h; sourceTree = "<group>"; };
+		3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferences.m; sourceTree = "<group>"; };
+		3EEF1FC41BA8F6720000F8D0 /* iOSWatchConnectionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSWatchConnectionManager.h; sourceTree = "<group>"; };
+		3EEF1FC51BA8F6720000F8D0 /* iOSWatchConnectionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSWatchConnectionManager.m; sourceTree = "<group>"; };
+		3EEF1FC71BA98DCE0000F8D0 /* NewDrinkInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDrinkInterfaceController.h; sourceTree = "<group>"; };
+		3EEF1FC81BA98DCE0000F8D0 /* NewDrinkInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDrinkInterfaceController.m; sourceTree = "<group>"; };
+		3EEF1FCC1BABA5400000F8D0 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		AB125D8E19D8790A00D16008 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		AB125D8F19D8790A00D16008 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		AB3B1F811A217496004CD7C2 /* DrinkingSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrinkingSession.h; sourceTree = "<group>"; };
 		AB3B1F821A217496004CD7C2 /* DrinkingSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrinkingSession.m; sourceTree = "<group>"; };
-		AB40B41C1A22592B00CDB971 /* AddDrinkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDrinkController.h; sourceTree = "<group>"; };
-		AB40B41D1A22592B00CDB971 /* AddDrinkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkController.m; sourceTree = "<group>"; };
 		AB40B4211A2259DA00CDB971 /* ReadWeight WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "ReadWeight WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		AB56FA3619D5F2EC00E04C87 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
 		AB56FA3719D5F2EC00E04C87 /* JNKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNKeychain.m; sourceTree = "<group>"; };
@@ -170,21 +230,12 @@
 		AB68BF4B1A1E261600CD87F3 /* HealthKitInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthKitInfoViewController.h; sourceTree = "<group>"; };
 		AB68BF4C1A1E261600CD87F3 /* HealthKitInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthKitInfoViewController.m; sourceTree = "<group>"; };
 		AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoredDataManager.m; sourceTree = "<group>"; };
-		AB7FA05C1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "ReadWeight WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB7FA05D1A22536D00B824A0 /* WatchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchKit.framework; path = System/Library/Frameworks/WatchKit.framework; sourceTree = SDKROOT; };
 		AB7FA0611A22536D00B824A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB7FA0621A22536D00B824A0 /* PushNotificationPayload.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PushNotificationPayload.json; sourceTree = "<group>"; };
-		AB7FA0631A22536D00B824A0 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
-		AB7FA0641A22536D00B824A0 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
 		AB7FA0661A22536D00B824A0 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		AB7FA0671A22536D00B824A0 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
-		AB7FA0691A22536D00B824A0 /* GlanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlanceController.h; sourceTree = "<group>"; };
-		AB7FA06A1A22536D00B824A0 /* GlanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlanceController.m; sourceTree = "<group>"; };
 		AB7FA06C1A22536D00B824A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		AB7FA0701A22536D00B824A0 /* ReadWeight Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ReadWeight Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB7FA0761A22536D00B824A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AB7FA0771A22536D00B824A0 /* Interface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
-		AB7FA0791A22536D00B824A0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AB8E08031A22C46700D81388 /* SessionDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionDetailsController.h; sourceTree = "<group>"; };
 		AB8E08041A22C46700D81388 /* SessionDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsController.m; sourceTree = "<group>"; };
 		ABA72CE81A2A163100D0B2A9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -209,7 +260,6 @@
 		ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDrinkViewController.m; sourceTree = "<group>"; };
 		ABE4F47A19D610240048D853 /* Drink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Drink.h; sourceTree = "<group>"; };
 		ABE4F47B19D610240048D853 /* Drink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Drink.m; sourceTree = "<group>"; };
-		ABE4F47E19D640D10048D853 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		ABE4F48419D750990048D853 /* Add Drinks.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Add Drinks.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABE4F48619D750990048D853 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		ABE4F48A19D750990048D853 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -220,12 +270,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		AB7FA0591A22536D00B824A0 /* Frameworks */ = {
+		3E37F9BC1B912A2200F2F446 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB7FA05E1A22536D00B824A0 /* WatchKit.framework in Frameworks */,
-				AB40B4221A2259E800CDB971 /* HealthKit.framework in Frameworks */,
+				3ECBAE421BA5F146005DE4A2 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,7 +282,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABE4F47F19D640D10048D853 /* Crashlytics.framework in Frameworks */,
 				ABB53C0C19D48FBE006F9DBD /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +305,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E37F9B41B912A2200F2F446 /* NanoDrinks */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E7B461B92767B008FC487 /* NanoDrinks.entitlements */,
+				3E37F9B51B912A2200F2F446 /* Interface.storyboard */,
+				3E37F9B81B912A2200F2F446 /* Assets.xcassets */,
+				3E37F9BA1B912A2200F2F446 /* Info.plist */,
+			);
+			path = NanoDrinks;
+			sourceTree = "<group>";
+		};
+		3E37F9C31B912A2200F2F446 /* NanoDrinks Extension */ = {
+			isa = PBXGroup;
+			children = (
+				3E37F9DB1B912A9800F2F446 /* NanoDrinks Extension.entitlements */,
+				3E0E1FE61BA6F16200CF81DB /* MainInterfaceController.h */,
+				3E0E1FE71BA6F16200CF81DB /* MainInterfaceController.m */,
+				3EEF1FC71BA98DCE0000F8D0 /* NewDrinkInterfaceController.h */,
+				3EEF1FC81BA98DCE0000F8D0 /* NewDrinkInterfaceController.m */,
+				3E37F9C71B912A2200F2F446 /* ExtensionDelegate.h */,
+				3E37F9C81B912A2200F2F446 /* ExtensionDelegate.m */,
+				3E37F9CA1B912A2200F2F446 /* ComplicationController.h */,
+				3E37F9CB1B912A2300F2F446 /* ComplicationController.m */,
+				3E4E7B4E1B9874AE008FC487 /* WatchConnectionManager.h */,
+				3E4E7B4F1B9874AE008FC487 /* WatchConnectionManager.m */,
+				3E2527521BAE0182001C4827 /* GlanceInterfaceController.h */,
+				3E2527531BAE0182001C4827 /* GlanceInterfaceController.m */,
+				3E37F9CD1B912A2300F2F446 /* Assets.xcassets */,
+				3E37F9CF1B912A2300F2F446 /* Info.plist */,
+			);
+			path = "NanoDrinks Extension";
+			sourceTree = "<group>";
+		};
 		3E3F16AE1B1FF4B20066A508 /* ANDLineChartView */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,6 +360,12 @@
 				ABD49FED1A1F772700A3A059 /* HealthKitManager.m */,
 				ABD49FF01A20310F00A3A059 /* StoredDataManager.h */,
 				AB68BF531A1EDCF300CD87F3 /* StoredDataManager.m */,
+				3E4E7B471B952859008FC487 /* AppWatchConnectionManager.h */,
+				3E4E7B481B952859008FC487 /* AppWatchConnectionManager.m */,
+				3EEF1FC41BA8F6720000F8D0 /* iOSWatchConnectionManager.h */,
+				3EEF1FC51BA8F6720000F8D0 /* iOSWatchConnectionManager.m */,
+				3EEB1C1E1BA47A82004EB78A /* UserPreferences.h */,
+				3EEB1C1F1BA47A82004EB78A /* UserPreferences.m */,
 			);
 			name = "Data Managers";
 			sourceTree = "<group>";
@@ -351,16 +438,10 @@
 			isa = PBXGroup;
 			children = (
 				AB40B4211A2259DA00CDB971 /* ReadWeight WatchKit Extension.entitlements */,
-				AB7FA0631A22536D00B824A0 /* InterfaceController.h */,
-				AB7FA0641A22536D00B824A0 /* InterfaceController.m */,
-				AB40B41C1A22592B00CDB971 /* AddDrinkController.h */,
-				AB40B41D1A22592B00CDB971 /* AddDrinkController.m */,
 				AB8E08031A22C46700D81388 /* SessionDetailsController.h */,
 				AB8E08041A22C46700D81388 /* SessionDetailsController.m */,
 				AB7FA0661A22536D00B824A0 /* NotificationController.h */,
 				AB7FA0671A22536D00B824A0 /* NotificationController.m */,
-				AB7FA0691A22536D00B824A0 /* GlanceController.h */,
-				AB7FA06A1A22536D00B824A0 /* GlanceController.m */,
 				AB7FA06C1A22536D00B824A0 /* Images.xcassets */,
 				AB7FA0601A22536D00B824A0 /* Supporting Files */,
 			);
@@ -376,29 +457,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		AB7FA0741A22536D00B824A0 /* ReadWeight Watch App */ = {
-			isa = PBXGroup;
-			children = (
-				AB7FA0771A22536D00B824A0 /* Interface.storyboard */,
-				AB7FA0791A22536D00B824A0 /* Images.xcassets */,
-				AB7FA0751A22536D00B824A0 /* Supporting Files */,
-			);
-			path = "ReadWeight Watch App";
-			sourceTree = "<group>";
-		};
-		AB7FA0751A22536D00B824A0 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				AB7FA0761A22536D00B824A0 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		ABB53BD819D48F9F006F9DBD = {
 			isa = PBXGroup;
 			children = (
 				AB7FA05F1A22536D00B824A0 /* ReadWeight WatchKit Extension */,
-				AB7FA0741A22536D00B824A0 /* ReadWeight Watch App */,
+				3E37F9B41B912A2200F2F446 /* NanoDrinks */,
+				3E37F9C31B912A2200F2F446 /* NanoDrinks Extension */,
 				ABE4F48519D750990048D853 /* Frameworks */,
 				ABB53BE319D48F9F006F9DBD /* ReadWeight */,
 				ABB53BFD19D48F9F006F9DBD /* ReadWeightTests */,
@@ -413,8 +477,8 @@
 				ABB53BE119D48F9F006F9DBD /* ReadWeight.app */,
 				ABB53BFA19D48F9F006F9DBD /* ReadWeightTests.xctest */,
 				ABE4F48419D750990048D853 /* Add Drinks.appex */,
-				AB7FA05C1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex */,
-				AB7FA0701A22536D00B824A0 /* ReadWeight Watch App.app */,
+				3E37F9B31B912A2200F2F446 /* NanoDrinks.app */,
+				3E37F9BF1B912A2200F2F446 /* NanoDrinks Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -485,6 +549,8 @@
 				ABA72CE91A2A163100D0B2A9 /* MainViewController.m */,
 				AB125D8E19D8790A00D16008 /* ProfileViewController.h */,
 				AB125D8F19D8790A00D16008 /* ProfileViewController.m */,
+				3ECBAE3E1BA5C94C005DE4A2 /* SessionDetailsViewController.h */,
+				3ECBAE3F1BA5C94C005DE4A2 /* SessionDetailsViewController.m */,
 				ABE262E219D5FC4D00710A3F /* AddDrinkViewController.h */,
 				ABE262E319D5FC4D00710A3F /* AddDrinkViewController.m */,
 			);
@@ -494,7 +560,8 @@
 		ABE4F48519D750990048D853 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABE4F47E19D640D10048D853 /* Crashlytics.framework */,
+				3EEF1FCC1BABA5400000F8D0 /* Crashlytics.framework */,
+				3ECBAE411BA5F146005DE4A2 /* HealthKit.framework */,
 				ABB53C0B19D48FBE006F9DBD /* HealthKit.framework */,
 				ABE4F48619D750990048D853 /* NotificationCenter.framework */,
 				AB7FA05D1A22536D00B824A0 /* WatchKit.framework */,
@@ -525,38 +592,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AB7FA05B1A22536D00B824A0 /* ReadWeight WatchKit Extension */ = {
+		3E37F9B21B912A2200F2F446 /* NanoDrinks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AB7FA0831A22536E00B824A0 /* Build configuration list for PBXNativeTarget "ReadWeight WatchKit Extension" */;
+			buildConfigurationList = 3E37F9D91B912A2300F2F446 /* Build configuration list for PBXNativeTarget "NanoDrinks" */;
 			buildPhases = (
-				AB7FA0581A22536D00B824A0 /* Sources */,
-				AB7FA0591A22536D00B824A0 /* Frameworks */,
-				AB7FA05A1A22536D00B824A0 /* Resources */,
+				3E37F9B11B912A2200F2F446 /* Resources */,
+				3E37F9D81B912A2300F2F446 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AB7FA0731A22536D00B824A0 /* PBXTargetDependency */,
+				3E37F9C21B912A2200F2F446 /* PBXTargetDependency */,
 			);
-			name = "ReadWeight WatchKit Extension";
-			productName = "ReadWeight WatchKit Extension";
-			productReference = AB7FA05C1A22536D00B824A0 /* ReadWeight WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
+			name = NanoDrinks;
+			productName = NanoDrinks;
+			productReference = 3E37F9B31B912A2200F2F446 /* NanoDrinks.app */;
+			productType = "com.apple.product-type.application.watchapp2";
 		};
-		AB7FA06F1A22536D00B824A0 /* ReadWeight Watch App */ = {
+		3E37F9BE1B912A2200F2F446 /* NanoDrinks Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AB7FA0821A22536E00B824A0 /* Build configuration list for PBXNativeTarget "ReadWeight Watch App" */;
+			buildConfigurationList = 3E37F9D71B912A2300F2F446 /* Build configuration list for PBXNativeTarget "NanoDrinks Extension" */;
 			buildPhases = (
-				AB7FA06E1A22536D00B824A0 /* Resources */,
+				3E37F9BB1B912A2200F2F446 /* Sources */,
+				3E37F9BC1B912A2200F2F446 /* Frameworks */,
+				3E37F9BD1B912A2200F2F446 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "ReadWeight Watch App";
-			productName = "ReadWeight Watch App";
-			productReference = AB7FA0701A22536D00B824A0 /* ReadWeight Watch App.app */;
-			productType = "com.apple.product-type.application.watchapp";
+			name = "NanoDrinks Extension";
+			productName = "NanoDrinks Extension";
+			productReference = 3E37F9BF1B912A2200F2F446 /* NanoDrinks Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		ABB53BE019D48F9F006F9DBD /* ReadWeight */ = {
 			isa = PBXNativeTarget;
@@ -565,15 +633,16 @@
 				ABB53BDD19D48F9F006F9DBD /* Sources */,
 				ABB53BDE19D48F9F006F9DBD /* Frameworks */,
 				ABB53BDF19D48F9F006F9DBD /* Resources */,
-				ABE4F47D19D640AF0048D853 /* ShellScript */,
 				ABE4F49819D750990048D853 /* Embed App Extensions */,
+				3E37F9DA1B912A2300F2F446 /* Embed Watch Content */,
+				3EEF1FCB1BABA4DF0000F8D0 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				ABE4F49119D750990048D853 /* PBXTargetDependency */,
 				ABE4F49419D750990048D853 /* PBXTargetDependency */,
-				AB7FA07C1A22536D00B824A0 /* PBXTargetDependency */,
+				3E37F9D11B912A2300F2F446 /* PBXTargetDependency */,
 			);
 			name = ReadWeight;
 			productName = ReadWeight;
@@ -624,8 +693,17 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Calvin Chestnut";
 				TargetAttributes = {
-					AB7FA05B1A22536D00B824A0 = {
-						CreatedOnToolsVersion = 6.2;
+					3E37F9B21B912A2200F2F446 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = VDWJ8UMBJ6;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					3E37F9BE1B912A2200F2F446 = {
+						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = VDWJ8UMBJ6;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -634,14 +712,7 @@
 							com.apple.HealthKit = {
 								enabled = 1;
 							};
-							com.apple.Keychain = {
-								enabled = 0;
-							};
 						};
-					};
-					AB7FA06F1A22536D00B824A0 = {
-						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = VDWJ8UMBJ6;
 					};
 					ABB53BE019D48F9F006F9DBD = {
 						CreatedOnToolsVersion = 6.0;
@@ -698,30 +769,29 @@
 				ABB53BE019D48F9F006F9DBD /* ReadWeight */,
 				ABB53BF919D48F9F006F9DBD /* ReadWeightTests */,
 				ABE4F48319D750990048D853 /* Add Drinks */,
-				AB7FA05B1A22536D00B824A0 /* ReadWeight WatchKit Extension */,
-				AB7FA06F1A22536D00B824A0 /* ReadWeight Watch App */,
+				3E37F9B21B912A2200F2F446 /* NanoDrinks */,
+				3E37F9BE1B912A2200F2F446 /* NanoDrinks Extension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		AB7FA05A1A22536D00B824A0 /* Resources */ = {
+		3E37F9B11B912A2200F2F446 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB40B41A1A22585C00CDB971 /* Images.xcassets in Resources */,
-				AB7FA06D1A22536D00B824A0 /* Images.xcassets in Resources */,
-				AB7FA0711A22536D00B824A0 /* ReadWeight Watch App.app in Resources */,
+				3E2347811BA0647B007A99D7 /* Images.xcassets in Resources */,
+				3E37F9B91B912A2200F2F446 /* Assets.xcassets in Resources */,
+				3E37F9B71B912A2200F2F446 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AB7FA06E1A22536D00B824A0 /* Resources */ = {
+		3E37F9BD1B912A2200F2F446 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB40B41B1A22585D00CDB971 /* Images.xcassets in Resources */,
-				AB7FA0781A22536D00B824A0 /* Interface.storyboard in Resources */,
-				AB7FA07A1A22536D00B824A0 /* Images.xcassets in Resources */,
+				3EEF1FCA1BA997750000F8D0 /* Assets.xcassets in Resources */,
+				3E37F9CE1B912A2300F2F446 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -753,7 +823,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		ABE4F47D19D640AF0048D853 /* ShellScript */ = {
+		3EEF1FCB1BABA4DF0000F8D0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -769,20 +839,26 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		AB7FA0581A22536D00B824A0 /* Sources */ = {
+		3E37F9BB1B912A2200F2F446 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB40B4201A22599300CDB971 /* StoredDataManager.m in Sources */,
-				AB40B41E1A22592B00CDB971 /* AddDrinkController.m in Sources */,
-				3E7394CC1ACB916300159414 /* SessionDetailsController.m in Sources */,
-				3E24947B1AB3AD29009D6F1A /* AddDrinkContext.m in Sources */,
-				AB40B4241A225C1D00CDB971 /* Drink.m in Sources */,
-				AB40B4231A225C1900CDB971 /* DrinkingSession.m in Sources */,
-				3E37F9B01B91295B00F2F446 /* BACTimelineItem.m in Sources */,
-				AB7FA0681A22536D00B824A0 /* NotificationController.m in Sources */,
-				AB7FA0651A22536D00B824A0 /* InterfaceController.m in Sources */,
-				AB7FA06B1A22536D00B824A0 /* GlanceController.m in Sources */,
+				3E37F9DE1B912B4A00F2F446 /* AddDrinkContext.m in Sources */,
+				3E23477F1BA06333007A99D7 /* NotificationController.m in Sources */,
+				3EEB1C211BA47A83004EB78A /* UserPreferences.m in Sources */,
+				3E0E1FE81BA6F16200CF81DB /* MainInterfaceController.m in Sources */,
+				3E37F9DD1B912B4A00F2F446 /* DrinkingSession.m in Sources */,
+				3EEF1FC91BA98DCE0000F8D0 /* NewDrinkInterfaceController.m in Sources */,
+				3E37F9CC1B912A2300F2F446 /* ComplicationController.m in Sources */,
+				3ECBAE441BA62C40005DE4A2 /* HealthKitManager.m in Sources */,
+				3E4E7B501B9874AE008FC487 /* WatchConnectionManager.m in Sources */,
+				3E4E7B4A1B952859008FC487 /* AppWatchConnectionManager.m in Sources */,
+				3E37F9C91B912A2200F2F446 /* ExtensionDelegate.m in Sources */,
+				3E37F9DC1B912B4A00F2F446 /* Drink.m in Sources */,
+				3E4E7B4B1B95CDEC008FC487 /* StoredDataManager.m in Sources */,
+				3E37F9DF1B912B4A00F2F446 /* BACTimelineItem.m in Sources */,
+				3E23477E1BA06333007A99D7 /* SessionDetailsController.m in Sources */,
+				3E2527541BAE0182001C4827 /* GlanceInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -794,6 +870,8 @@
 				AB5FAABB19D4EC0900793572 /* ActionSheetStringPicker.m in Sources */,
 				AB5FAAD019D4F00900793572 /* ActionSheetLocalePicker.m in Sources */,
 				AB125D9019D8790A00D16008 /* ProfileViewController.m in Sources */,
+				3EEF1FC61BA8F6720000F8D0 /* iOSWatchConnectionManager.m in Sources */,
+				3EEB1C201BA47A83004EB78A /* UserPreferences.m in Sources */,
 				ABD49FEF1A1F772700A3A059 /* HealthKitManager.m in Sources */,
 				AB68BF401A1D925500CD87F3 /* HealthKitRequestViewController.m in Sources */,
 				AB68BF431A1D927100CD87F3 /* RegistrationWorkflowNavigationController.m in Sources */,
@@ -811,11 +889,13 @@
 				AB3B1F831A217496004CD7C2 /* DrinkingSession.m in Sources */,
 				ABDA7D2A1A28BB1700CD61C7 /* AddDrinkContext.m in Sources */,
 				AB5FAACE19D4F00900793572 /* ActionSheetDatePicker.m in Sources */,
+				3E4E7B491B952859008FC487 /* AppWatchConnectionManager.m in Sources */,
 				AB68BF541A1EDCF300CD87F3 /* StoredDataManager.m in Sources */,
 				AB68BF4D1A1E261600CD87F3 /* HealthKitInfoViewController.m in Sources */,
 				AB5FAAD519D4F17A00793572 /* TransLoadingIndicator.m in Sources */,
 				ABB53BE719D48F9F006F9DBD /* main.m in Sources */,
 				AB5FAAD219D4F00900793572 /* SWActionSheet.m in Sources */,
+				3ECBAE401BA5C94C005DE4A2 /* SessionDetailsViewController.m in Sources */,
 				AB5FAACF19D4F00900793572 /* ActionSheetDistancePicker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -832,11 +912,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EEF1FCE1BAC37F10000F8D0 /* UserPreferences.m in Sources */,
 				ABDA7D2B1A28BB1700CD61C7 /* AddDrinkContext.m in Sources */,
 				AB3B1F841A217496004CD7C2 /* DrinkingSession.m in Sources */,
 				AB85F45719D75FA700298746 /* JNKeychain.m in Sources */,
 				AB85F45619D75F4600298746 /* Drink.m in Sources */,
 				AB68BF561A1EE8B200CD87F3 /* StoredDataManager.m in Sources */,
+				3E4E7B4D1B95CDFB008FC487 /* AppWatchConnectionManager.m in Sources */,
 				3E37F9AF1B91295B00F2F446 /* BACTimelineItem.m in Sources */,
 				ABE4F48D19D750990048D853 /* TodayViewController.m in Sources */,
 			);
@@ -845,15 +927,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AB7FA0731A22536D00B824A0 /* PBXTargetDependency */ = {
+		3E37F9C21B912A2200F2F446 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AB7FA06F1A22536D00B824A0 /* ReadWeight Watch App */;
-			targetProxy = AB7FA0721A22536D00B824A0 /* PBXContainerItemProxy */;
+			target = 3E37F9BE1B912A2200F2F446 /* NanoDrinks Extension */;
+			targetProxy = 3E37F9C11B912A2200F2F446 /* PBXContainerItemProxy */;
 		};
-		AB7FA07C1A22536D00B824A0 /* PBXTargetDependency */ = {
+		3E37F9D11B912A2300F2F446 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AB7FA05B1A22536D00B824A0 /* ReadWeight WatchKit Extension */;
-			targetProxy = AB7FA07B1A22536D00B824A0 /* PBXContainerItemProxy */;
+			target = 3E37F9B21B912A2200F2F446 /* NanoDrinks */;
+			targetProxy = 3E37F9D01B912A2300F2F446 /* PBXContainerItemProxy */;
 		};
 		ABB53BFC19D48F9F006F9DBD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -873,6 +955,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		3E37F9B51B912A2200F2F446 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3E37F9B61B912A2200F2F446 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		3EBB1C2C1A5993610006EAC5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -884,73 +974,93 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		AB7FA07E1A22536E00B824A0 /* Debug */ = {
+		3E37F9D31B912A2300F2F446 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "ReadWeight WatchKit Extension/ReadWeight WatchKit Extension.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NanoDrinks/NanoDrinks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "ReadWeight WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_NAME = "${TARGET_NAME}";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = NanoDrinks_Extension;
+				INFOPLIST_FILE = NanoDrinks/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.calvinchestnut.ReadWeight.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
-		AB7FA07F1A22536E00B824A0 /* Release */ = {
+		3E37F9D41B912A2300F2F446 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "ReadWeight WatchKit Extension/ReadWeight WatchKit Extension.entitlements";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = NanoDrinks/NanoDrinks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = "ReadWeight WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_NAME = "${TARGET_NAME}";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				IBSC_MODULE = NanoDrinks_Extension;
+				INFOPLIST_FILE = NanoDrinks/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.calvinchestnut.ReadWeight.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
-		AB7FA0801A22536E00B824A0 /* Debug */ = {
+		3E37F9D51B912A2300F2F446 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "NanoDrinks Extension/NanoDrinks Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				IBSC_MODULE = ReadWeight_WatchKit_Extension;
-				INFOPLIST_FILE = "ReadWeight Watch App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "NanoDrinks Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.calvinchestnut.ReadWeight.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
-		AB7FA0811A22536E00B824A0 /* Release */ = {
+		3E37F9D61B912A2300F2F446 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = WatchAppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_ENTITLEMENTS = "NanoDrinks Extension/NanoDrinks Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				IBSC_MODULE = ReadWeight_WatchKit_Extension;
-				INFOPLIST_FILE = "ReadWeight Watch App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "NanoDrinks Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.calvinchestnut.ReadWeight.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -973,6 +1083,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -988,7 +1099,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1014,6 +1125,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1023,7 +1135,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1137,20 +1249,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AB7FA0821A22536E00B824A0 /* Build configuration list for PBXNativeTarget "ReadWeight Watch App" */ = {
+		3E37F9D71B912A2300F2F446 /* Build configuration list for PBXNativeTarget "NanoDrinks Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AB7FA0801A22536E00B824A0 /* Debug */,
-				AB7FA0811A22536E00B824A0 /* Release */,
+				3E37F9D51B912A2300F2F446 /* Debug */,
+				3E37F9D61B912A2300F2F446 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AB7FA0831A22536E00B824A0 /* Build configuration list for PBXNativeTarget "ReadWeight WatchKit Extension" */ = {
+		3E37F9D91B912A2300F2F446 /* Build configuration list for PBXNativeTarget "NanoDrinks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AB7FA07E1A22536E00B824A0 /* Debug */,
-				AB7FA07F1A22536E00B824A0 /* Release */,
+				3E37F9D31B912A2300F2F446 /* Debug */,
+				3E37F9D41B912A2300F2F446 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

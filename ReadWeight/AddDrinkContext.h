@@ -14,13 +14,14 @@
 @property (strong, nonatomic) NSString *title;
 @property (strong, nonatomic) NSArray *strengthOptions;
 @property (strong, nonatomic) NSArray *optionLabels;
+@property (strong, nonatomic) NSArray *metricLabels;
 @property (strong, nonatomic) NSDate *time;
 @property (strong, nonatomic) NSNumber *selectedMult;
 @property NSInteger selectedIndex;
 +(NSString *)beerType;
 +(NSString *)wineType;
 +(NSString *)liquorType;
--(NSString *)titleForMult;
+-(NSString *)titleForMult:(BOOL)metric;
 
 -(id)initWithType:(NSString *)type;
 

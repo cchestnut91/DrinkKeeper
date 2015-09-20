@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Add Drinks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>Complication - NanoDrinks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>Glance - NanoDrinks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>NanoDrinks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>Notification - NanoDrinks.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>ReadWeight.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>3E37F9B21B912A2200F2F446</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AB7FA06F1A22536D00B824A0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABB53BE019D48F9F006F9DBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABB53BF919D48F9F006F9DBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABE4F48319D750990048D853</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABE8DBA51A1C4C2F00603726</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

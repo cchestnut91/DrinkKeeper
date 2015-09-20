@@ -7,14 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import <UIKit/UIKit.h>
 #import <HealthKit/HealthKit.h>
+
+#import "AppWatchConnectionManager.h"
 #import "DrinkingSession.h"
+#import "UserPreferences.h"
 
 @interface StoredDataManager : NSObject
 
 @property (strong, nonatomic) NSString *sessionDirectory;
 @property (strong, nonatomic) NSString *healthData;
+@property (strong, nonatomic) NSMutableDictionary *savedSessions;
 
 -(NSString *)applicationDocumentsDirectory;
 
@@ -40,7 +45,18 @@
 -(double)getCurrentBAC;
 -(void)userRequestsHealth;
 -(BOOL)userHasRequestedHealth;
--(BOOL)hasDisplayedShakeInfo;
--(void)hasDisplayedShakeAlert;
+-(void)handleMessage:(NSDictionary *)message;
+-(void)handleContext:(NSDictionary *)context;
+- (NSArray *)pastSessions;
+- (void)updateWatchContext;
+- (void)updateUserPreferenceContext;
+- (void)updateSavedSessionContextWithContext:(NSDictionary *)dict;
+- (NSDictionary *)watchContext;
+- (void)updateLastSessionContext;
+- (void)markSessionSaved:(DrinkingSession *)session withValues:(NSArray *)values;
+
+- (BACTimelineItem *)getCurrentTimelineEntry;
+- (NSArray *)getTimelineItemsBeforeDate:(NSDate *)date withLimit:(NSUInteger)limit;
+- (NSArray *)getTimelineItemsAfterDate:(NSDate *)date withLimit:(NSUInteger)limit;
 
 @end

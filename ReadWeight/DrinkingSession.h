@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Drink.h"
+#import "BACTimelineItem.h"
 
 @interface DrinkingSession : NSObject <NSCoding>
 
@@ -20,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *timeline;
 @property (strong, nonatomic) NSNumber *peak;
 @property (strong, nonatomic) NSNumber *hangoverRating;
+@property BOOL hasSavedToHealth;
 
 -(void)addDrinkToSession:(Drink *)drinkIn;
 -(void)removeLastDrink;
@@ -33,6 +35,12 @@
 -(NSNumber *)peakValue;
 -(NSNumber *)hangoverRating;
 -(NSString *)hangoverRatingStringValue;
+
+-(BOOL)needsSaveToHealth;
+
+- (BACTimelineItem *)getCurrentTimelineEntry;
+- (NSArray *)getTimelineItemsBeforeDate:(NSDate *)date withLimit:(NSUInteger)limit;
+- (NSArray *)getTimelineItemsAfterDate:(NSDate *)date withLimit:(NSUInteger)limit;
 
 -(id)initWithCoder:(NSCoder *)aDecoder;
 -(void)encodeWithCoder:(NSCoder *)aCoder;

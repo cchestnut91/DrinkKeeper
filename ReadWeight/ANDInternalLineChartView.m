@@ -34,6 +34,7 @@
 - (instancetype)initWithFrame:(CGRect)frame chartContainer:(ANDLineChartView*)chartContainer{
   self = [super initWithFrame:frame];
   if(self){
+    [self setDelegate:chartContainer];
     [self setChartContainer:chartContainer];
     [self setupGradientLayer];
     [self setupMaskLayer];
@@ -95,104 +96,112 @@
 }
 
 - (void)refreshGraphLayer{
+    dispatch_queue_t concurrentQueue = dispatch_queue_create("UIRefreshQueue", NULL);
   if([self.chartContainer numberOfElements] == 0)
     return;
 
-  UIBezierPath *path = [UIBezierPath bezierPath];
-  [path moveToPoint:CGPointMake(0.0, 0.0)];
-  NSUInteger numberOfPoints = [self.chartContainer numberOfElements];
-  _numberOfPreviousElements = numberOfPoints;
-  CGFloat xPosition = 0.0;
-  CGFloat yMargin = 0.0;
-  CGFloat yPosition = 0.0;
+    dispatch_async(concurrentQueue, ^{
+        
+        [self.delegate didStartReloadingChart];
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path moveToPoint:CGPointMake(0.0, 0.0)];
+        NSUInteger numberOfPoints = [self.chartContainer numberOfElements];
+        _numberOfPreviousElements = numberOfPoints;
+        CGFloat xPosition = 0.0;
+        CGFloat yMargin = 0.0;
+        CGFloat yPosition = 0.0;
+        
+        [_graphLayer setStrokeColor:[[self.chartContainer lineColor] CGColor]];
+        
+        CGPoint lastPoint = CGPointMake(0, 0);
+        [CATransaction begin];
+        for(NSUInteger i = 0; i<numberOfPoints;i++){
+            CGFloat value = [self.chartContainer valueForElementAtRow:i];
+            CGFloat minGridValue = [self.chartContainer minValue];
+            
+            xPosition += [self.chartContainer spacingForElementAtRow:i] ;
+            yPosition = yMargin + floor((value-minGridValue)*[self pixelToRecordPoint]);
+            
+            CGPoint newPosition = CGPointMake(xPosition, yPosition);
+            [path addLineToPoint:newPosition];
+            
+            CALayer *circle = [self circleLayerForPointAtRow:i];
+            CGPoint oldPosition = [circle.presentationLayer position];
+            oldPosition.x = newPosition.x;
+            [circle setPosition: newPosition];
+            lastPoint = newPosition;
+            
+            //animate position change
+            if(_animationNeeded){
+                CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+                positionAnimation.duration = [self.chartContainer animationDuration];
+                positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
+                positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
+                //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
+                [circle addAnimation:positionAnimation forKey:@"position"];
+            }
+        }
+        
+        // hide other circles if needed
+        //hide them under minValue - 10.0 points
+        if([[_graphLayer sublayers] count] > numberOfPoints){
+            for(NSUInteger i = numberOfPoints; i < [[_graphLayer sublayers] count];i++){
+                CALayer *circle = [self circleLayerForPointAtRow:i];
+                CGPoint oldPosition = [circle.presentationLayer position];
+                CGPoint newPosition = CGPointMake(oldPosition.x, [self.chartContainer minValue] - 50.0);
+                [circle setPosition:newPosition];
+                
+                
+                // animate position change
+                if(_animationNeeded){
+                    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+                    positionAnimation.duration = [self.chartContainer animationDuration];
+                    positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
+                    positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
+                    [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                    [circle addAnimation:positionAnimation forKey:@"position"];
+                }
+            }
+        }
+        
+        CGPathRef oldPath = [_graphLayer.presentationLayer path];
+        CGPathRef newPath = path.CGPath;
+        
+        [_graphLayer setPath:path.CGPath];
+        if(_animationNeeded){
+            CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+            pathAnimation.duration = [self.chartContainer animationDuration];
+            pathAnimation.fromValue = (__bridge id)oldPath;
+            pathAnimation.toValue = (__bridge id)newPath;
+            [pathAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
+            [_graphLayer addAnimation:pathAnimation forKey:@"path"];
+        }
+        
+        UIBezierPath *copyPath = [UIBezierPath bezierPathWithCGPath:path.CGPath];
+        [copyPath addLineToPoint:CGPointMake(lastPoint.x+90, -100)];
+        //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
+        CGPathRef maskOldPath = [_maskLayer.presentationLayer path];
+        CGPathRef maskNewPath = copyPath.CGPath;
+        [_maskLayer setPath:copyPath.CGPath];
+        [_gradientLayer setMask:_maskLayer];
+        
+        if(_animationNeeded){
+            CABasicAnimation *pathAnimation2 = [CABasicAnimation animationWithKeyPath:@"path"];
+            pathAnimation2.duration = [self.chartContainer animationDuration];
+            pathAnimation2.fromValue = (__bridge id)maskOldPath;
+            pathAnimation2.toValue = (__bridge id)maskNewPath;
+            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+            [pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
+            [_maskLayer addAnimation:pathAnimation2 forKey:@"path"];
+        }
 
-  [_graphLayer setStrokeColor:[[self.chartContainer lineColor] CGColor]];
-
-  CGPoint lastPoint = CGPointMake(0, 0);
-  [CATransaction begin];
-  for(NSUInteger i = 0; i<numberOfPoints;i++){
-    CGFloat value = [self.chartContainer valueForElementAtRow:i];
-    CGFloat minGridValue = [self.chartContainer minValue];
-    
-    xPosition += [self.chartContainer spacingForElementAtRow:i] ;
-    yPosition = yMargin + floor((value-minGridValue)*[self pixelToRecordPoint]);
-    
-    CGPoint newPosition = CGPointMake(xPosition, yPosition);
-    [path addLineToPoint:newPosition];
-    
-    CALayer *circle = [self circleLayerForPointAtRow:i];
-    CGPoint oldPosition = [circle.presentationLayer position];
-    oldPosition.x = newPosition.x;
-    [circle setPosition: newPosition];
-    lastPoint = newPosition;
-    
-    //animate position change
-    if(_animationNeeded){
-      CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-      positionAnimation.duration = [self.chartContainer animationDuration];
-      positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
-      positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
-      //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-      [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
-      [circle addAnimation:positionAnimation forKey:@"position"];
-    }
-  }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [CATransaction commit];
+            [self.delegate didFinishReloadingChart];
+        });
+    });
   
-  // hide other circles if needed
-  //hide them under minValue - 10.0 points
-  if([[_graphLayer sublayers] count] > numberOfPoints){
-    for(NSUInteger i = numberOfPoints; i < [[_graphLayer sublayers] count];i++){
-      CALayer *circle = [self circleLayerForPointAtRow:i];
-      CGPoint oldPosition = [circle.presentationLayer position];
-      CGPoint newPosition = CGPointMake(oldPosition.x, [self.chartContainer minValue] - 50.0);
-      [circle setPosition:newPosition];
-      
-      
-      // animate position change
-      if(_animationNeeded){
-        CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-        positionAnimation.duration = [self.chartContainer animationDuration];
-        positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
-        positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
-        [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [circle addAnimation:positionAnimation forKey:@"position"];
-      }
-    }
-  }
-  
-  CGPathRef oldPath = [_graphLayer.presentationLayer path];
-  CGPathRef newPath = path.CGPath;
-  
-  [_graphLayer setPath:path.CGPath];
-  if(_animationNeeded){
-    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-    pathAnimation.duration = [self.chartContainer animationDuration];
-    pathAnimation.fromValue = (__bridge id)oldPath;
-    pathAnimation.toValue = (__bridge id)newPath;
-    [pathAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
-    [_graphLayer addAnimation:pathAnimation forKey:@"path"];
-  }
-  
-  UIBezierPath *copyPath = [UIBezierPath bezierPathWithCGPath:path.CGPath];
-  [copyPath addLineToPoint:CGPointMake(lastPoint.x+90, -100)];
-  //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
-  CGPathRef maskOldPath = [_maskLayer.presentationLayer path];
-  CGPathRef maskNewPath = copyPath.CGPath;
-  [_maskLayer setPath:copyPath.CGPath];
-  [_gradientLayer setMask:_maskLayer];
-
-  if(_animationNeeded){
-    CABasicAnimation *pathAnimation2 = [CABasicAnimation animationWithKeyPath:@"path"];
-    pathAnimation2.duration = [self.chartContainer animationDuration];
-    pathAnimation2.fromValue = (__bridge id)maskOldPath;
-    pathAnimation2.toValue = (__bridge id)maskNewPath;
-    //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    [pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
-    [_maskLayer addAnimation:pathAnimation2 forKey:@"path"];
-  }
-
-  
-  [CATransaction commit];
 
 }
 

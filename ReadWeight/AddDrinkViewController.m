@@ -9,6 +9,8 @@
 #import "AddDrinkViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#import "UserPreferences.h"
+
 @interface AddDrinkViewController ()
 
 @end
@@ -31,6 +33,8 @@
                                 target:self
                                 action:nil];
     self.navigationController.navigationBar.topItem.backBarButtonItem=btnBack;
+    
+    [self.unitButton setTitle:[[UserPreferences sharedInstance] prefersMetric] ? @"ml" : @"oz."];
     
     [self setTitle:[NSString stringWithFormat:@"Add %@", self.type]];
     
@@ -59,7 +63,7 @@
         [self.multTitle setText:@"Beer Size"];
     }
     
-    [self.multLabel setText:[drinkContext titleForMult]];
+    [self.multLabel setText:[drinkContext titleForMult:[[UserPreferences sharedInstance] prefersMetric]]];
 }
 
 -(void)updateStaticLabels{
@@ -74,13 +78,13 @@
 
 -(IBAction)pressMult:(id)sender{
     [ActionSheetStringPicker showPickerWithTitle:@"Drink Strength"
-                                            rows:[drinkContext optionLabels]
+                                            rows:[[UserPreferences sharedInstance] prefersMetric] ? [drinkContext metricLabels] : [drinkContext optionLabels]
                                 initialSelection:[drinkContext selectedIndex]
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
                                            [drinkContext setSelectedMult:[[drinkContext strengthOptions] objectAtIndex:selectedIndex]];
                                            [drinkContext setSelectedIndex:selectedIndex];
                                            
-                                           [self.multLabel setText:[drinkContext titleForMult]];
+                                           [self.multLabel setText:[drinkContext titleForMult:[[UserPreferences sharedInstance] prefersMetric]]];
                                            
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
@@ -119,6 +123,18 @@
                                                         object:nil
                                                       userInfo:userInfo];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (IBAction)pressUnitButton:(id)sender {
+    BOOL prefersMetric = NO;
+    if ([[(UIBarButtonItem *)sender title] isEqualToString:@"oz."]) {
+        prefersMetric = YES;
+    }
+    
+    [[UserPreferences sharedInstance] setPrefersMetric:prefersMetric];
+    
+    [self.multLabel setText:[drinkContext titleForMult:[[UserPreferences sharedInstance] prefersMetric]]];
+    [self.unitButton setTitle:[[UserPreferences sharedInstance] prefersMetric] ? @"ml" : @"oz."];
 }
 
 @end
