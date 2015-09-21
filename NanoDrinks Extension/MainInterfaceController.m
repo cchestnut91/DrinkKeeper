@@ -70,6 +70,7 @@ NSString *hangIdent = @"rateHang";
 
 -(IBAction)addLastDrinkAgain{
     [[StoredDataManager sharedInstance] duplicateLastDrink];
+    [[HealthKitManager sharedInstance] saveDrinkingSession:[StoredDataManager sharedInstance].currentSession withCallback:nil];
     
     [self updateBACLabel];
 }
