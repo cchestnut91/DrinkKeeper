@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ReadWeight/AddDrinkViewController.m"
-            timestampString = "487905805.614963"
+            filePath = "ReadWeight/AddDrinkContext.m"
+            timestampString = "487921226.121923"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "-pressTime:"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "-getMult"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

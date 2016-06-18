@@ -54,6 +54,7 @@
     
     [self.multButton.layer setCornerRadius:40];
     [self.timeButton.layer setCornerRadius:40];
+    [self.alcoholButton.layer setCornerRadius:40];
     [self.doneButton.layer setCornerRadius:40];
     
     if (self.type) {
@@ -71,6 +72,9 @@
     }
     
     [self.multLabel setText:[self.drinkContext titleForSize:[[UserPreferences sharedInstance] prefersMetric]]];
+    
+    [self.percentTitle setText:@"Percent Alcohol"];
+    [self.percentLabel setText:[NSString stringWithFormat:@"%.2f%%", self.drinkContext.content]];
     
     NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.calvinchestnut.activity-adding-drink"];
     [activity setTitle:[NSString stringWithFormat:@"Adding %@", self.type]];
@@ -189,6 +193,25 @@
                                                       userInfo:userInfo];
     [self.activity invalidate];
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (IBAction)pressAlcohol:(id)sender {
+    NSMutableArray *options = [[NSMutableArray alloc] init];
+    for (double i = 1.0; i <= 200; i++){
+        [options addObject:[NSString stringWithFormat:@"%.2f%%", i / 100.0]];
+    }
+    
+    [ActionSheetStringPicker showPickerWithTitle:@"Alcohol Percent"
+                                            rows:options
+                                initialSelection:(int)(self.drinkContext.content * 100) - 1
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue){
+                                           [self.percentLabel setText:[NSString stringWithFormat:@"%.2f%%", (selectedIndex + 1) / 100.0]];
+                                           [self.drinkContext setContent:(selectedIndex + 1) / 100.0];
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                         NSLog(@"Block Picker Canceled");
+                                     }
+                                          origin:sender];
 }
 
 - (IBAction)pressUnitButton:(id)sender {

@@ -16,8 +16,10 @@
 @property NSString *type;
 @property (weak, nonatomic) IBOutlet UIButton *timeButton;
 @property (weak, nonatomic) IBOutlet UIButton *multButton;
+@property (weak, nonatomic) IBOutlet UIButton *alcoholButton;
 -(IBAction)pressMult:(id)sender;
 -(IBAction)pressGo:(id)sender;
+-(IBAction)pressAlcohol:(id)sender;
 -(IBAction)pressTime:(id)sender;
 @property NSInteger selectedSizeIndex;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
@@ -25,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *multTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *percentTitle;
+@property (weak, nonatomic) IBOutlet UILabel *percentLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *unitButton;
 
 @property (strong, nonatomic) AddDrinkContext *drinkContext;
