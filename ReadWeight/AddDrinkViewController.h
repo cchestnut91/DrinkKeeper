@@ -11,7 +11,7 @@
 #import "StoredDataManager.h"
 #import "ActionSheetStringPicker.h"
 
-@interface AddDrinkViewController : UIViewController
+@interface AddDrinkViewController : UIViewController <NSUserActivityDelegate>
 
 @property NSString *type;
 @property (weak, nonatomic) IBOutlet UIButton *timeButton;
@@ -19,11 +19,14 @@
 -(IBAction)pressMult:(id)sender;
 -(IBAction)pressGo:(id)sender;
 -(IBAction)pressTime:(id)sender;
+@property NSInteger selectedSizeIndex;
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (weak, nonatomic) IBOutlet UILabel *multLabel;
 @property (weak, nonatomic) IBOutlet UILabel *multTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *unitButton;
+
+@property (strong, nonatomic) AddDrinkContext *drinkContext;
 
 @end

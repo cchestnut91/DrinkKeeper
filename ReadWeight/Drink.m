@@ -24,7 +24,7 @@
     self = [super init];
     self.type = [context type];
     self.time = [context time];
-    self.multiplier = [context selectedMult];
+    self.multiplier = [context getMult];
     
     return self;
 }

@@ -77,8 +77,8 @@ NSString *hangIdent = @"rateHang";
 - (void)removeLastDrink {
     [[StoredDataManager sharedInstance] removeLastDrink];
     DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
-    if ([[[[StoredDataManager sharedInstance] lastSession] drinks] count] == 0) {
-        [[StoredDataManager sharedInstance] removeDrinkingSession:[[StoredDataManager sharedInstance] lastSession]];
+    if ([[session drinks] count] == 0) {
+        [[StoredDataManager sharedInstance] removeDrinkingSession:session];
     }
     [self updateBACLabel];
 }

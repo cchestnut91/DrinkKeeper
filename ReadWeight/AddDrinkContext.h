@@ -8,22 +8,39 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AddDrinkContext : NSObject
+@interface AddDrinkContext : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *type;
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSArray *strengthOptions;
-@property (strong, nonatomic) NSArray *optionLabels;
-@property (strong, nonatomic) NSArray *metricLabels;
+
 @property (strong, nonatomic) NSDate *time;
-@property (strong, nonatomic) NSNumber *selectedMult;
-@property NSInteger selectedIndex;
+
+@property (strong, nonatomic) NSMeasurement *standardSize;
+@property (strong, nonatomic) NSMeasurement *size;
+@property double standardContent;
+@property double content;
+
+@property (strong, nonatomic) NSArray<NSMeasurement *> *suggestions;
+
+- (NSNumber *)getMult;
+
 +(NSString *)beerType;
 +(NSString *)wineType;
 +(NSString *)liquorType;
--(NSString *)titleForMult:(BOOL)metric;
+
+-(NSArray *)getSuggestionsInMetric:(BOOL)metric;
+
+-(NSString *)titleForStandard:(BOOL)metric;
+
+-(NSString *)titleForSize:(BOOL)metric;
+
+-(NSArray *)suggestionStrings:(BOOL)metric;
+
+-(NSArray *)suggestionStringsDefaultOnly:(BOOL)metric;
 
 -(id)initWithType:(NSString *)type;
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder;
+- (void)encodeWithCoder:(NSCoder *)aCoder;
 
 @end

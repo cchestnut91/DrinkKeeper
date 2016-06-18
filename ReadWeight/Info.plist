@@ -40,36 +40,6 @@
 	<key>UIApplicationShortcutItems</key>
 	<array>
 		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>beerGlassSmall</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Add Beer</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>com.calvinchestnut.drinkKeeper.shortcut.addBeer</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>wineSmall</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Add Wine</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>com.calvinchestnut.drinkKeeper.shortcut.addWine</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict/>
-		</dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconFile</key>
-			<string>liquorGlassSmall</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Add Drink</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>com.calvinchestnut.drinkKeeper.shortcut.addDrink</string>
-			<key>UIApplicationShortcutItemUserInfo</key>
-			<dict/>
-		</dict>
-		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeAdd</string>
 			<key>UIApplicationShortcutItemTitle</key>

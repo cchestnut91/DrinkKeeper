@@ -11,7 +11,7 @@
 
 #import "AddDrinkContext.h"
 
-@interface NewDrinkInterfaceController : WKInterfaceController
+@interface NewDrinkInterfaceController : WKInterfaceController <NSUserActivityDelegate>
 
 @property (strong, nonatomic) AddDrinkContext *drinkContext;
 

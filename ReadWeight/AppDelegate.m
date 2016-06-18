@@ -19,6 +19,7 @@
 @implementation AppDelegate
 {
     NSDictionary *launchParams;
+    AddDrinkContext *context;
     NSSet *objectTypes;
 }
 
@@ -84,6 +85,21 @@
     }
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
+{
+    if (userActivity.userInfo[@"drinkContext"]) {
+        context = [NSKeyedUnarchiver unarchiveObjectWithData:[userActivity.userInfo objectForKey:@"drinkContext"]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(resumeActivity:)
+                                                     name:@"checkForActivity"
+                                                   object:nil];
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (BOOL)watchAppNeedsSync {
     if (![[UserPreferences sharedInstance] hasSyncedWatchApp] && [[WCSession defaultSession] isWatchAppInstalled] && ![[StoredDataManager sharedInstance] needsSetup]) {
         return true;
@@ -115,6 +131,16 @@
                                                         object:nil
                                                       userInfo:launchParams];
     launchParams = nil;
+}
+
+- (void)resumeActivity:(NSNotification *)notification {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"checkForActivity"
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"resumeActivity"
+                                                        object:nil
+                                                      userInfo:@{@"context" : context}];
+    context = nil;
 }
 
 -(NSDictionary *)getParamsFromURL:(NSURL *)url{

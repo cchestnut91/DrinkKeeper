@@ -69,6 +69,10 @@
                                              selector:@selector(addDrinkFromURL:)
                                                  name:@"addFromURL"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(resumeActivity:)
+                                                 name:@"resumeActivity"
+                                               object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(recalcBAC)
@@ -335,6 +339,12 @@
     }
 }
 
+- (void)resumeActivity:(NSNotification *)notification
+{
+    AddDrinkContext *context = [notification.userInfo objectForKey:@"context"];
+    [self performSegueWithIdentifier:@"addDrink" sender:context];
+}
+
 #pragma mark IBActions
 
 -(void)slideView{
@@ -390,8 +400,8 @@
                                                                 [[StoredDataManager sharedInstance] removeLastDrink];
                                                                 DrinkingSession *session = [[StoredDataManager sharedInstance] lastSession];
                                                                 
-                                                                if ([[[[StoredDataManager sharedInstance] lastSession] drinks] count] == 0) {
-                                                                    [[StoredDataManager sharedInstance] removeDrinkingSession:[[StoredDataManager sharedInstance] lastSession]];
+                                                                if ([[session drinks] count] == 0) {
+                                                                    [[StoredDataManager sharedInstance] removeDrinkingSession:session];
                                                                 }
 																[self recalcBAC];
 															}];
@@ -425,7 +435,12 @@
             typePressed = @"Wine";
         }
         
-        [(AddDrinkViewController *)segue.destinationViewController setType:typePressed];
+        if (typePressed) {
+            [(AddDrinkViewController *)segue.destinationViewController setType:typePressed];
+        } else {
+            
+            [(AddDrinkViewController *)segue.destinationViewController setDrinkContext:sender];
+        }
     }
 }
 

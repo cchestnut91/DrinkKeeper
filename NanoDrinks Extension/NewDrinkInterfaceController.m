@@ -14,7 +14,10 @@
 #import "HealthKitManager.h"
 
 @interface NewDrinkInterfaceController ()
-    @property (strong, nonatomic) NSDateFormatter *formatter;
+
+@property (strong, nonatomic) NSDateFormatter *formatter;
+@property (strong, nonatomic) NSUserActivity *activity;
+
 @end
 
 @implementation NewDrinkInterfaceController
@@ -36,7 +39,7 @@
     }
     
     NSMutableArray *strengthPickerItems = [NSMutableArray new];
-    NSArray *optionLabels = [[UserPreferences sharedInstance] prefersMetric] ? [self.drinkContext metricLabels] : [self.drinkContext optionLabels];
+    NSArray *optionLabels = [self.drinkContext suggestionStringsDefaultOnly:[[UserPreferences sharedInstance] prefersMetric]];
     for (NSString *strength in optionLabels) {
         WKPickerItem *item = [[WKPickerItem alloc] init];
         [item setTitle:strength];
@@ -67,6 +70,14 @@
     [self.timePicker setSelectedItemIndex:whenPickerItems.count - 1];
     
     [self updateMenuItem];
+    
+    NSUserActivity *activity = [[NSUserActivity alloc] initWithActivityType:@"com.calvinchestnut.activity-adding-drink"];
+    [activity setTitle:[NSString stringWithFormat:@"Adding %@", self.drinkContext.type]];
+    NSData *drinkContextData = [NSKeyedArchiver archivedDataWithRootObject:self.drinkContext];
+    [activity setUserInfo:@{@"drinkContext" : drinkContextData}];
+    self.activity = activity;
+    self.activity.delegate = self;
+    [self.activity becomeCurrent];
 }
 
 - (void)updateMenuItem {
@@ -81,7 +92,7 @@
     [[UserPreferences sharedInstance] setPrefersMetric:!prevPref];
     
     NSMutableArray *strengthPickerItems = [NSMutableArray new];
-    NSArray *optionLabels = [[UserPreferences sharedInstance] prefersMetric] ? [self.drinkContext metricLabels] : [self.drinkContext optionLabels];
+    NSArray *optionLabels = [self.drinkContext suggestionStringsDefaultOnly:[[UserPreferences sharedInstance] prefersMetric]];
     for (NSString *strength in optionLabels) {
         WKPickerItem *item = [[WKPickerItem alloc] init];
         [item setTitle:strength];
@@ -105,7 +116,7 @@
 }
 
 - (IBAction)strengthChanged:(NSInteger)value {
-    [self.drinkContext setSelectedMult:[[self.drinkContext strengthOptions] objectAtIndex:value]];
+    [self.drinkContext setSize:[[self.drinkContext suggestions] objectAtIndex:value]];
 }
 
 - (IBAction)timeChanged:(NSInteger)value {
@@ -119,8 +130,22 @@
     Drink *newDrink = [[Drink alloc] initWithDrinkContext:self.drinkContext];
     
     [[StoredDataManager sharedInstance] addDrinkToCurrentSession:newDrink];
+    [_activity invalidate];
     [self popToRootController];
 }
+
+- (void)updateUserActivityState:(NSUserActivity *)activity
+{
+    NSData *drinkContextData = [NSKeyedArchiver archivedDataWithRootObject:self.drinkContext];
+    activity.userInfo = @{@"drinkContext" : drinkContextData};
+}
+
+- (void)userActivityWillSave:(NSUserActivity *)userActivity
+{
+    NSData *drinkContextData = [NSKeyedArchiver archivedDataWithRootObject:self.drinkContext];
+    userActivity.userInfo = @{@"drinkContext" : drinkContextData};
+}
+
 @end
 
 
