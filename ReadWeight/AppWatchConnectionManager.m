@@ -62,6 +62,10 @@ static AppWatchConnectionManager *sharedObject;
     [self session:session didReceiveApplicationContext:userInfo];
 }
 
+- (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(NSError *)error
+{
+    
+}
 
 - (void)updateComplication {
     // No super imp
