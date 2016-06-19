@@ -218,35 +218,8 @@
         self.fileName = [NSString stringWithFormat:@"%f", [self.startTime timeIntervalSince1970]];
     }
     
-    /*
-    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-    NSMutableArray *notificationsToKeep = [[NSMutableArray alloc] init];
-    
-    for (UILocalNotification *notification in notifications){
-        if ([notification userInfo]){
-            if (![[[notification userInfo] objectForKey:@"type"] isEqualToString:@"sober"]){
-                [notificationsToKeep addObject:notification];
-            }
-        }
-    }
-    
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-    UILocalNotification *sober = [[UILocalNotification alloc] init];
-    
-    [sober setUserInfo:@{@"type":@"SessionComplete"}];
-    
-    [sober setFireDate:self.projectedEndTime];
-    [sober setAlertBody:@"BAC has reached 0.0. Would you like to save session to Health?"];
-    [sober setSoundName:UILocalNotificationDefaultSoundName];
-    
-    [notificationsToKeep addObject:sober];
-    
-    for (UILocalNotification *notification in notificationsToKeep){
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    }
-    */
-     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"bacUpdated"
+                                                        object:nil];
     [[StoredDataManager sharedInstance] saveDrinkingSession:self];
 
 }

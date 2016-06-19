@@ -197,7 +197,7 @@
 
 - (IBAction)pressAlcohol:(id)sender {
     NSMutableArray *options = [[NSMutableArray alloc] init];
-    for (double i = 1.0; i <= 200; i++){
+    for (double i = 1.0; i <= 100; i++){
         [options addObject:[NSString stringWithFormat:@"%.2f%%", i / 100.0]];
     }
     

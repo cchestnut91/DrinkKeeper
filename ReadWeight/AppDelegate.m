@@ -11,6 +11,7 @@
 #import "iOSWatchConnectionManager.h"
 #import "JNKeychain.h"
 #import "Drink.h"
+#import <UserNotifications/UserNotifications.h>
 
 @interface AppDelegate ()
 
@@ -54,6 +55,10 @@
             }
         }
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateNotifications)
+                                                 name:@"bacUpdated"
+                                               object:nil];
 	
     application.applicationSupportsShakeToEdit = YES;
     
@@ -98,6 +103,54 @@
     }
     
     return NO;
+}
+
+- (void)updateNotifications
+{
+    if ([[UserPreferences sharedInstance] allowsNotifications]) {
+        DrinkingSession *session = [[StoredDataManager sharedInstance] currentSession];
+        if (session) {
+            if ([[UserPreferences sharedInstance] requestsReminders]) {
+                NSTimeInterval interval = [[UserPreferences sharedInstance] updateInterval];
+                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                [content setTitle:@"Still Drinking?"];
+                [content setBody:@"Don't forget to add any drinks you've had to stay up to date."];
+                NSTimeInterval fireInterval = [[[session.drinks.lastObject date] dateByAddingTimeInterval:interval] timeIntervalSinceNow];
+                UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:fireInterval
+                                                                                                    repeats:NO];
+                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"drinkReminder"
+                                                                                      content:content
+                                                                                      trigger:trigger];
+                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request
+                                                                       withCompletionHandler:^(NSError * _Nullable error) {
+                                                                           if (error) {
+                                                                               NSLog(@"Error scheduleing remidner notification");
+                                                                           }
+                                                                       }];
+            }
+            [[UNUserNotificationCenter currentNotificationCenter] removePendingNotificationRequestsWithIdentifiers:@[@"sessionComplete"]];
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+            [content setTitle:@"Session ended"];
+            [content setSubtitle:@"B.A.C. has reached 0.00"];
+            [content setBody:@"Are you ready to save the data to Health?"];
+            NSTimeInterval fireInterval = [session.projectedEndTime timeIntervalSinceNow];
+            fireInterval = 10;
+            UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:fireInterval
+                                                                                                repeats:NO];
+            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"sessionComplete"
+                                                                                  content:content
+                                                                                  trigger:trigger];
+            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request
+                                                                   withCompletionHandler:^(NSError * _Nullable error) {
+                                                                       if (error) {
+                                                                           NSLog(@"Error scheduleing end reminder");
+                                                                       }
+                                                                   }];
+        } else {
+            [[UNUserNotificationCenter currentNotificationCenter] removeAllPendingNotificationRequests];
+        }
+        
+    }
 }
 
 - (BOOL)watchAppNeedsSync {
@@ -180,37 +233,25 @@
     [allowNotifications addAction:[UIAlertAction actionWithTitle:@"Allow"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction *action){
-                                                             // Create a mutable set to store the category definitions.
-                                                             NSMutableSet* categories = [NSMutableSet set];
-                                                             
-                                                             UIMutableUserNotificationAction* showDetails = [[UIMutableUserNotificationAction alloc] init];
-                                                             showDetails.title = @"Show Details";
-                                                             showDetails.identifier = @"showDetails";
-                                                             showDetails.activationMode = UIUserNotificationActivationModeForeground;
-                                                             showDetails.authenticationRequired = NO;
-                                                             
-                                                             UIMutableUserNotificationAction *saveToHealth = [[UIMutableUserNotificationAction alloc] init];
-                                                             showDetails.title = @"Save";
-                                                             showDetails.identifier = @"saveToHealth";
-                                                             showDetails.activationMode = UIUserNotificationActivationModeBackground;
-                                                             showDetails.authenticationRequired = NO;
+                                                             UNNotificationAction *showDetails = [UNNotificationAction actionWithIdentifier:@"showDetails"
+                                                                                                                                      title:@"Show Details"
+                                                                                                                                    options:UNNotificationActionOptionForeground];
                                                              
                                                              // Create the category object and add it to the set.
-                                                             UIMutableUserNotificationCategory* details = [[UIMutableUserNotificationCategory alloc] init];
-                                                             [details setActions:@[saveToHealth]
-                                                                      forContext:UIUserNotificationActionContextDefault];
-                                                             details.identifier = @"SessionComplete";
-                                                             
-                                                             [categories addObject:details];
-                                                             
-                                                             // Configure other actions and categories and add them to the set...
-                                                             
-                                                             UIUserNotificationSettings* settings = [UIUserNotificationSettings settingsForTypes:
-                                                                                                     (UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound)
-                                                                                                                                      categories:categories];
-                                                             
-                                                             [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-                                                         }]];
+                                                             UNNotificationCategory *details = [UNNotificationCategory categoryWithIdentifier:@"sessionComplete"
+                                                                                                                                      actions:@[showDetails]
+                                                                                                                               minimalActions:@[showDetails]
+                                                                                                                            intentIdentifiers:@[]
+                                                                                                                                      options:UNNotificationCategoryOptionNone];
+                                                             [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionBadge +  UNAuthorizationOptionSound)
+                                                                                                                                 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                                                                                                                     if (granted) {
+                                                                                                                                         
+                                                                                                                                         [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:details, nil]];
+                                                                                                                                     }
+                                                                                                                                     [[UserPreferences sharedInstance] setAllowsNotifcation:granted];
+                                                                                                                                 }];
+                                                            }]];
     [[(UINavigationController *)[self.window rootViewController] topViewController] presentViewController:allowNotifications
                        animated:YES
                      completion:nil];

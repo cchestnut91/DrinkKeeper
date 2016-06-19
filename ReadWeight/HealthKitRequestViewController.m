@@ -219,7 +219,7 @@
                                                     [self.navigationController dismissViewControllerAnimated:YES
                                                                                                   completion:^(void){
                                                                                                       //TODO Notifications
-                                                                                                      //[(AppDelegate *)[UIApplication sharedApplication].delegate registerNotifications];
+                                                                                                      [(AppDelegate *)[UIApplication sharedApplication].delegate registerNotifications];
                                                                                                   }];
                                                 }]];
     [self presentViewController:important

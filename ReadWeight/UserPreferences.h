@@ -14,6 +14,9 @@
 
 - (void)updateWithContext:(NSDictionary *)dictionary;
 
+- (BOOL)allowsNotifications;
+- (void)setAllowsNotifcation:(BOOL)allowsNotifcation;
+
 - (BOOL)prefersMetric;
 - (void)setPrefersMetric:(BOOL)prefersMetric;
 
@@ -22,6 +25,10 @@
 
 - (BOOL)hasSyncedWatchApp;
 - (void)setHasSyncedWatchApp:(BOOL)watchSynced;
+
+- (BOOL)requestsReminders;
+- (NSTimeInterval)updateInterval;
+- (void)setUpdateInterval:(NSTimeInterval)updateInterval;
 
 - (NSDate *)verTwoUpdated;
 
