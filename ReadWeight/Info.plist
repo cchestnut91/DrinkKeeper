@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Drink Keeper will use HealthKit to always have your latest weight value, allowing for more accurate calculations.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Drink Keeper will share your B.A.C. with HealthKit so other apps can use the values and so you can see it in the Health app</string>
 	<key>CFBundleDisplayName</key>
 	<string>Drinks</string>
 	<key>CFBundleExecutable</key>
@@ -32,7 +36,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>18</string>
+	<string>20</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>

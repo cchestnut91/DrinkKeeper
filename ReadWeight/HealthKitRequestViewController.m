@@ -131,12 +131,25 @@
                                            }
                                            [[StoredDataManager sharedInstance] updateDictionaryWithObject:[NSNumber numberWithInteger:sex]
                                                                                                    forKey:[StoredDataManager sexKey]];
-                                           [self finishCollectingData];
+                                           if (![[StoredDataManager sharedInstance] userHasRequestedHealth]) {
+                                               [self requestHealthSharing];
+                                           } else {
+                                               [self finishCollectingData];
+                                           }
                                        }
                                      cancelBlock:^(ActionSheetStringPicker *picker) {
                                          NSLog(@"Block Picker Canceled");
                                      }
                                           origin:self.useManualButton];
+}
+    
+- (void)saveToHealthSelected
+{
+    [[HealthKitManager sharedInstance] performBackupRequestWithCallback:^(BOOL success, NSError *error){
+        if (success) {
+            [self finishCollectingData];
+        }
+    }];
 }
 
 - (IBAction)handleHealthPressed:(id)sender {
@@ -147,6 +160,26 @@
             [self performQueries];
         }
     }];
+}
+
+-(void)requestHealthSharing
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Save B.A.C. to Health?"
+                                                                   message:@"Drink Keeper can save your B.A.C. data to the Health app to view data over time and use in other apps. Would you like to allow this behavior?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Decline"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                [self finishCollectingData];
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save To Health"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                [self saveToHealthSelected];
+                                            }]];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
 }
 
 -(void)performQueries{
@@ -218,7 +251,7 @@
                                                     }
                                                     [self.navigationController dismissViewControllerAnimated:YES
                                                                                                   completion:^(void){
-                                                                                                      //TODO Notifications
+                                                                                                    
                                                                                                       [(AppDelegate *)[UIApplication sharedApplication].delegate registerNotifications];
                                                                                                   }];
                                                 }]];

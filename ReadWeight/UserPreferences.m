@@ -43,14 +43,16 @@ static UserPreferences *sharedObject;
         [NSKeyedArchiver archiveRootObject:preferences toFile:self.prefFile];
         [[StoredDataManager sharedInstance] updateUserPreferenceContext];
     }
+    [self setUpdateInterval:1800];
     
     return self;
 }
 
 +(instancetype) sharedInstance{
-    if (sharedObject == nil){
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         sharedObject = [[UserPreferences alloc] initPrivate];
-    }
+    });
     
     return sharedObject;
 }

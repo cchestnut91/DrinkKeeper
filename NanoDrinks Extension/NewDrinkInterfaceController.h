@@ -19,6 +19,7 @@
 
 @property (unsafe_unretained, nonatomic) IBOutlet WKInterfacePicker *strengthPicker;
 @property (unsafe_unretained, nonatomic) IBOutlet WKInterfacePicker *timePicker;
+@property (unsafe_unretained, nonatomic) IBOutlet WKInterfacePicker *contentPicker;
 @property (unsafe_unretained, nonatomic) IBOutlet WKInterfaceButton *addDrinkButton;
 
 - (IBAction)addDrinkPressed;

@@ -11,7 +11,15 @@
 #import "iOSWatchConnectionManager.h"
 #import "JNKeychain.h"
 #import "Drink.h"
-#import <UserNotifications/UserNotifications.h>
+
+static NSString *sessionEndedNotificationCategory = @"sessionComplete";
+static NSString *drinkReminderNotificationCategory = @"drinkReminder";
+
+static NSString *showDetailsActionIdentifier = @"showDetails";
+static NSString *saveActionIdentifier = @"saveToHealth";
+static NSString *addDrinkActionIdentifier = @"addDrink";
+
+static NSString *kSessionFileName = @"sessionFileName";
 
 @interface AppDelegate ()
 
@@ -38,8 +46,11 @@
         [[StoredDataManager sharedInstance] updateWatchContext];
     }
     
+    [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+    
     // Transfers any saved keychain values from previous versions
     [self clearKeychain];
+    [self defineCategories];
     
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsURLKey]){
         NSURL *url = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
@@ -110,45 +121,72 @@
     if ([[UserPreferences sharedInstance] allowsNotifications]) {
         DrinkingSession *session = [[StoredDataManager sharedInstance] currentSession];
         if (session) {
-            if ([[UserPreferences sharedInstance] requestsReminders]) {
-                NSTimeInterval interval = [[UserPreferences sharedInstance] updateInterval];
-                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                [content setTitle:@"Still Drinking?"];
-                [content setBody:@"Don't forget to add any drinks you've had to stay up to date."];
-                NSTimeInterval fireInterval = [[[session.drinks.lastObject date] dateByAddingTimeInterval:interval] timeIntervalSinceNow];
-                UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:fireInterval
-                                                                                                    repeats:NO];
-                UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"drinkReminder"
-                                                                                      content:content
-                                                                                      trigger:trigger];
-                [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request
-                                                                       withCompletionHandler:^(NSError * _Nullable error) {
-                                                                           if (error) {
-                                                                               NSLog(@"Error scheduleing remidner notification");
-                                                                           }
-                                                                       }];
-            }
-            [[UNUserNotificationCenter currentNotificationCenter] removePendingNotificationRequestsWithIdentifiers:@[@"sessionComplete"]];
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
             [content setTitle:@"Session ended"];
             [content setSubtitle:@"B.A.C. has reached 0.00"];
             [content setBody:@"Are you ready to save the data to Health?"];
+            [content setCategoryIdentifier:sessionEndedNotificationCategory];
+            [content setUserInfo:@{kSessionFileName : session.fileName}];
             NSTimeInterval fireInterval = [session.projectedEndTime timeIntervalSinceNow];
-            fireInterval = 10;
             UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:fireInterval
                                                                                                 repeats:NO];
-            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"sessionComplete"
+            UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:sessionEndedNotificationCategory
                                                                                   content:content
                                                                                   trigger:trigger];
-            [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request
-                                                                   withCompletionHandler:^(NSError * _Nullable error) {
-                                                                       if (error) {
-                                                                           NSLog(@"Error scheduleing end reminder");
-                                                                       }
-                                                                   }];
+            [center addNotificationRequest:request
+                     withCompletionHandler:^(NSError * _Nullable error) {
+                         if (error) {
+                             NSLog(@"Error scheduleing end reminder");
+                         }
+                     }];
+            if ([[UserPreferences sharedInstance] requestsReminders]) {
+                NSTimeInterval interval = [[UserPreferences sharedInstance] updateInterval];
+                if (interval > fireInterval + 60) {
+                    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                    [content setTitle:@"Still Drinking?"];
+                    [content setBody:@"Don't forget to add any drinks you've had to stay up to date."];
+                    [content setCategoryIdentifier:drinkReminderNotificationCategory];
+                    NSTimeInterval fireInterval = [[[session.drinks.lastObject date] dateByAddingTimeInterval:interval] timeIntervalSinceNow];
+                    UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:fireInterval
+                                                                                                        repeats:NO];
+                    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:drinkReminderNotificationCategory
+                                                                                          content:content
+                                                                                          trigger:trigger];
+                    [center addNotificationRequest:request
+                             withCompletionHandler:^(NSError * _Nullable error) {
+                                 if (error) {
+                                     NSLog(@"Error scheduleing remidner notification");
+                                 }
+                             }];
+                }
+            }
         } else {
             [[UNUserNotificationCenter currentNotificationCenter] removeAllPendingNotificationRequests];
         }
+        
+    }
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler
+{
+    completionHandler(UNNotificationPresentationOptionAlert);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
+{
+    NSString *category = response.notification.request.content.categoryIdentifier;
+    if ([category isEqualToString:sessionEndedNotificationCategory]) {
+        if (![response.actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier] && ![response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier]) {
+            if ([response.actionIdentifier isEqualToString:saveActionIdentifier]) {
+                [[HealthKitManager sharedInstance] saveSessions];
+            } else if ([response.actionIdentifier isEqualToString:showDetailsActionIdentifier]) {
+                NSLog(@"stop");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"showDetails"
+                                                                    object:response.notification.request.content];
+            }
+        }
+    } else if ([category isEqualToString:drinkReminderNotificationCategory]) {
         
     }
 }
@@ -223,6 +261,30 @@
     return YES;
 }
 
+- (void)defineCategories{
+    
+    UNNotificationAction *showDetails = [UNNotificationAction actionWithIdentifier:showDetailsActionIdentifier
+                                                                             title:@"Show Details"
+                                                                           options:UNNotificationActionOptionForeground];
+    UNNotificationAction *save = [UNNotificationAction actionWithIdentifier:saveActionIdentifier
+                                                                      title:@"Save to Health"
+                                                                    options:UNNotificationActionOptionNone];
+    UNNotificationCategory *details = [UNNotificationCategory categoryWithIdentifier:sessionEndedNotificationCategory
+                                                                             actions:@[showDetails, save]
+                                                                      minimalActions:@[showDetails, save]
+                                                                   intentIdentifiers:@[]
+                                                                             options:UNNotificationCategoryOptionNone];
+    UNNotificationAction *addDrink = [UNNotificationAction actionWithIdentifier:addDrinkActionIdentifier
+                                                                          title:@"Add Drink"
+                                                                        options:UNNotificationActionOptionForeground];
+    UNNotificationCategory *add = [UNNotificationCategory categoryWithIdentifier:drinkReminderNotificationCategory
+                                                                         actions:@[addDrink]
+                                                                  minimalActions:@[addDrink]
+                                                               intentIdentifiers:@[]
+                                                                         options:UNNotificationCategoryOptionNone];
+    [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:details, add, nil]];
+}
+
 -(void)registerNotifications{
     UIAlertController *allowNotifications = [UIAlertController alertControllerWithTitle:@"Allow Notifications"
                                                                                 message:@"Drink Keeper would like to send you notifications to let you know when your BAC has fallen below a certain level. Would you like to allow this?"
@@ -233,22 +295,8 @@
     [allowNotifications addAction:[UIAlertAction actionWithTitle:@"Allow"
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(UIAlertAction *action){
-                                                             UNNotificationAction *showDetails = [UNNotificationAction actionWithIdentifier:@"showDetails"
-                                                                                                                                      title:@"Show Details"
-                                                                                                                                    options:UNNotificationActionOptionForeground];
-                                                             
-                                                             // Create the category object and add it to the set.
-                                                             UNNotificationCategory *details = [UNNotificationCategory categoryWithIdentifier:@"sessionComplete"
-                                                                                                                                      actions:@[showDetails]
-                                                                                                                               minimalActions:@[showDetails]
-                                                                                                                            intentIdentifiers:@[]
-                                                                                                                                      options:UNNotificationCategoryOptionNone];
                                                              [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionBadge +  UNAuthorizationOptionSound)
                                                                                                                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                                                                                                                     if (granted) {
-                                                                                                                                         
-                                                                                                                                         [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:[NSSet setWithObjects:details, nil]];
-                                                                                                                                     }
                                                                                                                                      [[UserPreferences sharedInstance] setAllowsNotifcation:granted];
                                                                                                                                  }];
                                                             }]];

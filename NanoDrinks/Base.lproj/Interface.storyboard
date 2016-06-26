@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8191" systemVersion="15B17c" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="yr5-TX-KsK">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11129.15" systemVersion="16A201w" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yr5-TX-KsK">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8092"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11103.10"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11055.6"/>
     </dependencies>
     <scenes>
         <!--Drinks-->
@@ -13,11 +14,11 @@
                         <group width="1" alignment="left" layout="vertical" id="4PM-4u-1E7">
                             <items>
                                 <label width="1" height="54" alignment="left" text="0.022" textAlignment="center" id="rTc-ve-LYv">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" name="HelveticaNeue" family="Helvetica Neue" pointSize="30"/>
                                 </label>
                                 <separator alignment="left" id="efd-fm-4Tf">
-                                    <color key="color" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </separator>
                                 <label width="136" alignment="left" text="Add Drink" id="qIG-vV-fbl"/>
                                 <group width="1" alignment="left" id="Aqh-wT-Za2">
@@ -44,7 +45,7 @@
                         <group width="1" alignment="left" layout="vertical" id="FSA-VY-CcL">
                             <items>
                                 <label width="1" height="27" alignment="left" text="Needs Setup" textAlignment="center" id="p4A-pL-Pea">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </label>
                                 <label width="1" alignment="left" text="Open Drink Keeper on your iPhone to setup" numberOfLines="0" id="CFm-UN-b3r"/>
                                 <button width="1" alignment="left" title="Refresh" id="fwd-zg-13N">
@@ -91,6 +92,14 @@
                                 <action selector="timeChanged:" destination="gaD-J7-H5e" id="x9u-cZ-ZbT"/>
                             </connections>
                         </picker>
+                        <label alignment="left" text="Alcohol Content" id="RYi-zS-AL8">
+                            <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                        </label>
+                        <picker width="1" height="40" alignment="left" focusStyle="stack" indicatorMode="shownWhileFocused" id="TQN-Cn-FxV">
+                            <connections>
+                                <action selector="contentChanged:" destination="gaD-J7-H5e" id="c3z-wl-72v"/>
+                            </connections>
+                        </picker>
                         <button width="1" alignment="left" title="Add Drink" id="DW5-ys-d4O">
                             <connections>
                                 <action selector="addDrinkPressed" destination="gaD-J7-H5e" id="S5C-1j-g76"/>
@@ -99,13 +108,14 @@
                     </items>
                     <connections>
                         <outlet property="addDrinkButton" destination="DW5-ys-d4O" id="bKO-dA-KfG"/>
+                        <outlet property="contentPicker" destination="TQN-Cn-FxV" id="6pP-Kb-fy1"/>
                         <outlet property="strengthLabel" destination="0cP-2o-GWt" id="rrO-D2-IvR"/>
                         <outlet property="strengthPicker" destination="xD9-UD-g4i" id="oUW-zw-rJj"/>
                         <outlet property="timePicker" destination="EB7-93-dhP" id="Bpp-P6-ct7"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="447" y="273.5"/>
+            <point key="canvasLocation" x="469" y="346"/>
         </scene>
         <!--Details-->
         <scene sceneID="Smc-ou-Q3l">
@@ -116,7 +126,7 @@
                             <items>
                                 <label alignment="left" text="Started" id="GvQ-pS-4Yo"/>
                                 <label alignment="right" text="5:00 PM" id="ROt-Yg-Wto">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -125,7 +135,7 @@
                             <items>
                                 <label alignment="left" text="Finished" id="5bo-MV-gpe"/>
                                 <label alignment="right" text="7:00 PM" id="guM-sY-HZM">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -134,7 +144,7 @@
                             <items>
                                 <label alignment="left" text="Total Drinks" id="Esq-ZZ-YSI"/>
                                 <label alignment="right" text="5" id="nqn-Hj-gs2">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -143,7 +153,7 @@
                             <items>
                                 <label alignment="left" text="Beers" id="hv5-vG-Vql"/>
                                 <label alignment="right" text="2" id="ESs-KW-chs">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -152,7 +162,7 @@
                             <items>
                                 <label alignment="left" text="Wine Glasses" id="GG4-eU-wUk"/>
                                 <label alignment="right" text="2" id="cZ0-31-rQP">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -161,7 +171,7 @@
                             <items>
                                 <label alignment="left" text="Drinks / Shots" id="SmO-c6-SRV"/>
                                 <label alignment="right" text="1" id="Icd-bl-vYX">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -170,7 +180,7 @@
                             <items>
                                 <label alignment="left" text="Peak BAC" id="Ycx-j1-TCv"/>
                                 <label alignment="right" text="0.056" id="aIz-6d-c3F">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -179,7 +189,7 @@
                             <items>
                                 <label alignment="left" text="Hangover Rating" id="9o1-XG-J3c"/>
                                 <label alignment="right" text="Moderate" id="Vzh-oi-QIN">
-                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                 </label>
                             </items>
@@ -233,7 +243,7 @@
                                 <group width="1" alignment="left" layout="vertical" id="fJL-AM-kZX">
                                     <items>
                                         <label width="1" height="27" alignment="left" text="Needs Setup" textAlignment="center" id="kQl-jq-Tgl">
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </label>
                                         <label width="1" alignment="left" text="Open Drink Keeper on your iPhone to setup" numberOfLines="0" id="qpp-LF-CYM"/>
                                     </items>
@@ -242,7 +252,7 @@
                                     <items>
                                         <label alignment="left" verticalAlignment="bottom" text="Current B.A.C." id="dVA-X4-Wed"/>
                                         <label width="1" alignment="right" verticalAlignment="bottom" text="0.022" textAlignment="right" id="4il-mM-Kap">
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="font" type="system" pointSize="52"/>
                                         </label>
                                     </items>
@@ -268,7 +278,7 @@
                         <label width="1" alignment="left" text="Notification Title" numberOfLines="0" id="mG6-0n-GgC"/>
                     </items>
                     <notificationCategory key="notificationCategory" identifier="SessionComplete" id="ekx-ES-I11">
-                        <color key="sashColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sashColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </notificationCategory>
                     <connections>
                         <outlet property="notificationAlertLabel" destination="mG6-0n-GgC" id="POb-aL-iT9"/>
@@ -290,7 +300,7 @@
                                     <items>
                                         <label alignment="left" text="Duration" id="daW-40-6dz"/>
                                         <label width="1" alignment="right" text="Label" textAlignment="right" id="cxD-SA-AR8">
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                         </label>
                                     </items>
@@ -299,7 +309,7 @@
                                     <items>
                                         <label alignment="left" text="Drinks" id="YKm-Q3-ix9"/>
                                         <label alignment="right" text="Label" textAlignment="right" id="P3R-xR-kFA">
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                         </label>
                                     </items>
@@ -308,7 +318,7 @@
                                     <items>
                                         <label alignment="left" text="Peak BAC" id="WWU-5V-iqd"/>
                                         <label alignment="right" text="Label" textAlignment="right" id="KWY-EJ-ORf">
-                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
                                         </label>
                                     </items>
@@ -332,5 +342,5 @@
             <point key="canvasLocation" x="506" y="1001"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.97647058819999999" green="0.0" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.97647058819999999" green="0.0" blue="0.16078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

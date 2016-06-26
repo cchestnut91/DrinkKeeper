@@ -53,6 +53,17 @@
         [self.strengthPicker setSelectedItemIndex:1];
     }
     
+    NSMutableArray *contentItems = [NSMutableArray new];
+    for (int i = 1; i < 100; i++) {
+        NSString *label = [NSString stringWithFormat:@"%.2f%%", i/100.0];
+        WKPickerItem *item = [[WKPickerItem alloc] init];
+        [item setTitle:label];
+        [contentItems addObject:item];
+    }
+    [self.contentPicker setItems:contentItems];
+    int selected = (int)(self.drinkContext.standardContent * 100);
+    [self.contentPicker setSelectedItemIndex:selected];
+    
     NSMutableArray *whenPickerItems = [NSMutableArray new];
     for (int i = 12; i > 0; i--) {
         NSString *label = [NSString stringWithFormat:@"%d min. ago", i  * 5];
@@ -124,6 +135,11 @@
     int secondsAgo = 5 * 60 * mult;
     
     [self.drinkContext setTime:[NSDate dateWithTimeIntervalSinceNow:-1 * secondsAgo]];
+}
+
+- (IBAction)contentChanged:(NSInteger)value {
+    double contentValue = value / 100.0;
+    [self.drinkContext setContent:contentValue];
 }
 
 - (IBAction)addDrinkPressed {

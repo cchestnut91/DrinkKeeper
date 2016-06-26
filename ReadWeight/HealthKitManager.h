@@ -25,6 +25,7 @@
 +(HealthKitManager *)sharedInstance;
 
 -(void)performHealthKitRequestWithCallback:(void (^)(BOOL success, NSError *error))callback;
+- (void)performBackupRequestWithCallback:(void (^)(BOOL success, NSError *error))callback;
 
 -(void)performWeightQueryWithCallback:(void (^)(HKSampleQuery *query, NSArray *results, NSError *error))callback;
 

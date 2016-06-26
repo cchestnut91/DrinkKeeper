@@ -157,6 +157,15 @@ static HealthKitManager *sharedObject;
     }
 }
 
+- (void)performBackupRequestWithCallback:(void (^)(BOOL success, NSError *error))callback{
+    if (self.healthStore){
+        [self.healthStore requestAuthorizationToShareTypes:self.writeTypes
+                                                 readTypes:self.readTypes
+                                                completion:callback];
+        self.hasAskedPerission = YES;
+    }
+}
+
 -(void)performWeightQueryWithCallback:(void (^)(HKSampleQuery *query, NSArray *results, NSError *error))callback{
     
     HKSampleQuery *weightQuery = [[HKSampleQuery alloc] initWithSampleType:self.weightType

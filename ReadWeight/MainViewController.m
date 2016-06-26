@@ -78,6 +78,10 @@
                                              selector:@selector(recalcBAC)
                                                  name:@"contextReloaded"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showDetails:)
+                                                 name:@"showDetails"
+                                               object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"checkLaunchURL"
 														object:nil];
 	
@@ -316,6 +320,13 @@
 		
 		[self.sessionLengthValueLabel setText:@"No Sessions"];
 	}
+}
+
+- (void)showDetails:(UNNotificationContent *)content
+{
+    NSLog(@"Stop");
+    [self performSegueWithIdentifier:@"openOptions"
+                              sender:content];
 }
 
 -(void)addDrink:(NSNotification *)notification{
